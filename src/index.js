@@ -17,11 +17,12 @@ import "./assets/styles/index.css";
 import "./index.css";
 import "./assets/styles/responsive.css";
 
-const composeEnhancers =
-  process.env.NODE_ENV === "development"
-    ? // eslint-disable-next-line no-underscore-dangle
-      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    : null || compose;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// const composeEnhancers =
+//   process.env.NODE_ENV === "development"
+//     ? // eslint-disable-next-line no-underscore-dangle
+//       window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+//     : null || compose;
 
 const sagaMiddleware = createSagaMiddleware();
 
