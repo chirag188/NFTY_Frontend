@@ -8,8 +8,6 @@ RUN npm install
 
 RUN ls /usr/src/app
 
-RUN ls /usr/src/app/public
-
 EXPOSE 3000
 
 CMD npm start
