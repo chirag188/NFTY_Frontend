@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import Sidebar from "./Sidebar";
 import Logo from "../../assets/images/Logo.png";
 import walletIcon from "../../assets/images/Wallet.png";
 import hamburgerIcon from "../../assets/images/hamburger.png";
 import polygonUp from "../../assets/images/Polygon-up.png";
 import { Link, useLocation } from "react-router-dom";
+import DropdownMenu from "./DropdownMenu";
 
 const Layout = ({ children }) => {
   const location = useLocation();
   const [open, setOpen] = useState(false);
   return (
-    <React.Fragment>
+    <>
       <nav className="navbar navbar-expand-lg navbar-light">
         <Link className="navbar-brand" to="/stake" style={{ flex: "10%" }}>
           <img src={Logo} alt="" />
@@ -64,14 +64,24 @@ const Layout = ({ children }) => {
           <div className="mr-3 cursor-pointer">
             <img src={walletIcon} alt="wallet" />
           </div>
-          <span className="cursor-pointer" onClick={() => setOpen(true)}>
-            <img src={hamburgerIcon} alt="" />
-          </span>
+          <div className="dropdown">
+            <button
+              className="cursor-pointer dropdown-btn"
+              onBlur={() => setOpen(false)}
+              onClick={() => setOpen(!open)}
+              id="dropdownMenuLink"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <img src={hamburgerIcon} alt="" />
+            </button>
+            {open && <DropdownMenu />}
+          </div>
         </div>
-        <Sidebar open={open} setOpen={setOpen} />
       </nav>
       {children}
-    </React.Fragment>
+    </>
   );
 };
 
