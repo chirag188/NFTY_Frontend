@@ -15,7 +15,7 @@ body {
   /* grid-auto-rows: minmax(100px, auto); */
   grid-gap: 10px;
   max-width: 780px;
-  padding: 62px 20px;
+  padding: 35px 20px;
   width: 100%;
 }
 
@@ -113,7 +113,7 @@ body {
   box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
   min-height: 400px;
-  margin-top: 18px;
+  margin-top: 8px;
 }
 .nav-tab {
   display: none;
@@ -241,14 +241,15 @@ body {
   padding: 30px 80px;
 }
 
-.special-nfty-reward .sp-header-text {
+.special-nfty-reward .sp-header-text,
+.advocate-text .advocate-heading-text {
   font-weight: 800;
   font-size: 36px;
   display: flex;
   justify-content: center;
 }
 
-.stakes .stats {
+.stats {
   padding: 10px;
   background: linear-gradient(
     91.49deg,
@@ -448,7 +449,9 @@ body {
 .f-24 {
   font-size: 24px;
 }
-
+.f-20 {
+  font-size: 20px;
+}
 .roi-calc-modal-footer img {
   height: 22px;
 }
@@ -485,4 +488,72 @@ body {
 .connect-wallet-modal img {
   height: 40px;
   width: 40px;
+}
+
+.stake-unstake-modal .nfty-logo {
+  height: 18px;
+  margin-right: 8px;
+}
+
+.stake-unstake-modal .calculated-amount {
+  font-size: 70px;
+  color: rgba(0, 0, 0, 0.1);
+  font-weight: 900;
+}
+
+.tooltip-btn {
+  background: #ffc209;
+  border-radius: 50%;
+  font-size: 18px;
+  height: 35px;
+}
+
+.stake-unstake-modal button,
+.apr-earned-modal-footer button {
+  height: 60px;
+}
+
+.justify-content-space-around {
+  justify-content: space-around;
+}
+
+.apr-earned-modal img {
+  height: 18px;
+  margin-bottom: 8px;
+}
+
+.advocate {
+  background: #ffffff;
+  border: 2px solid #d0d0d0;
+  box-sizing: border-box;
+  border-radius: 15px;
+  /* padding: 30px 80px; */
+  /* margin: 4px 20px; */
+}
+
+.advocate .advocate-body-text {
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+.advocate .orange-btn,
+.advocate .yellow-btn {
+  font-size: 18px;
+  font-weight: bold;
+  height: 70px;
+}
+
+.advocate .nfty-logo {
+  height: 18px;
+  margin-bottom: 8px;
+  margin-right: 4px;
+}
+
+.rewards-earned-modal img {
+  height: 18px;
+  margin-bottom: 8px;
+}
+
+.rewards-earned-modal .opacity {
+  opacity: 0.6;
 }

@@ -60,7 +60,7 @@ const Layout = ({ children }) => {
             </li>
           </ul>
         </div>
-        <div className="d-flex">
+        <div className="d-flex navbar-btns">
           <div className="mr-3 cursor-pointer">
             <img src={walletIcon} alt="wallet" />
           </div>

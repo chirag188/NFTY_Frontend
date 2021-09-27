@@ -6,11 +6,15 @@ import StakedBar from "../../assets/images/stakedbar.png";
 import StreakBar from "../../assets/images/streakbar.png";
 import ROICalculatorModal from "./ROICalculatorModal";
 import ConnectWalletModal from "./ConnectWalletModal";
+import StakeUnstakeModal from "./StakeUnstakeModal";
+import APREarnedModal from "./APREarnedModal";
 
 const Stakes = () => {
-  const login = false;
+  const login = true;
   const [roiCalcModalOpen, setRoiCalcModalOpen] = useState(false);
   const [connectWalletModalOpen, setConnectWalletModalOpen] = useState(false);
+  const [stakeUnstakeModalOpen, setStakeUnstakeModal] = useState(false);
+  const [APREarnedModalOpen, setAPREarnedModalOpen] = useState(false);
   return (
     <React.Fragment>
       <div className="container stakes">
@@ -175,6 +179,15 @@ const Stakes = () => {
       )}
       {connectWalletModalOpen && (
         <ConnectWalletModal modalOpenClose={setConnectWalletModalOpen} />
+      )}
+      {stakeUnstakeModalOpen && (
+        <StakeUnstakeModal
+          isStakeModal={false}
+          modalOpenClose={setStakeUnstakeModal}
+        />
+      )}
+      {APREarnedModalOpen && (
+        <APREarnedModal modalOpenClose={setAPREarnedModalOpen} />
       )}
     </React.Fragment>
   );
