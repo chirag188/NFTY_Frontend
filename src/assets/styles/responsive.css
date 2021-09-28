@@ -5,24 +5,77 @@
   .f-18 {
     font-size: 16px;
   }
-  .sidenav .menu-name {
-    font-size: 15px;
-  }
 }
-@media (max-width: 414px) {
+@media (max-width: 440px) {
   .navbar {
     height: 98px;
   }
+
+  .after-login-btn .orange-btn {
+    font-size: 14px;
+  }
+
+  .after-login-btn .yellow-btn {
+    font-size: 14px;
+  }
+  .before-login-btn .yellow-btn {
+    font-size: 14px;
+  }
+  .before-login-btn .orange-btn {
+    font-size: 14px;
+  }
+  .advocate .yellow-btn,
+  .advocate .orange-btn {
+    font-size: 14px;
+  }
+  .roi-calc-modal-footer .yellow-btn {
+    font-size: 14px;
+    height: 60px;
+  }
+  .nfty-amount-select .btn {
+    font-size: 12px;
+    height: 48px;
+  }
+  .special-nfty-reward .sp-header-text,
+  .advocate-text .advocate-heading-text,
+  .vote-page .vote-header-text {
+    font-size: 28px;
+  }
+  .vote-page .link-text {
+    font-size: 14px;
+  }
 }
 
-@media screen and (max-height: 450px) {
-  .sidenav {
-    padding-top: 15px;
+@media (min-width: 356px) and (max-width: 440px) {
+  .navbar-btns {
+    width: 100%;
+    justify-content: flex-end;
   }
-  .sidenav a {
+}
+@media (max-width: 550px) {
+  .calculate-nfty .calculated-amount {
+    font-size: 100px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.1);
+  }
+  .calculate-nfty .head-text {
     font-size: 18px;
   }
 }
-.sidenav {
-  right: 0;
+
+@media (max-width: 740px) {
+  .stats hr {
+    display: none;
+  }
+  .target-data-border {
+    border-right: 0;
+    border-left: 0;
+  }
+}
+
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 580px;
+    margin: 1.75rem auto;
+  }
 }
