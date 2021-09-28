@@ -1,16 +1,21 @@
 import React, { useState } from "react";
-import Sidebar from "./Sidebar";
 import Logo from "../../assets/images/Logo.png";
 import walletIcon from "../../assets/images/Wallet.png";
-import hamburgerIcon from "../../assets/images/hamburger.png";
 import polygonUp from "../../assets/images/Polygon-up.png";
 import { Link, useLocation } from "react-router-dom";
+import MenuDropdown from "./MenuDropdown";
+import profilePic from "../../assets/images/dummyPic.png";
+import ProfileModal from "./ProfileModal";
+import ConnectWalletModal from "../Stakes/ConnectWalletModal";
 
 const Layout = ({ children }) => {
+  const login = sessionStorage.getItem("token");
   const location = useLocation();
-  const [open, setOpen] = useState(false);
+  const [openProfileModal, setOpenProfileModal] = useState(false);
+  const [connectWalletModalOpen, setConnectWalletModalOpen] = useState(false);
+
   return (
-    <React.Fragment>
+    <>
       <nav className="navbar navbar-expand-lg navbar-light">
         <Link className="navbar-brand" to="/stake" style={{ flex: "10%" }}>
           <img src={Logo} alt="" />
@@ -60,18 +65,33 @@ const Layout = ({ children }) => {
             </li>
           </ul>
         </div>
-        <div className="d-flex">
-          <div className="mr-3 cursor-pointer">
-            <img src={walletIcon} alt="wallet" />
-          </div>
-          <span className="cursor-pointer" onClick={() => setOpen(true)}>
-            <img src={hamburgerIcon} alt="" />
-          </span>
+        <div className="d-flex navbar-btns">
+          {login ? (
+            <div
+              className="mr-3 cursor-pointer"
+              onClick={() => setOpenProfileModal(true)}
+            >
+              <img className="layout-profile-pic" src={profilePic} alt="" />
+            </div>
+          ) : (
+            <div
+              className="mr-3 cursor-pointer"
+              onClick={() => setConnectWalletModalOpen(true)}
+            >
+              <img src={walletIcon} alt="wallet" />
+            </div>
+          )}
+          <MenuDropdown />
         </div>
-        <Sidebar open={open} setOpen={setOpen} />
       </nav>
       {children}
-    </React.Fragment>
+      {openProfileModal && (
+        <ProfileModal modalOpenClose={setOpenProfileModal} />
+      )}
+      {connectWalletModalOpen && (
+        <ConnectWalletModal modalOpenClose={setConnectWalletModalOpen} />
+      )}
+    </>
   );
 };
 

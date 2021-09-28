@@ -8,12 +8,14 @@ body {
   font-family: "Gordita" !important;
 }
 .container {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  /* display: grid; */
   /* grid-template-columns: repeat(5, 1fr); */
-  grid-auto-rows: minmax(100px, auto);
+  /* grid-auto-rows: minmax(100px, auto); */
   grid-gap: 10px;
   max-width: 780px;
-  padding: 92px 20px;
+  padding: 35px 20px;
   width: 100%;
 }
 
@@ -30,119 +32,89 @@ body {
   transition: all 0.2s;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
 }
+
+.modal-body,
+.modal-footer {
+  border: 0px;
+  position: relative;
+}
+@-webkit-keyframes fadeInDownBig {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-2000px);
+    transform: translateY(-2000px);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDownBig {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-2000px);
+    -ms-transform: translateY(-2000px);
+    transform: translateY(-2000px);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+.fadeInDownBig {
+  -webkit-animation-name: fadeInDownBig;
+  animation-name: fadeInDownBig;
+}
 .navbar {
   box-shadow: 0px -1px 4px -1px;
   height: 78px;
 }
-.sidenav {
-  height: 100%; /* 100% Full-height */
-  width: 0; /* 0 width - change this with JavaScript */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Stay on top */
-  top: 0;
-  background-color: #ffffff; /* Black*/
-  overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 60px; /* Place content 60px from the top */
-  box-shadow: -1px 0px 25px rgba(0, 0, 0, 0.1);
-}
-.show-sidebar {
-  width: 300px;
-}
-/* The navigation menu links */
-.sidenav a {
-  padding: 8px 8px 15px 44px;
-  text-decoration: none;
-  font-size: 16px;
-  color: #000000;
-  display: block;
-  transition: 0.3s;
-}
-.sidenav a:hover {
-  padding: 15px 8px 15px 44px;
-  text-decoration: none;
-  font-size: 16px;
-  color: #000000;
-  background-color: #f8f9fa;
-  display: block;
-  transition: 0.3s;
-}
-.sidenav .menu-icon {
-  height: 30px;
-  width: 30px;
-  margin-right: 22px;
-}
-.sidenav .menu-name {
-}
-.nav a:hover {
-  color: #000000;
-}
-.nav-link {
-  color: #000000;
-  font-weight: 500;
-}
-/* .sidenav a:hover,
-.offcanvas a:focus {
-  color: #f1f1f1;
-} */
+
 .cursor-pointer {
   cursor: pointer;
 }
-.sidenav .gold-text {
-  position: absolute;
-  top: 18px;
-  right: 25px;
-  /* left: -35px; */
-  margin-left: 50px;
-  font-size: 16px;
-}
-.sidenav .closebtn {
-  position: absolute;
-  top: 3px;
-  /* right: 25px; */
-  left: -35px;
-  font-size: 30px;
-  margin-left: 50px;
-  color: #000000;
-}
 
+.footer-bg {
+  background: linear-gradient(
+    96.47deg,
+    rgba(255, 194, 9, 0.15) 12.61%,
+    rgba(255, 142, 9, 0.15) 95.21%
+  );
+  border-radius: 0px 0px 20px 20px;
+}
+.modal-sub-title {
+  font-size: 14px;
+}
+.modal-content {
+  border: 2px solid #d0d0d0;
+  box-sizing: border-box;
+  border-radius: 20px;
+}
 #main {
   transition: margin-left 0.5s;
   padding: 20px;
 }
-.sidenav {
-  right: 0;
-}
-.sidenav .profile-details {
-  height: 55px;
-}
-.sidenav .profile-stake {
-  margin-top: 20px;
-}
-.sidenav .profile-stake .stake-text {
-  /* height: 55px; */
-  font-size: 16px;
-  font-weight: 400;
-  color: #757b7b;
-  margin-right: 11px;
-}
-.sidenav .profile-stake .stake-amount {
-  /* height: 55px; */
-  font-size: 24px;
-  font-weight: 600;
-}
-.sidenav .profile-stake img {
-  height: 17px;
-  margin-bottom: 21px;
-  margin-left: 5px;
-}
-.sidenav .profile-details {
-  height: 55px;
-}
-.sidenav .profile {
-  font-size: 18px;
-  font-weight: 600;
-}
 
+.dropdown-menu hr {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.dropdown-menu {
+  width: 300px;
+  border: 1px solid #e0e0e0;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  min-height: 400px;
+  margin-top: 8px;
+}
 .nav-tab {
   display: none;
 }
@@ -151,8 +123,589 @@ body {
   font-size: 18px;
 }
 
+.dropdown-profile-section {
+  padding-left: 23px;
+  padding-top: 23px;
+}
+.profile {
+  display: flex;
+}
+
+.profile .profile-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.profile .profile-pic {
+  width: 67px;
+  height: 67px;
+  border-radius: 10px;
+}
+
+.profile-details .profile-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+.profile-details .profile-rank {
+  font-size: 14px;
+  color: #979797;
+}
+.profile-rank .star-img {
+  height: 16px;
+  width: 16px;
+}
+
+.dropdown-profile-section .profile-stake {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 4px;
+  width: 245px;
+  margin-top: 9px;
+  background: linear-gradient(
+    96.47deg,
+    rgba(255, 194, 9, 0.15) 12.61%,
+    rgba(255, 142, 9, 0.15) 95.21%
+  );
+  border-radius: 300px;
+}
+.profile-stake .nfty-logo {
+  height: 30px;
+  width: 30px;
+  margin-top: 2px;
+}
+.dropdown-item:hover {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.dropdown-btn {
+  border: 0;
+  background-color: #ffffff;
+}
+.profile-stake .stake-amount {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 2px;
+}
+
+.nav .nav-link {
+  color: #000000;
+}
+
+.stake-data-percentage {
+  color: #16d194;
+  font-weight: 700;
+  margin-left: 9px;
+  min-width: 81px;
+}
 .active {
   height: 2px;
   background: #000000;
   margin-bottom: -19px;
+}
+
+.stakes .header-text {
+  font-weight: 800;
+  font-size: 36px;
+  display: flex;
+  align-items: center;
+}
+
+.stakes .simple-text {
+  opacity: 0.6;
+  line-height: 28px;
+}
+
+.head-text {
+  font-size: 24px;
+  font-weight: 600;
+}
+.stakes .nfty-logo {
+  height: 25px;
+  margin-bottom: 7px;
+  margin-right: 7px;
+}
+
+.justify-content-space-between {
+  justify-content: space-between;
+}
+.justify-content-space-evenly {
+  justify-content: space-evenly;
+}
+
+.stakes .special-nfty-reward {
+  background: #ffffff;
+  border: 2px solid #d0d0d0;
+  box-sizing: border-box;
+  border-radius: 15px;
+  padding: 30px 80px;
+}
+
+.special-nfty-reward .sp-header-text,
+.advocate-text .advocate-heading-text,
+.vote-page .vote-header-text,
+.rep-page .rep-header-text {
+  font-weight: 800;
+  font-size: 36px;
+  display: flex;
+  justify-content: center;
+}
+
+.stats {
+  padding: 10px;
+  background: linear-gradient(
+    91.49deg,
+    rgba(255, 194, 9, 0.15) 36.72%,
+    rgba(255, 142, 9, 0.15) 80.84%
+  );
+  border-radius: 15px;
+  width: 100%;
+  align-self: center;
+}
+
+.stats hr {
+  position: relative;
+  border: 1px solid #dfdfdf;
+  transform: rotate(90deg);
+  width: 77px;
+  height: 0px;
+  margin-top: -42px;
+  margin-left: 164px;
+}
+
+.stats .stats-hr {
+  margin-top: -35px;
+  margin-left: 142px;
+}
+
+.stats .stats-rep-hr {
+  margin-top: -33px;
+  margin-left: 166px;
+}
+
+.stakes .data-container {
+  background: #ffffff;
+  border: 2px solid #d0d0d0;
+  box-sizing: border-box;
+  border-radius: 15px;
+}
+
+.data-container .star-img {
+  width: 17px;
+  height: 17px;
+}
+
+.data-container hr {
+  border: 1px solid #d0d0d0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.user-stats .star-img {
+  height: 18px;
+  width: 18px;
+}
+
+.f-b {
+  font-weight: bold;
+}
+
+.target-data {
+  font-size: 14px;
+  justify-content: center;
+}
+
+.target-data .bar-img {
+  max-width: 130px;
+  width: 100%;
+}
+.target-data .stakedbar-img {
+  max-width: 172px;
+  width: 100%;
+}
+
+.target-data-border {
+  border-right: 1px solid #dfdfdf;
+  border-left: 1px solid #dfdfdf;
+}
+
+.data-container .calculate-nfty {
+  padding: 35px;
+}
+
+.calculate-nfty .plus-minus-btn {
+  width: 30px;
+  height: 30px;
+  background: #ffc209;
+  border-radius: 4px;
+  padding: 5px;
+  border: unset;
+}
+
+.calculate-nfty .calculated-amount {
+  font-size: 144px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.1);
+}
+
+.data-container .after-login-btn {
+  padding: 35px;
+
+  background: linear-gradient(
+    96.47deg,
+    rgba(255, 194, 9, 0.15) 12.61%,
+    rgba(255, 142, 9, 0.15) 95.21%
+  );
+  border-radius: 0px 0px 20px 20px;
+}
+
+.orange-btn {
+  background: #ff8e09;
+  border-radius: 10px;
+  font-weight: bold;
+  height: 80px;
+  border: 0;
+  text-align: center;
+  color: #ffffff;
+}
+.after-login-btn .orange-btn {
+  font-size: 22px;
+}
+
+.yellow-btn {
+  background: #ffd600;
+  border-radius: 10px;
+  font-weight: bold;
+  height: 80px;
+  border: 0;
+  text-align: center;
+  color: #000000;
+}
+
+.after-login-btn .yellow-btn {
+  font-size: 20px;
+}
+
+.before-login-btn .orange-btn {
+  font-size: 20px;
+}
+.before-login-btn .yellow-btn {
+  font-size: 20px;
+}
+
+.roi-calc-modal .exchange-arrow-img {
+  height: 18px;
+  width: 40px;
+}
+
+.roi-calc-modal .input-amount {
+  background: #ffffff;
+  border: 2px solid #787878;
+  box-sizing: border-box;
+  border-radius: 11px;
+  padding: 7px 13px;
+  max-width: 200px;
+}
+
+.roi-calc-modal .nfty-logo {
+  height: 18px;
+  margin-right: 8px;
+}
+
+.roi-calc-modal .calculated-amount {
+  font-size: 70px;
+  color: rgba(0, 0, 0, 0.1);
+  font-weight: 900;
+}
+
+.roi-calc-modal .nfty-amount-select span {
+  padding: 7px 18px;
+  background: #f2f2f2;
+  border-radius: 300px;
+  cursor: pointer;
+}
+
+.roi-calc-modal .apr-text {
+  background: linear-gradient(
+    96.47deg,
+    rgba(255, 194, 9, 0.15) 12.61%,
+    rgba(255, 142, 9, 0.15) 95.21%
+  );
+  border-radius: 300px;
+  padding: 5px 0;
+  font-size: 14px;
+}
+
+.apr-text .green-text {
+  color: #27ae60;
+}
+
+.staked-for .btn {
+  font-size: 12px;
+  font-weight: bold;
+  border: 1px solid;
+}
+
+.roi-calc-modal .btn:focus {
+  background-color: #27ae60;
+}
+
+.f-14 {
+  font-size: 14px;
+}
+
+.f-12 {
+  font-size: 12px;
+}
+
+.f-24 {
+  font-size: 24px;
+}
+.f-20 {
+  font-size: 20px;
+}
+.roi-calc-modal-footer img {
+  height: 22px;
+}
+
+.roi-calc-modal-footer .yellow-btn {
+  font-size: 22px;
+  height: 60px;
+}
+
+.nfty-amount-select .btn {
+  background-color: #f2f2f2;
+  margin: 7px 18px;
+  height: 35px;
+}
+
+.connect-wallet-modal {
+  margin: 20px 40px;
+}
+.connect-wallet-modal .btn {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  padding: 22px;
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.connect-wallet-modal .btn:focus {
+  background: #ffffff;
+  border: 1px solid #b9b9b9;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.15);
+  border-radius: 30px;
+}
+
+.connect-wallet-modal img {
+  height: 40px;
+  width: 40px;
+}
+
+.stake-unstake-modal .nfty-logo {
+  height: 18px;
+  margin-right: 8px;
+}
+
+.stake-unstake-modal .calculated-amount {
+  font-size: 70px;
+  color: rgba(0, 0, 0, 0.1);
+  font-weight: 900;
+}
+
+.tooltip-btn {
+  background: #ffc209;
+  border-radius: 50%;
+  font-size: 18px;
+  height: 35px;
+}
+
+.stake-unstake-modal button,
+.apr-earned-modal-footer button {
+  height: 60px;
+}
+
+.justify-content-space-around {
+  justify-content: space-around;
+}
+
+.apr-earned-modal img {
+  height: 18px;
+  margin-bottom: 8px;
+}
+
+.advocate,
+.vote-page,
+.rep-page {
+  background: #ffffff;
+  border: 2px solid #d0d0d0;
+  box-sizing: border-box;
+  border-radius: 15px;
+  padding: 30px 50px;
+  /* margin: 4px 20px; */
+}
+
+.advocate .advocate-body-text,
+.vote-page .vote-body-text,
+.rep-page .rep-body-text,
+.rep-body-text {
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+.advocate .orange-btn,
+.advocate .yellow-btn,
+.rep-page .yellow-btn {
+  font-size: 18px;
+  font-weight: bold;
+  height: 70px;
+}
+
+.advocate .nfty-logo {
+  height: 18px;
+  margin-bottom: 8px;
+  margin-right: 4px;
+}
+
+.rewards-earned-modal img {
+  height: 18px;
+  margin-bottom: 8px;
+}
+
+.rewards-earned-modal .opacity {
+  opacity: 0.6;
+}
+
+.vote-page .link-text {
+  opacity: 0.6;
+  font-weight: 600;
+  color: #000000;
+  font-size: 16px;
+}
+
+.dropdown-btn:hover {
+  background-color: #ffffff;
+  color: #dfdfdf;
+}
+
+.dropdown-btn:focus {
+  background-color: #ffffff;
+  border: none;
+}
+.btn-primary:focus,
+.btn-primary.focus {
+  box-shadow: none;
+}
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+  box-shadow: none;
+}
+.dropdown-toggle::after {
+  display: none;
+}
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+  color: #000000;
+  background-color: #ffffff;
+  border: none;
+}
+
+.navbar-btns {
+  align-items: center;
+}
+
+.rc-slider-rail,
+.rc-slider-track {
+  height: 12px;
+}
+
+.rc-slider-handle {
+  height: 16px;
+  width: 16px;
+  margin-top: -2;
+}
+
+.rep-page .rep-profile-details {
+  display: flex;
+}
+
+.rep-profile-details .rep-header-text {
+  font-size: 30px;
+}
+
+.rep-page .rep-profile {
+  display: flex;
+  justify-content: space-between;
+}
+
+.rep-page-nfty-logo {
+  height: 18px;
+  margin-bottom: 8px;
+}
+
+.rep-gold-star-img {
+  height: 16px;
+  margin-bottom: 5px;
+}
+
+.profile-modal {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.profile-modal .profile-name {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.navbar .layout-profile-pic {
+  height: 24px;
+  width: 24px;
+}
+
+.profile-modal .profile-pic {
+  position: relative;
+}
+
+.profile-modal .camera-icon {
+  position: absolute;
+  left: 54%;
+  top: 72%;
+  transform: translate(12%, -2%);
+}
+
+.calculated-amount .form-control {
+  height: 144px;
+  max-width: 556px;
+  margin: 0 auto;
+  font-size: 120px;
+  text-align: center;
+  opacity: 0.3;
+  border: none;
+}
+
+.calculated-amount input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.calculated-amount input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.calculated-amount .form-control:focus {
+  color: #000000;
+  opacity: 0.6;
+  border-color: #ffffff;
+  box-shadow: none;
+  border: 0px #ffffff;
+}
+
+.stake-unstake-modal .form-control,
+.roi-calc-modal .amount-input {
+  font-size: 80px;
 }

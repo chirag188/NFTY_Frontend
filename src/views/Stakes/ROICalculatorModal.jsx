@@ -1,0 +1,165 @@
+import React from "react";
+import Modal from "../../components/Modal/Modal";
+import ExchangeArrowIcon from "../../assets/images/exchangeArrow.png";
+import nftyLogo from "../../assets/images/coinLogo.png";
+
+const ROICalculatorModal = (props) => {
+  const closeModal = () => {
+    const { modalOpenClose } = props;
+    modalOpenClose(false);
+  };
+
+  const FooterComponent = () => (
+    <div className="roi-calc-modal-footer w-100">
+      <div className="row w-100">
+        <div className="col-md-6">
+          <div className="f-b"> ROI at Current Rates</div>
+        </div>
+        <div className="col-md-6 d-flex justify-content-space-evenly">
+          <div className="f-12 mt-2">~$32,342</div>
+          <div>
+            <div className="f-b f-24">
+              <img className="nfty-logo mr-2" src={nftyLogo} alt="" />
+              1,434
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr className="w-100" />
+      <div>
+        <button className="yellow-btn w-100 btn">Buy NFTY</button>
+      </div>
+      <div className="f-12 text-center mt-1">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent lacus
+        nisi, viverra ac ultrices non, mattis viverra dolor. Pellentesque
+      </div>
+    </div>
+  );
+
+  return (
+    <Modal
+      closeModal={closeModal}
+      headerTitle="ROI Calculator"
+      headerSubTitle="Lorem ipsum dolor sit amet, consectetur adipisci ngmet, consectetur adipiscing."
+      FooterComponent={FooterComponent}
+      footerModalClass="footer-bg"
+    >
+      <div className="roi-calc-modal p-3">
+        <div className="row">
+          <div className="col-md-6 d-flex justify-content-space-evenly f-18 pt-2">
+            <span className="f-b">NFTY</span>
+            <span>
+              <img
+                className="exchange-arrow-img"
+                src={ExchangeArrowIcon}
+                alt=""
+              />
+            </span>
+            <span className="f-b">USD</span>
+          </div>
+          <div className="col-md-6 text-center">
+            <input
+              type="text"
+              className="form-control input-amount"
+              placeholder="$63.1"
+            />
+          </div>
+        </div>
+        <div className="mt-4 pl-3">
+          <div className="d-flex justify-content-space-between">
+            <div>
+              <div className="f-b">
+                <img className="nfty-logo" src={nftyLogo} alt="" />
+                Enter NFTY
+              </div>
+            </div>
+            <div className="d-flex">
+              <div className="f-b mr-3">~$300</div>
+            </div>
+          </div>
+          <div className="d-flex justify-content-center">
+            <div className="calculated-amount">
+              <input
+                className="form-control amount-input"
+                type="number"
+                placeholder="0.00"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="row nfty-amount-select justify-content-space-evenly">
+          <div
+            className="btn-group w-100 mt-3"
+            role="group"
+            aria-label="Basic example"
+          >
+            <button
+              type="button"
+              className="btn"
+              style={{ borderRadius: "300px" }}
+            >
+              <img className="nfty-logo" src={nftyLogo} alt="" />
+              100
+            </button>
+            <button
+              type="button"
+              className="btn"
+              style={{ borderRadius: "300px" }}
+            >
+              <img className="nfty-logo" src={nftyLogo} alt="" />
+              500
+            </button>
+            <button
+              type="button"
+              className="btn"
+              style={{ borderRadius: "300px" }}
+            >
+              <img className="nfty-logo" src={nftyLogo} alt="" />
+              1000
+            </button>
+            <button
+              type="button"
+              className="btn"
+              style={{ borderRadius: "300px" }}
+            >
+              <img className="nfty-logo" src={nftyLogo} alt="" />
+              5000
+            </button>
+          </div>
+        </div>
+        <div className="text-center mt-3 apr-text">
+          <span>
+            APR <span className="green-text">13.754%</span>
+          </span>
+        </div>
+        <hr />
+        <div className="staked-for">
+          <span className="f-b">Staked For</span>
+          <div
+            className="btn-group w-100 mt-3"
+            role="group"
+            aria-label="Basic example"
+          >
+            <button type="button" className="btn">
+              30D
+            </button>
+            <button type="button" className="btn">
+              3M
+            </button>
+            <button type="button" className="btn">
+              7M
+            </button>
+            <button type="button" className="btn">
+              1Y
+            </button>
+            <button type="button" className="btn">
+              7Y
+            </button>
+          </div>
+        </div>
+      </div>
+    </Modal>
+  );
+};
+
+export default ROICalculatorModal;
