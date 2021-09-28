@@ -6,6 +6,24 @@ export const guestRoutes = [
     name: "Stakes",
     component: React.lazy(() => import("../../views/Stakes/Stakes")),
   },
+  {
+    path: "/advocate",
+    exact: true,
+    name: "Advocate",
+    component: React.lazy(() => import("../../views/Advocate/Advocate")),
+  },
+  {
+    path: "/vote",
+    exact: true,
+    name: "Vote",
+    component: React.lazy(() => import("../../views/Vote/Vote")),
+  },
+  {
+    path: "/rep",
+    exact: true,
+    name: "Rep",
+    component: React.lazy(() => import("../../views/Rep/Rep")),
+  },
 
   // Main route's default dashboard
   {
