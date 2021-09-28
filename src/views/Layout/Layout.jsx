@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 import Logo from "../../assets/images/Logo.png";
 import walletIcon from "../../assets/images/Wallet.png";
-import hamburgerIcon from "../../assets/images/hamburger.png";
 import polygonUp from "../../assets/images/Polygon-up.png";
 import { Link, useLocation } from "react-router-dom";
-import DropdownMenu from "./DropdownMenu";
+import MenuDropdown from "./MenuDropdown";
+import profilePic from "../../assets/images/dummyPic.png";
+import ProfileModal from "./ProfileModal";
+import ConnectWalletModal from "../Stakes/ConnectWalletModal";
 
 const Layout = ({ children }) => {
+  const login = sessionStorage.getItem("token");
   const location = useLocation();
-  const [open, setOpen] = useState(false);
+  const [openProfileModal, setOpenProfileModal] = useState(false);
+  const [connectWalletModalOpen, setConnectWalletModalOpen] = useState(false);
+
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light">
@@ -61,26 +66,31 @@ const Layout = ({ children }) => {
           </ul>
         </div>
         <div className="d-flex navbar-btns">
-          <div className="mr-3 cursor-pointer">
-            <img src={walletIcon} alt="wallet" />
-          </div>
-          <div className="dropdown">
-            <button
-              className="cursor-pointer dropdown-btn"
-              onBlur={() => setOpen(false)}
-              onClick={() => setOpen(!open)}
-              id="dropdownMenuLink"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
+          {login ? (
+            <div
+              className="mr-3 cursor-pointer"
+              onClick={() => setOpenProfileModal(true)}
             >
-              <img src={hamburgerIcon} alt="" />
-            </button>
-            {open && <DropdownMenu />}
-          </div>
+              <img className="layout-profile-pic" src={profilePic} alt="" />
+            </div>
+          ) : (
+            <div
+              className="mr-3 cursor-pointer"
+              onClick={() => setConnectWalletModalOpen(true)}
+            >
+              <img src={walletIcon} alt="wallet" />
+            </div>
+          )}
+          <MenuDropdown />
         </div>
       </nav>
       {children}
+      {openProfileModal && (
+        <ProfileModal modalOpenClose={setOpenProfileModal} />
+      )}
+      {connectWalletModalOpen && (
+        <ConnectWalletModal modalOpenClose={setConnectWalletModalOpen} />
+      )}
     </>
   );
 };

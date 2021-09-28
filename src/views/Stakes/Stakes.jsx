@@ -2,19 +2,20 @@ import React, { useState } from "react";
 import StarImg from "../../assets/images/Star.png";
 import GoldStarImg from "../../assets/images/GoldStar.png";
 import nftyLogo from "../../assets/images/coinLogo.png";
-import StakedBar from "../../assets/images/stakedbar.png";
-import StreakBar from "../../assets/images/streakbar.png";
 import ROICalculatorModal from "./ROICalculatorModal";
 import ConnectWalletModal from "./ConnectWalletModal";
 import StakeUnstakeModal from "./StakeUnstakeModal";
 import APREarnedModal from "./APREarnedModal";
+import { ProgressBar } from "react-bootstrap";
 
 const Stakes = () => {
-  const login = true;
+  const login = sessionStorage.getItem("token");
   const [roiCalcModalOpen, setRoiCalcModalOpen] = useState(false);
   const [connectWalletModalOpen, setConnectWalletModalOpen] = useState(false);
   const [stakeUnstakeModalOpen, setStakeUnstakeModal] = useState(false);
   const [APREarnedModalOpen, setAPREarnedModalOpen] = useState(false);
+  const [isStake, setIsStake] = useState(false);
+
   return (
     <React.Fragment>
       <div className="container stakes">
@@ -59,7 +60,7 @@ const Stakes = () => {
                         <span>7 or 8 Days</span>
                       </div>
                       <div>
-                        <img className="bar-img" src={StreakBar} alt="" />
+                        <ProgressBar variant="warning" now={80} />
                       </div>
                     </div>
                     <div className="f-b ml-3 mr-3 f-18 mt-2">+</div>
@@ -74,7 +75,7 @@ const Stakes = () => {
                         <span>2418 of 3000</span>
                       </div>
                       <div>
-                        <img className="stakedbar-img" src={StakedBar} alt="" />
+                        <ProgressBar variant="warning" now={80} />
                       </div>
                     </div>
                   </div>
@@ -102,12 +103,34 @@ const Stakes = () => {
               </div>
               <div className="d-flex">
                 <div className="head-text mr-3">~$300</div>
-                <button className="plus-minus-btn f-b mr-3">+</button>
-                <button className="plus-minus-btn f-b">-</button>
+                <button
+                  className="plus-minus-btn f-b mr-3"
+                  onClick={() => {
+                    setIsStake(true);
+                    setStakeUnstakeModal(true);
+                  }}
+                >
+                  +
+                </button>
+                <button
+                  className="plus-minus-btn f-b"
+                  onClick={() => {
+                    setIsStake(false);
+                    setStakeUnstakeModal(true);
+                  }}
+                >
+                  -
+                </button>
               </div>
             </div>
             <div className="d-flex justify-content-center">
-              <div className="calculated-amount">0.00</div>
+              <div className="calculated-amount w-100">
+                <input
+                  className="form-control"
+                  type="number"
+                  placeholder="0.00"
+                />
+              </div>
             </div>
             {!login && (
               <div className="before-login-btn">
@@ -182,7 +205,7 @@ const Stakes = () => {
       )}
       {stakeUnstakeModalOpen && (
         <StakeUnstakeModal
-          isStakeModal={false}
+          isStakeModal={isStake}
           modalOpenClose={setStakeUnstakeModal}
         />
       )}

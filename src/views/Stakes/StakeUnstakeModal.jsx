@@ -13,7 +13,9 @@ const StakeUnstakeModal = (props) => {
     modalOpenClose(false);
   };
   const SliderWithTooltip = createSliderWithTooltip(Slider);
+
   const { Handle } = Slider;
+
   const handle = (props) => {
     const { value, dragging, index, ...restProps } = props;
     console.log(value);
@@ -72,7 +74,13 @@ const StakeUnstakeModal = (props) => {
             </div>
           </div>
           <div className="d-flex justify-content-center">
-            <div className="calculated-amount">0.00</div>
+            <div className="calculated-amount">
+              <input
+                className="form-control"
+                type="number"
+                placeholder="0.00"
+              />
+            </div>
           </div>
         </div>
         <div className="w-100 mt-3">

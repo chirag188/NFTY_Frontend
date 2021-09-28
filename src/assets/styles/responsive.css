@@ -36,6 +36,14 @@
     font-size: 12px;
     height: 48px;
   }
+  .special-nfty-reward .sp-header-text,
+  .advocate-text .advocate-heading-text,
+  .vote-page .vote-header-text {
+    font-size: 28px;
+  }
+  .vote-page .link-text {
+    font-size: 14px;
+  }
 }
 
 @media (min-width: 356px) and (max-width: 440px) {

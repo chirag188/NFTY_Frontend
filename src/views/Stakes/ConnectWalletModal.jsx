@@ -11,7 +11,10 @@ const ConnectWalletModal = (props) => {
     const { modalOpenClose } = props;
     modalOpenClose(false);
   };
-
+  const Login = () => {
+    sessionStorage.setItem("token", true);
+    window.location.reload();
+  };
   return (
     <Modal
       closeModal={closeModal}
@@ -21,7 +24,7 @@ const ConnectWalletModal = (props) => {
       <div className="connect-wallet-modal">
         <div className="row text-center">
           <div className="col-sm-4 d-flex justify-content-center">
-            <button className="btn">
+            <button className="btn" onClick={Login}>
               <div className="w-100 text-center">
                 <img src={metamaskImg} alt="" />
               </div>
@@ -29,7 +32,7 @@ const ConnectWalletModal = (props) => {
             </button>
           </div>
           <div className="col-sm-4 d-flex justify-content-center">
-            <button className="btn">
+            <button className="btn" onClick={Login}>
               <div className="w-100 text-center">
                 <img src={walletConnectImg} alt="" />
               </div>
@@ -37,7 +40,7 @@ const ConnectWalletModal = (props) => {
             </button>
           </div>
           <div className="col-sm-4 d-flex justify-content-center">
-            <button className="btn">
+            <button className="btn" onClick={Login}>
               <div className="w-100 text-center">
                 <img className="" src={formaticeWallet} alt="" />
               </div>
@@ -47,7 +50,7 @@ const ConnectWalletModal = (props) => {
         </div>
         <div className="row text-center   ">
           <div className="col-sm-6 d-flex justify-content-center">
-            <button className="btn">
+            <button className="btn" onClick={Login}>
               <div className="w-100 text-center">
                 <img className="" src={trustwalletImg} alt="" />
               </div>
@@ -55,7 +58,7 @@ const ConnectWalletModal = (props) => {
             </button>
           </div>
           <div className="col-sm-6 d-flex justify-content-center">
-            <button className="btn">
+            <button className="btn" onClick={Login}>
               <div className="w-100 text-center">
                 <img className="" src={coinbaseImg} alt="" />
               </div>

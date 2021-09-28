@@ -29,7 +29,7 @@ const ROICalculatorModal = (props) => {
       <div>
         <button className="yellow-btn w-100 btn">Buy NFTY</button>
       </div>
-      <div className="f-12 text-center">
+      <div className="f-12 text-center mt-1">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent lacus
         nisi, viverra ac ultrices non, mattis viverra dolor. Pellentesque
       </div>
@@ -78,7 +78,13 @@ const ROICalculatorModal = (props) => {
             </div>
           </div>
           <div className="d-flex justify-content-center">
-            <div className="calculated-amount">0.00</div>
+            <div className="calculated-amount">
+              <input
+                className="form-control amount-input"
+                type="number"
+                placeholder="0.00"
+              />
+            </div>
           </div>
         </div>
         <div className="row nfty-amount-select justify-content-space-evenly">

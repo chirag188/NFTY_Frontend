@@ -242,7 +242,9 @@ body {
 }
 
 .special-nfty-reward .sp-header-text,
-.advocate-text .advocate-heading-text {
+.advocate-text .advocate-heading-text,
+.vote-page .vote-header-text,
+.rep-page .rep-header-text {
   font-weight: 800;
   font-size: 36px;
   display: flex;
@@ -269,6 +271,16 @@ body {
   height: 0px;
   margin-top: -42px;
   margin-left: 164px;
+}
+
+.stats .stats-hr {
+  margin-top: -35px;
+  margin-left: 142px;
+}
+
+.stats .stats-rep-hr {
+  margin-top: -33px;
+  margin-left: 166px;
 }
 
 .stakes .data-container {
@@ -458,6 +470,7 @@ body {
 
 .roi-calc-modal-footer .yellow-btn {
   font-size: 22px;
+  height: 60px;
 }
 
 .nfty-amount-select .btn {
@@ -522,22 +535,28 @@ body {
   margin-bottom: 8px;
 }
 
-.advocate {
+.advocate,
+.vote-page,
+.rep-page {
   background: #ffffff;
   border: 2px solid #d0d0d0;
   box-sizing: border-box;
   border-radius: 15px;
-  /* padding: 30px 80px; */
+  padding: 30px 50px;
   /* margin: 4px 20px; */
 }
 
-.advocate .advocate-body-text {
+.advocate .advocate-body-text,
+.vote-page .vote-body-text,
+.rep-page .rep-body-text,
+.rep-body-text {
   font-size: 14px;
   opacity: 0.6;
 }
 
 .advocate .orange-btn,
-.advocate .yellow-btn {
+.advocate .yellow-btn,
+.rep-page .yellow-btn {
   font-size: 18px;
   font-weight: bold;
   height: 70px;
@@ -556,4 +575,137 @@ body {
 
 .rewards-earned-modal .opacity {
   opacity: 0.6;
+}
+
+.vote-page .link-text {
+  opacity: 0.6;
+  font-weight: 600;
+  color: #000000;
+  font-size: 16px;
+}
+
+.dropdown-btn:hover {
+  background-color: #ffffff;
+  color: #dfdfdf;
+}
+
+.dropdown-btn:focus {
+  background-color: #ffffff;
+  border: none;
+}
+.btn-primary:focus,
+.btn-primary.focus {
+  box-shadow: none;
+}
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+  box-shadow: none;
+}
+.dropdown-toggle::after {
+  display: none;
+}
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+  color: #000000;
+  background-color: #ffffff;
+  border: none;
+}
+
+.navbar-btns {
+  align-items: center;
+}
+
+.rc-slider-rail,
+.rc-slider-track {
+  height: 12px;
+}
+
+.rc-slider-handle {
+  height: 16px;
+  width: 16px;
+  margin-top: -2;
+}
+
+.rep-page .rep-profile-details {
+  display: flex;
+}
+
+.rep-profile-details .rep-header-text {
+  font-size: 30px;
+}
+
+.rep-page .rep-profile {
+  display: flex;
+  justify-content: space-between;
+}
+
+.rep-page-nfty-logo {
+  height: 18px;
+  margin-bottom: 8px;
+}
+
+.rep-gold-star-img {
+  height: 16px;
+  margin-bottom: 5px;
+}
+
+.profile-modal {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.profile-modal .profile-name {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.navbar .layout-profile-pic {
+  height: 24px;
+  width: 24px;
+}
+
+.profile-modal .profile-pic {
+  position: relative;
+}
+
+.profile-modal .camera-icon {
+  position: absolute;
+  left: 54%;
+  top: 72%;
+  transform: translate(12%, -2%);
+}
+
+.calculated-amount .form-control {
+  height: 144px;
+  max-width: 556px;
+  margin: 0 auto;
+  font-size: 120px;
+  text-align: center;
+  opacity: 0.3;
+  border: none;
+}
+
+.calculated-amount input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.calculated-amount input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.calculated-amount .form-control:focus {
+  color: #000000;
+  opacity: 0.6;
+  border-color: #ffffff;
+  box-shadow: none;
+  border: 0px #ffffff;
+}
+
+.stake-unstake-modal .form-control,
+.roi-calc-modal .amount-input {
+  font-size: 80px;
 }
