@@ -19,6 +19,7 @@ const RewardsEarnedModal = (props) => {
       headerTitle="APR Earned"
       FooterComponent={FooterComponent}
       footerModalClass="footer-bg"
+      modalClass="custom-modal"
     >
       <div className="apr-earned-modal p-3">
         <div className="row">

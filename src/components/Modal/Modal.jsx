@@ -37,7 +37,19 @@ const Modal = (props) => {
           role="document"
         >
           <div className="modal-content animated fadeInDownBig p-2">
-            <div className="modal-header">
+            <div className="p-1">
+              <button
+                type="button"
+                className="close"
+                disabled={isDisable}
+                onClick={closeModal}
+              >
+                <span aria-hidden="true" style={{ color: "#000000" }}>
+                  &times;
+                </span>
+              </button>
+            </div>
+            <div className="modal-header pb-2">
               <div className="w-100">
                 {(headerTitle !== undefined ||
                   headerTitle != null ||
@@ -62,18 +74,6 @@ const Modal = (props) => {
                     headerSubTitle != null ||
                     headerSubTitle !== "") && <span>{headerSubTitle}</span>}
                 </div>
-              </div>
-              <div>
-                <button
-                  type="button"
-                  className="close"
-                  disabled={isDisable}
-                  onClick={closeModal}
-                >
-                  <span aria-hidden="true" style={{ color: "#000000" }}>
-                    &times;
-                  </span>
-                </button>
               </div>
             </div>
             {children}

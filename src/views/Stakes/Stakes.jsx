@@ -31,12 +31,12 @@ const Stakes = () => {
             <>
               <div className="w-100 text-center p-2">
                 <img className="star-img mr-2 mb-1" src={StarImg} alt="" />
-                <span>Silver is your current rank</span>
+                <span className="f-14">Silver is your current rank</span>
               </div>
               <hr />
               <div className="row user-stats mt-1 mb-1">
                 <div className="col-md-3">
-                  <div className="p-4">
+                  <div className="p-3">
                     <div className="head-text text-center">
                       <img className="nfty-logo" src={nftyLogo} alt="" />
                       12.321
@@ -45,21 +45,21 @@ const Stakes = () => {
                   </div>
                 </div>
                 <div className="col-md-6 target-data-border">
-                  <div className="w-100 text-center p-2">
+                  <div className="w-100 text-center p-1">
                     <img
                       className="star-img mr-2 mb-1"
                       src={GoldStarImg}
                       alt=""
                     />
-                    <span>For Reaching Gold</span>
+                    <span className="f-14">For Reaching Gold</span>
                   </div>
                   <div className="d-flex pt-2 target-data">
                     <div>
                       <div>
                         <span className="f-b mr-2">Streak</span>
-                        <span>7 or 8 Days</span>
+                        <span className="f-12">7 or 8 Days</span>
                       </div>
-                      <div>
+                      <div className="progress-bar">
                         <ProgressBar variant="warning" now={80} />
                       </div>
                     </div>
@@ -72,21 +72,23 @@ const Stakes = () => {
                           src={nftyLogo}
                           alt=""
                         />
-                        <span>2418 of 3000</span>
+                        <span className="f-12">2418 of 3000</span>
                       </div>
-                      <div>
+                      <div className="progress-bar">
                         <ProgressBar variant="warning" now={80} />
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="col-md-3">
-                  <div className="p-4">
+                  <div className="p-3">
                     <div className="head-text text-center">
                       <img className="nfty-logo" src={nftyLogo} alt="" />
                       345
                     </div>
-                    <div className="simple-text text-center">My Balance</div>
+                    <div className="simple-text text-center f-12">
+                      My Balance
+                    </div>
                   </div>
                 </div>
               </div>
@@ -163,16 +165,21 @@ const Stakes = () => {
                 </button>
               </div>
               <div className="d-flex justify-content-space-between mt-3">
-                <button className="orange-btn w-100 mr-2">Collect APR</button>
+                <button
+                  className="orange-btn w-100 mr-2"
+                  onClick={() => setAPREarnedModalOpen(true)}
+                >
+                  Collect APR
+                </button>
                 <button className="yellow-btn w-100 ml-1"> Buy NFTY</button>
               </div>
             </div>
           )}
         </div>
 
-        <div className="row d-flex pt-4 pb-4 stats mt-3">
-          <div className="col-sm-4 mt-2 pl-4">
-            <div className="head-text">12.001%</div>
+        <div className="row d-flex pt-2 pb-2 stats mt-2 ">
+          <div className="col-sm-4 mt-1 pl-4">
+            <div className="head-text margin-top">12.001%</div>
             <div className="simple-text">ARP</div>
             <hr />
           </div>

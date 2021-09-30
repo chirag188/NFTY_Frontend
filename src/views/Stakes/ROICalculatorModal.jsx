@@ -13,19 +13,19 @@ const ROICalculatorModal = (props) => {
     <div className="roi-calc-modal-footer w-100">
       <div className="row w-100">
         <div className="col-md-6">
-          <div className="f-b"> ROI at Current Rates</div>
+          <div className="f-b f-14 mt-1"> ROI at Current Rates</div>
         </div>
         <div className="col-md-6 d-flex justify-content-space-evenly">
-          <div className="f-12 mt-2">~$32,342</div>
+          <div className="f-12 mt-1">~$32,342</div>
           <div>
-            <div className="f-b f-24">
+            <div className="f-b f-18">
               <img className="nfty-logo mr-2" src={nftyLogo} alt="" />
               1,434
             </div>
           </div>
         </div>
       </div>
-      <hr className="w-100" />
+      <hr className="w-100 mt-2 mb-2" />
       <div>
         <button className="yellow-btn w-100 btn">Buy NFTY</button>
       </div>
@@ -43,11 +43,12 @@ const ROICalculatorModal = (props) => {
       headerSubTitle="Lorem ipsum dolor sit amet, consectetur adipisci ngmet, consectetur adipiscing."
       FooterComponent={FooterComponent}
       footerModalClass="footer-bg"
+      modalClass="custom-modal"
     >
       <div className="roi-calc-modal p-3">
         <div className="row">
-          <div className="col-md-6 d-flex justify-content-space-evenly f-18 pt-2">
-            <span className="f-b">NFTY</span>
+          <div className="col-md-6 d-flex justify-content-space-evenly f-18 pt-1">
+            <span className="f-b f-16">NFTY</span>
             <span>
               <img
                 className="exchange-arrow-img"
@@ -65,7 +66,7 @@ const ROICalculatorModal = (props) => {
             />
           </div>
         </div>
-        <div className="mt-4 pl-3">
+        <div className="mt-3 pl-3">
           <div className="d-flex justify-content-space-between">
             <div>
               <div className="f-b">
@@ -89,54 +90,54 @@ const ROICalculatorModal = (props) => {
         </div>
         <div className="row nfty-amount-select justify-content-space-evenly">
           <div
-            className="btn-group w-100 mt-3"
+            className="btn-group w-100 mt-1 justify-content-center"
             role="group"
             aria-label="Basic example"
           >
             <button
               type="button"
-              className="btn"
-              style={{ borderRadius: "300px" }}
+              className="btn f-14"
+              style={{ borderRadius: "300px", maxWidth: "100px" }}
             >
               <img className="nfty-logo" src={nftyLogo} alt="" />
               100
             </button>
             <button
               type="button"
-              className="btn"
-              style={{ borderRadius: "300px" }}
+              className="btn f-14"
+              style={{ borderRadius: "300px", maxWidth: "100px" }}
             >
               <img className="nfty-logo" src={nftyLogo} alt="" />
               500
             </button>
             <button
               type="button"
-              className="btn"
-              style={{ borderRadius: "300px" }}
+              className="btn f-14"
+              style={{ borderRadius: "300px", maxWidth: "100px" }}
             >
               <img className="nfty-logo" src={nftyLogo} alt="" />
               1000
             </button>
             <button
               type="button"
-              className="btn"
-              style={{ borderRadius: "300px" }}
+              className="btn f-14"
+              style={{ borderRadius: "300px", maxWidth: "100px" }}
             >
               <img className="nfty-logo" src={nftyLogo} alt="" />
               5000
             </button>
           </div>
         </div>
-        <div className="text-center mt-3 apr-text">
-          <span>
+        <div className="text-center mt-1 apr-text">
+          <span className="f-14">
             APR <span className="green-text">13.754%</span>
           </span>
         </div>
-        <hr />
+        <hr className="mt-3 mb-2" />
         <div className="staked-for">
-          <span className="f-b">Staked For</span>
+          <span className="f-b f-14">Staked For</span>
           <div
-            className="btn-group w-100 mt-3"
+            className="btn-group w-100 mt-1"
             role="group"
             aria-label="Basic example"
           >

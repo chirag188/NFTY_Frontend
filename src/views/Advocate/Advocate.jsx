@@ -10,7 +10,7 @@ const Advocate = () => {
 
   return (
     <React.Fragment>
-      <div className="container mt-4">
+      <div className="container">
         <div className="advocate">
           <div className="advocate-text">
             <div className="advocate-heading-text">Lorem Ipsum Dolor</div>
@@ -45,7 +45,7 @@ const Advocate = () => {
             </div>
           )}
 
-          <div className="row d-flex pt-4 pb-4 stats mt-3">
+          <div className="row d-flex pt-2 pb-2 stats mt-3">
             <div className="col-sm-4 mt-2 pl-4">
               <div className="head-text">34</div>
               <div className="advocate-body-text f-12">Total Allocation</div>
@@ -61,7 +61,7 @@ const Advocate = () => {
             </div>
             <div className="col-sm-4 pl-4 mt-2">
               <div className="head-text">$12,351</div>
-              <div className="advocate-body-text">Total Rewards</div>
+              <div className="advocate-body-text ">Total Rewards</div>
             </div>
           </div>
           {login && (

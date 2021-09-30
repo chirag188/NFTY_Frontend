@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Vote = () => {
   return (
     <React.Fragment>
-      <div className="container mt-4">
+      <div className="container">
         <div className="vote-page">
           <div className="vote-header-text">NFTY Governance</div>
           <div className="vote-body-text text-center">

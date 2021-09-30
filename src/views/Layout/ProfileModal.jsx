@@ -10,7 +10,7 @@ const ProfileModal = (props) => {
   };
 
   return (
-    <Modal closeModal={closeModal} headerTitle="Profile">
+    <Modal closeModal={closeModal} headerTitle="Profile" footerModalClass="p-0">
       <div className="profile-modal">
         <div className="profile-pic">
           <img src={profilePic} alt="" />
@@ -22,13 +22,13 @@ const ProfileModal = (props) => {
         >
           Martha C. Terry
         </div>
-        <div className="profile-since mt-4">
+        <div className="profile-since mt-2">
           {" "}
-          <span className="rep-body-text">Member Since</span>{" "}
-          <span className="f-b">12/09/2021</span>
+          <span className="rep-body-text f-12">Member Since</span>{" "}
+          <span className="f-b f-14">12/09/2021</span>
         </div>
-        <div className="f-b f-18 mt-4">Bio</div>
-        <div className="rep-body-text p-4">
+        <div className="f-b f-18 mt-3">Bio</div>
+        <div className="rep-body-text p-2">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
           lacus nisi, viverra ac ultrices non, mattis viverra dolor. Lorem ipsum
           dolor sit amet, consectetur adipiscing elit. Praesent lacus nisi,
