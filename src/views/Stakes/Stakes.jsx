@@ -181,7 +181,7 @@ const Stakes = () => {
         <div className="row d-flex pt-2 pb-2 stats mt-2 ">
           <div className="col-sm-4 mt-1 pl-4">
             <div className="head-text margin-top">12.001%</div>
-            <div className="simple-text">ARP</div>
+            <div className="simple-text">APR</div>
             <hr />
           </div>
           <div className="col-sm-4 pl-4 mt-2">

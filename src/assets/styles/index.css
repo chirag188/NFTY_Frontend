@@ -436,8 +436,9 @@ body {
 }
 
 .roi-calc-modal .nfty-logo {
-  height: 1px;
+  height: 18px;
   margin-right: 8px;
+  margin-bottom: 2px;
 }
 
 .roi-calc-modal .calculated-amount {
