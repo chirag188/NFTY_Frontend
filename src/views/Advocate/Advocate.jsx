@@ -75,7 +75,7 @@ const Advocate = () => {
                   Collect My Rewards
                 </button>
               </div>
-              <div className="text-center advocate-body-text p-2 ">
+              <div className="text-center advocate-body-text p-2 mt-1">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 Praesent lacus nisi, viverra ac ultrices non, mattis viverra
                 dolor. Pellentesque.

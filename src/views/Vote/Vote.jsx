@@ -7,7 +7,7 @@ const Vote = () => {
       <div className="container">
         <div className="vote-page">
           <div className="vote-header-text">NFTY Governance</div>
-          <div className="vote-body-text text-center">
+          <div className="vote-body-text text-center mt-2">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed iaculis
             convallis mauris, id finibus lectus tristique ut. Donec lacinia
             magna id nibh vehicula faucibus. Mauris venenatis leo tellus,

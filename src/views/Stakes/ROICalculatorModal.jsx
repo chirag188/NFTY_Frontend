@@ -29,7 +29,7 @@ const ROICalculatorModal = (props) => {
       <div>
         <button className="yellow-btn w-100 btn">Buy NFTY</button>
       </div>
-      <div className="f-12 text-center mt-1">
+      <div className="f-12 text-center mt-2">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent lacus
         nisi, viverra ac ultrices non, mattis viverra dolor. Pellentesque
       </div>

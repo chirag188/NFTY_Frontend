@@ -22,13 +22,13 @@ const ProfileModal = (props) => {
         >
           Martha C. Terry
         </div>
-        <div className="profile-since mt-2">
+        <div className="profile-since mt-1">
           {" "}
           <span className="rep-body-text f-12">Member Since</span>{" "}
           <span className="f-b f-14">12/09/2021</span>
         </div>
-        <div className="f-b f-18 mt-3">Bio</div>
-        <div className="rep-body-text p-2">
+        <div className="f-b f-18 mt-2">Bio</div>
+        <div className="rep-body-text pb-2 pt-1">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
           lacus nisi, viverra ac ultrices non, mattis viverra dolor. Lorem ipsum
           dolor sit amet, consectetur adipiscing elit. Praesent lacus nisi,

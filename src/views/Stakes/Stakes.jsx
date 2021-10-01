@@ -7,6 +7,7 @@ import ConnectWalletModal from "./ConnectWalletModal";
 import StakeUnstakeModal from "./StakeUnstakeModal";
 import APREarnedModal from "./APREarnedModal";
 import { ProgressBar } from "react-bootstrap";
+import Loader from "../../components/Loader/Loader";
 
 const Stakes = () => {
   const login = sessionStorage.getItem("token");

@@ -45,7 +45,7 @@ const Rep = () => {
             <>
               <div className="rep-text">
                 <div className="rep-header-text">Rep</div>
-                <div className="rep-body-text mt-3">
+                <div className="rep-body-text mt-2">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
                   iaculis convallis mauris, id finibus lectus tristique ut.
                   Donec lacinia magna id nibh vehicula faucibus. Mauris

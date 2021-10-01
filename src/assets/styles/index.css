@@ -281,7 +281,7 @@ body {
 }
 
 .stats .margin-top {
-  margin-top: 5px;
+  margin-top: 7px;
 }
 .stats hr {
   position: relative;
@@ -436,7 +436,7 @@ body {
 }
 
 .roi-calc-modal .nfty-logo {
-  height: 16px;
+  height: 1px;
   margin-right: 8px;
 }
 
@@ -462,6 +462,7 @@ body {
   border-radius: 300px;
   padding: 5px 0;
   font-size: 14px;
+  padding-top: 8px;
 }
 
 .apr-text .green-text {
@@ -493,7 +494,8 @@ body {
   font-size: 20px;
 }
 .roi-calc-modal-footer img {
-  height: 22px;
+  height: 18px;
+  margin-bottom: 4px;
 }
 
 .roi-calc-modal-footer .yellow-btn {
@@ -545,7 +547,8 @@ body {
 .tooltip-btn {
   background: #ffc209;
   border-radius: 50%;
-  height: 35px;
+  height: 32px;
+  margin-bottom: 5px;
 }
 
 .stake-unstake-modal-footer {
@@ -604,7 +607,8 @@ body {
   margin-bottom: 8px;
 }
 
-.rewards-earned-modal .opacity {
+.rewards-earned-modal .opacity,
+.apr-earned-modal .opacity {
   opacity: 0.6;
 }
 

@@ -69,7 +69,7 @@ const Modal = (props) => {
                     )}
                   </h4>
                 )}
-                <div className="modal-sub-title text-center w-100">
+                <div className="modal-sub-title mt-1 text-center w-100">
                   {(headerSubTitle !== undefined ||
                     headerSubTitle != null ||
                     headerSubTitle !== "") && <span>{headerSubTitle}</span>}
