@@ -281,16 +281,16 @@ body {
 }
 
 .stats .margin-top {
-  margin-top: 7px;
+  margin-top: 10px;
 }
 .stats hr {
   position: relative;
   border: 0.5px solid #dfdfdf;
   transform: rotate(90deg);
   background-color: #dfdfdf;
-  width: 60px;
+  width: 62px;
   height: 0px;
-  margin-top: -30px;
+  margin-top: -29px;
   margin-left: 179px;
 }
 
