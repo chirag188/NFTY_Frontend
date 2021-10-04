@@ -39,10 +39,13 @@
   .special-nfty-reward .sp-header-text,
   .advocate-text .advocate-heading-text,
   .vote-page .vote-header-text {
-    font-size: 28px;
+    font-size: 20px;
   }
   .vote-page .link-text {
     font-size: 14px;
+  }
+  .rep-profile-details .rep-header-text {
+    font-size: 20px;
   }
 }
 
@@ -75,7 +78,7 @@
 
 @media (min-width: 576px) {
   .modal-dialog {
-    max-width: 580px;
+    max-width: 500px;
     margin: 1.75rem auto;
   }
 }

@@ -18,7 +18,7 @@ const MenuDropdown = () => {
           id="dropdown-autoclose-true"
           className="cursor-pointer dropdown-btn"
         >
-          <img src={hamburgerIcon} alt="" />
+          <img className="hamburger-icon" src={hamburgerIcon} alt="" />
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
@@ -41,7 +41,7 @@ const MenuDropdown = () => {
           </div>
           <Dropdown.Item
             href=""
-            className=" dropdown-item cursor-pointer mt-4"
+            className=" dropdown-item cursor-pointer mt-3"
             onClick={() => console.log("sdsd")}
           >
             <span className="menu-name">Profile</span>
