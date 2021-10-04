@@ -11,13 +11,13 @@ const Rep = () => {
 
   return (
     <React.Fragment>
-      <div className="container mt-4">
+      <div className="container">
         <div className="rep-page">
           {login ? (
             <>
               <div className="rep-profile">
                 <div className="rep-profile-details">
-                  <img src={profilePic} alt="" />
+                  <img className="rep-profile-pic" src={profilePic} alt="" />
                   <div className="ml-3">
                     <div className="rep-header-text">Martha C. Terry</div>
                     <div className="mt-2 ">
@@ -27,7 +27,7 @@ const Rep = () => {
                   </div>
                 </div>
                 <div className="rep-qr">
-                  <QRCode value="Martha C. Terry" size={90} />
+                  <QRCode value="Martha C. Terry" size={80} />
                 </div>
               </div>
               <div className="mt-4">
@@ -45,7 +45,7 @@ const Rep = () => {
             <>
               <div className="rep-text">
                 <div className="rep-header-text">Rep</div>
-                <div className="rep-body-text mt-3">
+                <div className="rep-body-text mt-2">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
                   iaculis convallis mauris, id finibus lectus tristique ut.
                   Donec lacinia magna id nibh vehicula faucibus. Mauris
@@ -65,7 +65,7 @@ const Rep = () => {
           )}
         </div>
         {login && (
-          <div className="row d-flex pt-4 pb-4 stats mt-3">
+          <div className="row d-flex pt-2 pb-2 stats mt-3">
             <div className="col-sm-4 mt-2 pl-4">
               <div className="head-text">67 Days</div>
               <div className="rep-body-text f-12">Staking Streak</div>

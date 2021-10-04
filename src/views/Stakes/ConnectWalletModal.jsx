@@ -20,6 +20,7 @@ const ConnectWalletModal = (props) => {
       closeModal={closeModal}
       headerTitle="Connect Wallet"
       headerSubTitle="Lorem ipsum dolor sit amet, consectetur adipisci ngmet, consectetur adipiscing."
+      footerModalClass="p-0"
     >
       <div className="connect-wallet-modal">
         <div className="row text-center">
@@ -34,9 +35,9 @@ const ConnectWalletModal = (props) => {
           <div className="col-sm-4 d-flex justify-content-center">
             <button className="btn" onClick={Login}>
               <div className="w-100 text-center">
-                <img src={walletConnectImg} alt="" />
+                <img className="mb-2" src={walletConnectImg} alt="" />
               </div>
-              <span className="mt-2">Wallet Connect</span>
+              <span className="">Wallet Connect</span>
             </button>
           </div>
           <div className="col-sm-4 d-flex justify-content-center">

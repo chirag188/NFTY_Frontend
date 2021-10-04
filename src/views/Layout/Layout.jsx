@@ -18,14 +18,14 @@ const Layout = ({ children }) => {
     <>
       <nav className="navbar navbar-expand-lg navbar-light">
         <Link className="navbar-brand" to="/stake" style={{ flex: "10%" }}>
-          <img src={Logo} alt="" />
+          <img className="nfty-brand-logo" src={Logo} alt="" />
         </Link>
         <div className="d-flex" style={{ flex: "20%" }}>
-          <div className="mr-2 f-18">$112.31</div>
-          <div className="f-18 stake-data-percentage">
+          <div className="mr-2 f-14">$112.31</div>
+          <div className="f-14 stake-data-percentage">
             +3.51%
             <span className="ml-2">
-              <img className="pb-1" src={polygonUp} alt="Raise" />
+              <img className="pb-1 polygon-icon" src={polygonUp} alt="Raise" />
             </span>
           </div>
         </div>
@@ -34,7 +34,7 @@ const Layout = ({ children }) => {
           id="navbarSupportedContent"
           style={{ flex: "50%" }}
         >
-          <ul className="nav f-18">
+          <ul className="nav">
             <li className="nav-item">
               <Link className="nav-link" to="/stake">
                 Stake

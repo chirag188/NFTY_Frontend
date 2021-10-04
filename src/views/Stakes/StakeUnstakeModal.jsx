@@ -35,7 +35,7 @@ const StakeUnstakeModal = (props) => {
     );
   };
   const FooterComponent = () => (
-    <div className="stake-unstake-modal w-100">
+    <div className="stake-unstake-modal-footer w-100">
       {isStakeModal && (
         <div className="w-100 text-center">
           <span className="f-12">Annual ROI</span>
@@ -43,8 +43,8 @@ const StakeUnstakeModal = (props) => {
         </div>
       )}
       <div className="d-flex justify-content-space-between mt-3">
-        <button className="orange-btn w-100 mr-3">Confirm</button>
-        <button className="yellow-btn w-100">
+        <button className="orange-btn w-100 mr-3 f-14">Confirm</button>
+        <button className="yellow-btn w-100 f-14">
           {isStakeModal ? "Buy NFTY" : "Stake"}
         </button>
       </div>
@@ -60,7 +60,7 @@ const StakeUnstakeModal = (props) => {
       tooltip={isStakeModal ? "Stake Modal" : "Unstake Modal"}
       isTooltip
     >
-      <div className="stake-unstake-modal p-3">
+      <div className="stake-unstake-modal p-1">
         <div className="mt-4 pl-3">
           <div className="d-flex justify-content-space-between">
             <div>
@@ -83,21 +83,28 @@ const StakeUnstakeModal = (props) => {
             </div>
           </div>
         </div>
-        <div className="w-100 mt-3">
-          <div className="text-center f-b">
+        <hr />
+        <div className="w-100 mt-1">
+          <div className="text-center f-b ml-3">
             {isStakeModal ? "Staked Balance 12.09" : "Balance 12.09"}
           </div>
-          <div className="mt-1 w-100">
-            <div style={{ maxWidth: 400, margin: 50 }}>
+          <div className=" w-100">
+            <div style={{ maxWidth: 400, margin: "16px 50px" }}>
               <SliderWithTooltip
                 min={0}
                 max={100}
-                defaultValue={3}
+                defaultValue={0}
                 handle={handle}
-                style={{ height: "20px" }}
+                handleStyle={{
+                  height: "16px",
+                  width: "16px",
+                  marginTop: "0px",
+                }}
+                trackStyle={{ height: "14px" }}
+                railStyle={{ height: "14px" }}
               />
               <div
-                className="row d-flex justify-content-space-between ml-1"
+                className="row d-flex justify-content-space-between slider-percentage-text mt-3"
                 style={{ color: "rgba(0, 0, 0, 0.4)" }}
               >
                 <div className=" f-12">0%</div>

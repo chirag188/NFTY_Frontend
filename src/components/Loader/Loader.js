@@ -4,9 +4,11 @@ import "./Loader.css";
 
 const Loader = () => {
   return (
-    <div className="lds-ripple">
-      <div />
-      <div />
+    <div class="loader">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
   );
 };
