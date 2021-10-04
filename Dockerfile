@@ -3,7 +3,7 @@ FROM node:10
 WORKDIR /usr/src/app
 
 COPY . /usr/src/app/
-COPY ["package.json", "package-lock.json", "./"]
+COPY ["package.json", "./"]
 RUN npm install
 
 RUN ls /usr/src/app
