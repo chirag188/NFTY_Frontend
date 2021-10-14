@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Modal from "../../components/Modal/Modal";
 import metamaskImg from "../../assets/images/metamask.png";
 import walletConnectImg from "../../assets/images/wallet-Connect.png";
 import coinbaseImg from "../../assets/images/coinbase.png";
 import trustwalletImg from "../../assets/images/trustwallet.png";
 import formaticeWallet from "../../assets/images/formatice.png";
+import MetaMaskOnboarding from "@metamask/onboarding";
+import { useWeb3React } from "@web3-react/core";
+import { injected } from "./../../utils/connectors";
 
 const ConnectWalletModal = (props) => {
   const closeModal = () => {
@@ -14,6 +17,27 @@ const ConnectWalletModal = (props) => {
   const Login = () => {
     sessionStorage.setItem("token", true);
     window.location.reload();
+  };
+  const { account, activate } = useWeb3React();
+  const onboarding = useRef();
+  useEffect(() => {
+    if (!onboarding.current) {
+      onboarding.current = new MetaMaskOnboarding();
+    }
+  }, []);
+  useEffect(() => {
+    if (MetaMaskOnboarding.isMetaMaskInstalled()) {
+      if (account && account.length > 0) {
+        onboarding.current.stopOnboarding();
+      }
+    }
+  }, [account]);
+  const onConnectWithMetamaskClick = () => {
+    if (MetaMaskOnboarding.isMetaMaskInstalled()) {
+      activate(injected);
+    } else {
+      onboarding.current.startOnboarding();
+    }
   };
   return (
     <Modal
@@ -25,7 +49,7 @@ const ConnectWalletModal = (props) => {
       <div className="connect-wallet-modal">
         <div className="row text-center">
           <div className="col-sm-4 d-flex justify-content-center">
-            <button className="btn" onClick={Login}>
+            <button className="btn" onClick={onConnectWithMetamaskClick}>
               <div className="w-100 text-center">
                 <img src={metamaskImg} alt="" />
               </div>

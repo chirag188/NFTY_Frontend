@@ -7,9 +7,10 @@ import MenuDropdown from "./MenuDropdown";
 import profilePic from "../../assets/images/dummyPic.png";
 import ProfileModal from "./ProfileModal";
 import ConnectWalletModal from "../Stakes/ConnectWalletModal";
+import { useWeb3React } from "@web3-react/core";
 
 const Layout = ({ children }) => {
-  const login = sessionStorage.getItem("token");
+  const { account } = useWeb3React();
   const location = useLocation();
   const [openProfileModal, setOpenProfileModal] = useState(false);
   const [connectWalletModalOpen, setConnectWalletModalOpen] = useState(false);
@@ -66,7 +67,7 @@ const Layout = ({ children }) => {
           </ul>
         </div>
         <div className="d-flex navbar-btns">
-          {login ? (
+          {account ? (
             <div
               className="mr-3 cursor-pointer"
               onClick={() => setOpenProfileModal(true)}

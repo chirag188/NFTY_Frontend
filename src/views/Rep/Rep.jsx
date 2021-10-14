@@ -3,17 +3,18 @@ import nftyLogo from "../../assets/images/coinLogo.png";
 import GoldStarImg from "../../assets/images/GoldStar.png";
 import profilePic from "../../assets/images/dummyPic.png";
 import ConnectWalletModal from "../Stakes/ConnectWalletModal";
+import { useWeb3React } from "@web3-react/core";
 var QRCode = require("qrcode.react");
 
 const Rep = () => {
-  const login = sessionStorage.getItem("token");
+  const { account } = useWeb3React();
   const [connectWalletModalOpen, setConnectWalletModalOpen] = useState(false);
 
   return (
     <React.Fragment>
       <div className="container">
         <div className="rep-page">
-          {login ? (
+          {account ? (
             <>
               <div className="rep-profile">
                 <div className="rep-profile-details">
@@ -64,7 +65,7 @@ const Rep = () => {
             </>
           )}
         </div>
-        {login && (
+        {account && (
           <div className="row d-flex pt-2 pb-2 stats mt-3">
             <div className="col-sm-4 mt-2 pl-4">
               <div className="head-text">67 Days</div>
