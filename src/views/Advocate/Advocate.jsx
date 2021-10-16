@@ -1,10 +1,11 @@
+import { useWeb3React } from "@web3-react/core";
 import React, { useState } from "react";
 import nftyLogo from "../../assets/images/coinLogo.png";
 import ConnectWalletModal from "../Stakes/ConnectWalletModal";
 import RewardsEarnedModal from "./RewardsEarnedModal";
 
 const Advocate = () => {
-  const login = sessionStorage.getItem("token");
+  const { account } = useWeb3React();
   const [rewardsEarnedModalOpen, setRewardsEarnedModalOpen] = useState(false);
   const [connectWalletModalOpen, setConnectWalletModalOpen] = useState(false);
 
@@ -29,7 +30,7 @@ const Advocate = () => {
               sagittis dolor et mattis.
             </div>
           </div>
-          {login ? (
+          {account ? (
             <div className="d-flex justify-content-center mt-3">
               <button className="orange-btn w-50"> Go To VLBO</button>
             </div>
@@ -64,7 +65,7 @@ const Advocate = () => {
               <div className="advocate-body-text ">Total Rewards</div>
             </div>
           </div>
-          {login && (
+          {account && (
             <>
               <div className="d-flex justify-content-center mt-3">
                 <button

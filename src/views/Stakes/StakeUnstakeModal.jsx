@@ -5,9 +5,15 @@ import nftyLogo from "../../assets/images/coinLogo.png";
 import "rc-slider/assets/index.css";
 import "rc-tooltip/assets/bootstrap.css";
 import "../../assets/slider-index.less";
+import Web3Utils from "web3-utils";
+import { useNFTYContract, useStakingContract } from "../../hooks";
+import { useWeb3React } from "@web3-react/core";
 
 const StakeUnstakeModal = (props) => {
   const { isStakeModal } = props;
+  const { account } = useWeb3React();
+  const NFTYContract = useNFTYContract();
+  const StakingContract = useStakingContract();
   const closeModal = () => {
     const { modalOpenClose } = props;
     modalOpenClose(false);
@@ -18,7 +24,6 @@ const StakeUnstakeModal = (props) => {
 
   const handle = (props) => {
     const { value, dragging, index, ...restProps } = props;
-    console.log(value);
     return (
       <SliderTooltip
         prefixCls="rc-slider-tooltip"
@@ -34,6 +39,55 @@ const StakeUnstakeModal = (props) => {
       </SliderTooltip>
     );
   };
+  const stakeTokens = () => {
+    if(isStakeModal){
+      NFTYContract.methods
+        .approve(
+          process.env.REACT_APP_STAKING_CONTRACT_ADDRESS,
+          Web3Utils.toWei("100")
+        )
+        .send({ from: account, gasLimit: 600000 })
+        .then(() => {
+          StakingContract.methods
+            .stakeTokens(Web3Utils.toWei("100"))
+            .estimateGas({ from: account })
+            .then((gasLimit) => {
+              StakingContract.methods
+                .stakeTokens(Web3Utils.toWei("100"))
+                .send({ from: account, gasLimit })
+                .then((result) => console.log(result))
+                .catch((error) => console.log(error));
+            })
+            .catch((error) => console.log(error));
+        })
+      .catch((error) => console.log(error));
+    } else {
+      StakingContract.methods
+      .unstakeTokens(Web3Utils.toWei("100"))
+      .estimateGas({ from: account })
+      .then((gasLimit) => {
+        StakingContract.methods
+          .unstakeTokens(Web3Utils.toWei("100"))
+          .send({ from: account, gasLimit })
+          .then((result) => console.log(result))
+          .catch((error) => console.log(error));
+      })
+      .catch((error) => console.log(error));
+    }
+  }
+  const unStake = () => {
+    StakingContract.methods
+      .unstakeAll()
+      .estimateGas({ from: account })
+      .then((gasLimit) => {
+        StakingContract.methods
+          .unstakeAll()
+          .send({ from: account, gasLimit })
+          .then((result) => console.log(result))
+          .catch((error) => console.log(error));
+      })
+      .catch((error) => console.log(error));
+  }
   const FooterComponent = () => (
     <div className="stake-unstake-modal-footer w-100">
       {isStakeModal && (
@@ -43,8 +97,8 @@ const StakeUnstakeModal = (props) => {
         </div>
       )}
       <div className="d-flex justify-content-space-between mt-3">
-        <button className="orange-btn w-100 mr-3 f-14">Confirm</button>
-        <button className="yellow-btn w-100 f-14">
+        <button className="orange-btn w-100 mr-3 f-14" onClick={stakeTokens}>Confirm</button>
+        <button className="yellow-btn w-100 f-14" onClick={unStake}>
           {isStakeModal ? "Buy NFTY" : "Stake"}
         </button>
       </div>
