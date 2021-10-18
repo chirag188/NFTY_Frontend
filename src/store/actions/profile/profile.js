@@ -23,9 +23,8 @@ export const viewProfileStart = () => ({
   type: actionLabels.VIEW_PROFILE_START,
 });
 
-export const viewProfile = (payload) => ({
+export const viewProfile = () => ({
   type: actionLabels.VIEW_PROFILE_SAGA,
-  payload,
 });
 
 export const viewProfileSuccess = (payload) => ({

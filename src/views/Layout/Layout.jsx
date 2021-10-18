@@ -1,20 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "../../assets/images/Logo.png";
 import walletIcon from "../../assets/images/Wallet.png";
 import polygonUp from "../../assets/images/Polygon-up.png";
 import { Link, useLocation } from "react-router-dom";
 import MenuDropdown from "./MenuDropdown";
-import profilePic from "../../assets/images/dummyPic.png";
 import ProfileModal from "./ProfileModal";
 import ConnectWalletModal from "../Stakes/ConnectWalletModal";
-import { useWeb3React } from "@web3-react/core";
+import profileImg from "../../assets/images/profile.png";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { viewProfile } from "../../store/actions";
 
 const Layout = ({ children }) => {
-  const { account } = useWeb3React();
+  const isLogin = sessionStorage.getItem("jwtToken");
+  const dispatch = useDispatch();
+  const profilePic = useSelector((state) => state.profile.userData.profilePic);
   const location = useLocation();
   const [openProfileModal, setOpenProfileModal] = useState(false);
   const [connectWalletModalOpen, setConnectWalletModalOpen] = useState(false);
-
+  useEffect(() => {
+    dispatch(viewProfile());
+  }, []);
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light">
@@ -67,12 +73,16 @@ const Layout = ({ children }) => {
           </ul>
         </div>
         <div className="d-flex navbar-btns">
-          {account ? (
+          {isLogin ? (
             <div
               className="mr-3 cursor-pointer"
               onClick={() => setOpenProfileModal(true)}
             >
-              <img className="layout-profile-pic" src={profilePic} alt="" />
+              <img
+                className="layout-profile-pic"
+                src={profilePic ? profilePic : profileImg}
+                alt=""
+              />
             </div>
           ) : (
             <div

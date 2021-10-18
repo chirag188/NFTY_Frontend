@@ -12,6 +12,7 @@ import {
   updateProfilePicSuccess,
   updateProfileStart,
   updateProfileSuccess,
+  viewProfile,
   viewProfileFail,
   viewProfileStart,
   viewProfileSuccess,
@@ -20,7 +21,7 @@ import {
 // eslint-disable-next-line no-unused-vars
 function* createUserSaga(action) {
   try {
-    yield call(createUserProfileStart());
+    yield createUserProfileStart();
     const { walletAddress } = action.payload;
 
     const response = yield axios
@@ -31,6 +32,11 @@ function* createUserSaga(action) {
       .catch(async (error) => error);
     if (response.status === 200) {
       yield put(createUserProfileSuccess({ data: response.data.data }));
+      yield call(
+        [sessionStorage, "setItem"],
+        "jwtToken",
+        response.data.data.authToken
+      );
     } else if (response !== 200) {
       yield put(
         createUserProfileFail({ error: response.response.data.message })
@@ -45,14 +51,14 @@ function* createUserSaga(action) {
   }
 }
 
-function* viewProfileSaga(action) {
+function* viewProfileSaga() {
   try {
-    yield call(viewProfileStart());
-    const JwtToken = JSON.parse(sessionStorage.getItem("jwtToken"));
+    yield viewProfileStart();
+    const JwtToken = sessionStorage.getItem("jwtToken");
     const response = yield axios
       .get("/users/viewProfile", {
         headers: {
-          Authorization: JwtToken.accessToken.jwtToken,
+          token: JwtToken,
         },
       })
       .then(async (response) => response)
@@ -71,16 +77,16 @@ function* viewProfileSaga(action) {
 
 function* updateProfileSaga(action) {
   try {
-    yield call(updateProfileStart());
-    const JwtToken = JSON.parse(sessionStorage.getItem("jwtToken"));
+    yield updateProfileStart();
+    const JwtToken = sessionStorage.getItem("jwtToken");
     const { name, bio } = action.payload;
     const response = yield axios
-      .post(
+      .put(
         "/users/updateProfile",
         { name, bio },
         {
           headers: {
-            Authorization: JwtToken.accessToken.jwtToken,
+            token: JwtToken,
           },
         }
       )
@@ -88,6 +94,7 @@ function* updateProfileSaga(action) {
       .catch(async (error) => error);
     if (response.status === 200) {
       yield put(updateProfileSuccess({ data: response.data.data }));
+      yield put(viewProfile());
     } else if (response !== 200) {
       yield put(updateProfileFail({ error: response.response.data.message }));
     } else {
@@ -100,23 +107,22 @@ function* updateProfileSaga(action) {
 
 function* updateProfilePicSaga(action) {
   try {
-    yield call(updateProfilePicStart());
-    const JwtToken = JSON.parse(sessionStorage.getItem("jwtToken"));
+    yield updateProfilePicStart();
+    const JwtToken = sessionStorage.getItem("jwtToken");
     const { profilePic } = action.payload;
+    const formData = new FormData();
+    formData.append("profilePic", profilePic);
     const response = yield axios
-      .post(
-        "/users/update-profile-pic",
-        { profilePic },
-        {
-          headers: {
-            Authorization: JwtToken.accessToken.jwtToken,
-          },
-        }
-      )
+      .put("/users/update-profile-pic", formData, {
+        headers: {
+          token: JwtToken,
+        },
+      })
       .then(async (response) => response)
       .catch(async (error) => error);
     if (response.status === 200) {
       yield put(updateProfilePicSuccess({ data: response.data.data }));
+      yield put(viewProfile());
     } else if (response !== 200) {
       yield put(
         updateProfilePicFail({ error: response.response.data.message })

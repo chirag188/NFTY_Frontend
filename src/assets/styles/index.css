@@ -808,3 +808,10 @@ input::-webkit-inner-spin-button {
   box-shadow: none;
   border: 0px #ffffff;
 }
+
+.profile-bio textarea {
+  border: none;
+  width: 90%;
+  height: 120px;
+  text-align: center;
+}

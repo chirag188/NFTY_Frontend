@@ -1,28 +1,58 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "../../components/Modal/Modal";
-import profilePic from "../../assets/images/dummyPic.png";
+import profileImg from "../../assets/images/profile.png";
 import cameraIcon from "../../assets/images/cameraIcon.png";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import {
+  viewProfile,
+  updateProfilePic,
+  updateProfile,
+} from "../../store/actions/profile/profile";
 
 const ProfileModal = (props) => {
   const [img, setImg] = useState();
-  const [userData, setUserData] = useState({
-    name: "Martha C. Terry",
-    bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent lacus nisi, viverra ac ultrices non, mattis viverra dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent lacus nisi,viverra ac ultrices non, mattis viverra dolor.",
-  });
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(viewProfile());
+  }, [dispatch]);
+  const profile = useSelector((state) => state.profile.userData);
+  const [name, setName] = useState(
+    profile && (profile.name ? profile.name : profile.walletId)
+  );
+  const [bio, setBio] = useState(
+    profile && (profile.bio ? profile.bio : "No data available")
+  );
+
   const handleChange = (e) => {
-    console.log(e);
+    setName(e.target.value);
   };
+
+  const handleBioChange = (e) => {
+    setBio(e.target.value);
+  };
+
   const closeModal = () => {
     const { modalOpenClose } = props;
     modalOpenClose(false);
   };
+
+  const createdAt =
+    profile && profile.createdAt.substring(0, 10).split("-").reverse();
 
   return (
     <Modal closeModal={closeModal} headerTitle="Profile" footerModalClass="p-0">
       <div className="profile-modal">
         <div className="profile-pic">
           <div>
-            <img className="pic" src={img ? img : profilePic} alt="" />
+            <img
+              className="pic"
+              src={
+                img || (profile.profilePic ? profile.profilePic : profileImg)
+              }
+              alt=""
+            />
           </div>
           <div className="camera">
             <input
@@ -30,7 +60,14 @@ const ProfileModal = (props) => {
               accept="image/png,image/jpg,image/jpeg"
               multiple={false}
               id="file-upload-button"
-              onChange={(e) => setImg(URL.createObjectURL(e.target.files[0]))}
+              onChange={(e) => {
+                setImg(URL.createObjectURL(e.target.files[0]));
+                dispatch(
+                  updateProfilePic({
+                    profilePic: e.target.files[0] ? e.target.files[0] : null,
+                  })
+                );
+              }}
             />
             <img
               className="camera-icon cursor-pointer"
@@ -44,20 +81,34 @@ const ProfileModal = (props) => {
             type="text"
             name="name"
             className="form-control"
-            value={userData.name}
+            value={name || (profile && profile.name && profile.name) || ""}
             onChange={handleChange}
+            autocomplete="off"
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                dispatch(updateProfile({ name }));
+              }
+            }}
           />
         </div>
         <div className="profile-since mt-1">
           <span className="rep-body-text f-12">Member Since</span>{" "}
-          <span className="f-b f-14">12/09/2021</span>
+          <span className="f-b f-14">
+            {createdAt[0]}/{createdAt[1]}/{createdAt[2]}
+          </span>
         </div>
         <div className="f-b f-18 mt-2">Bio</div>
-        <div className="rep-body-text pb-2 pt-1">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-          lacus nisi, viverra ac ultrices non, mattis viverra dolor. Lorem ipsum
-          dolor sit amet, consectetur adipiscing elit. Praesent lacus nisi,
-          viverra ac ultrices non, mattis viverra dolor.
+        <div className="rep-body-text pb-2 pt-1 profile-bio">
+          <textarea
+            value={bio || (profile && profile.bio && profile.bio) || ""}
+            onChange={handleBioChange}
+            onBlur={() => dispatch(updateProfile({ bio }))}
+            // onKeyPress={(e) => {
+            //   if (e.key === "Enter") {
+            //     dispatch(updateProfile({ bio }));
+            //   }
+            // }}
+          />
         </div>
       </div>
     </Modal>

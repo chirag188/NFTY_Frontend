@@ -1,15 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Dropdown } from "react-bootstrap";
 
 import hamburgerIcon from "../../assets/images/hamburger.png";
 import StarImg from "../../assets/images/Star.png";
-import profile from "../../assets/images/dummyPic.png";
-import nftyLogo from "../../assets/images/coinLogo.png";
 import profileImg from "../../assets/images/profile.png";
+import nftyLogo from "../../assets/images/coinLogo.png";
 import ConnectWalletModal from "../Stakes/ConnectWalletModal";
+import { useDispatch, useSelector } from "react-redux";
+import { viewProfile } from "../../store/actions";
 
 const MenuDropdown = () => {
-  const login = sessionStorage.getItem("token");
+  const isLogin = sessionStorage.getItem("jwtToken");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(viewProfile());
+  }, [dispatch]);
+  const profile = useSelector((state) => state.profile.userData);
   const [connectWalletModalOpen, setConnectWalletModalOpen] = useState(false);
   const Logout = () => {
     sessionStorage.clear();
@@ -27,14 +34,23 @@ const MenuDropdown = () => {
 
         <Dropdown.Menu>
           <div className="dropdown-profile-section show">
-            {login ? (
+            {isLogin ? (
               <>
                 <div className="profile">
                   <div>
-                    <img className="profile-pic mr-3" src={profile} alt="" />
+                    <img
+                      className="profile-pic mr-3"
+                      src={profile.profilePic ? profile.profilePic : profileImg}
+                      alt=""
+                    />
                   </div>
                   <div className="profile-details">
-                    <span className="profile-name">Martha C. Terry</span>
+                    <span className="profile-name">
+                      {profile &&
+                        (profile.name
+                          ? profile.name
+                          : `${profile.walletId.substring(0, 12)}...`)}
+                    </span>
                     <span className="profile-rank">
                       <img className="star-img mb-1" src={StarImg} alt="" />{" "}
                       Silver
@@ -52,7 +68,7 @@ const MenuDropdown = () => {
               </div>
             )}
           </div>
-          {login ? (
+          {isLogin ? (
             <Dropdown.Item
               href=""
               className=" dropdown-item cursor-pointer mt-3"
@@ -83,7 +99,7 @@ const MenuDropdown = () => {
           <Dropdown.Item href="" className=" dropdown-item cursor-pointer">
             <span className="menu-name">Discord</span>
           </Dropdown.Item>
-          {login && (
+          {isLogin && (
             <>
               <hr />
               <Dropdown.Item
@@ -96,7 +112,7 @@ const MenuDropdown = () => {
             </>
           )}
           <div className="nav-tab">
-            <hr style={{ border: "1px solid" }} />
+            <hr style={{ border: "0.5px solid", opacity: 0.6 }} />
             <Dropdown.Item href="/stake" className="dropdown-item f-18">
               Stake
             </Dropdown.Item>
@@ -112,7 +128,7 @@ const MenuDropdown = () => {
             </Dropdown.Item>
 
             <hr />
-            <Dropdown.Item href="" className="dropdown-item f-18">
+            <Dropdown.Item href="/rep" className="dropdown-item f-18">
               Rep
             </Dropdown.Item>
           </div>

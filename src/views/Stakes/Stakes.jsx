@@ -8,7 +8,6 @@ import StakeUnstakeModal from "./StakeUnstakeModal";
 import APREarnedModal from "./APREarnedModal";
 import { ProgressBar } from "react-bootstrap";
 // import Loader from "../../components/Loader/Loader";
-import { useWeb3React } from "@web3-react/core";
 
 const Stakes = () => {
   const [roiCalcModalOpen, setRoiCalcModalOpen] = useState(false);
@@ -16,7 +15,7 @@ const Stakes = () => {
   const [stakeUnstakeModalOpen, setStakeUnstakeModal] = useState(false);
   const [APREarnedModalOpen, setAPREarnedModalOpen] = useState(false);
   const [isStake, setIsStake] = useState(false);
-  const { account } = useWeb3React();
+  const isLogin = sessionStorage.getItem("jwtToken");
 
   return (
     <React.Fragment>
@@ -29,7 +28,7 @@ const Stakes = () => {
           </div>
         </div>
         <div className="mt-2 data-container">
-          {account && (
+          {isLogin && (
             <>
               <div className="w-100 text-center p-2">
                 <img className="star-img mr-2 mb-1" src={StarImg} alt="" />
@@ -136,7 +135,7 @@ const Stakes = () => {
                 />
               </div>
             </div>
-            {!account && (
+            {!isLogin && (
               <div className="before-login-btn">
                 <div className="d-flex justify-content-space-between mt-3">
                   <button
@@ -155,7 +154,7 @@ const Stakes = () => {
               </div>
             )}
           </div>
-          {account && (
+          {isLogin && (
             <div className="after-login-btn">
               <div>
                 <button

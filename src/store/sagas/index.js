@@ -5,6 +5,5 @@ import dummySagas from "./dummy/dummy";
 import profileSagas from "./profile/profile";
 
 export default function* rootSaga() {
-  yield all([dummySagas()]);
-  yield all([profileSagas()]);
+  yield all([dummySagas(), profileSagas()]);
 }

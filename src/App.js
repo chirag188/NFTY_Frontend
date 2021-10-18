@@ -8,6 +8,8 @@ import "./App.css";
 import Loader from "./components/Loader/Loader";
 import Layout from "./views/Layout/Layout";
 import { useEagerConnect, useInactiveListener } from "./hooks";
+import { useDispatch } from "react-redux";
+import { createUserProfile } from "./store/actions/profile/profile";
 
 const App = () => {
   const [activatingConnector, setActivatingConnector] = useState();
@@ -15,6 +17,7 @@ const App = () => {
   const { account, connector } = useWeb3React();
   const onboarding = useRef();
 
+  const dispatch = useDispatch();
   // handle logic to eagerly connect to the injected ethereum provider, if it exists and has granted access already
   const triedEager = useEagerConnect();
 
@@ -38,6 +41,7 @@ const App = () => {
     if (MetaMaskOnboarding.isMetaMaskInstalled()) {
       if (account && account.length > 0) {
         onboarding.current.stopOnboarding();
+        dispatch(createUserProfile({ walletAddress: account }));
       }
     }
   }, [account]);
