@@ -14,9 +14,11 @@ import { useDispatch } from "react-redux";
 import downArrow from "../../assets/images/downArrow.png";
 import { viewProfile } from "../../store/actions";
 import axios from "axios";
+import { useWeb3React } from "@web3-react/core";
 
 const Layout = ({ children }) => {
-  const isLogin = !!useSelector((state) => state.profile.authToken);
+  const { account } = useWeb3React();
+
   const dispatch = useDispatch();
   const profilePic = useSelector((state) => state.profile.userData.profilePic);
   const location = useLocation();
@@ -119,7 +121,7 @@ const Layout = ({ children }) => {
           </ul>
         </div>
         <div className="d-flex navbar-btns">
-          {isLogin ? (
+          {account ? (
             <div
               className="mr-3 cursor-pointer"
               onClick={() => setOpenProfileModal(true)}

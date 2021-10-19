@@ -1,3 +1,4 @@
+import { useWeb3React } from "@web3-react/core";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import nftyLogo from "../../assets/images/coinLogo.png";
@@ -8,7 +9,7 @@ import ConnectWalletModal from "../Stakes/ConnectWalletModal";
 var QRCode = require("qrcode.react");
 
 const Rep = () => {
-  const isLogin = !!useSelector((state) => state.profile.authToken);
+  const { account } = useWeb3React();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,7 +24,7 @@ const Rep = () => {
     <React.Fragment>
       <div className="container">
         <div className="rep-page">
-          {isLogin ? (
+          {account ? (
             <>
               <div className="rep-profile">
                 <div className="rep-profile-details">
@@ -81,7 +82,7 @@ const Rep = () => {
             </>
           )}
         </div>
-        {isLogin && (
+        {account && (
           <div className="row d-flex pt-2 pb-2 stats mt-3">
             <div className="col-sm-4 mt-2 pl-4">
               <div className="head-text">67 Days</div>

@@ -1,11 +1,10 @@
 import { combineReducers } from "redux";
-
-import dummyReducer from "./dummy/dummy";
 import profile from "./profile/profile";
+import stakerReducer from "./Stake/Stake";
 
 const allReducers = combineReducers({
-  dummyReducer,
   profile,
+  stakerReducer,
 });
 
 const rootReducer = (state, action) => {

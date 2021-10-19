@@ -74,3 +74,7 @@ export const updateProfilePicFail = (payload) => ({
   type: actionLabels.UPDATE_PROFILE_PIC_FAIL,
   payload,
 });
+
+export const resetData = () => ({
+  type: actionLabels.RESET_DATA,
+});

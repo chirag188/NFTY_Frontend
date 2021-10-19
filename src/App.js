@@ -13,8 +13,7 @@ import { createUserProfile } from "./store/actions/profile/profile";
 
 const App = () => {
   const [activatingConnector, setActivatingConnector] = useState();
-
-  const { account, connector } = useWeb3React();
+  const { account, connector, active } = useWeb3React();
   const onboarding = useRef();
 
   const dispatch = useDispatch();
@@ -37,15 +36,18 @@ const App = () => {
     }
   }, []);
 
+  const token = localStorage.getItem("JwtToken");
   useEffect(() => {
     if (MetaMaskOnboarding.isMetaMaskInstalled()) {
       if (account && account.length > 0) {
         onboarding.current.stopOnboarding();
-        dispatch(createUserProfile({ walletAddress: account }));
+        if (token === null || token === undefined) {
+          dispatch(createUserProfile({ walletAddress: account }));
+        }
       }
     }
   }, [account]);
-  const { active } = useWeb3React();
+
   const pathname = window.location.pathname.split("/")[1];
   const redirectHandler = () => {
     const guestRoute = guestRoutes
@@ -71,16 +73,11 @@ const App = () => {
           )
       )}
       {redirectHandler()}
-      {/* <Route
-        exact
-        path="/"
-        component={React.lazy(() => import("./views/Login/Login"))}
-      />
-      {localStorage.getItem("userData") === null && <Redirect to="/" />} */}
     </Layout>
   );
 
   if (active) {
+    localStorage.setItem("shouldEagerConnect", true);
     mainContent = (
       <>
         <Route

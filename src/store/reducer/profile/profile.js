@@ -96,6 +96,17 @@ export default (state = initialState, action) => {
         loading: false,
       };
     }
+    case actionLabels.RESET_DATA: {
+      return {
+        loading: false,
+        createdUser: "",
+        errorMsg: "",
+        userData: "",
+        updatedUser: "",
+        updatedProfilePic: "",
+        authToken: "",
+      };
+    }
     default:
       return state;
   }

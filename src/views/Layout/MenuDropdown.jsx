@@ -7,20 +7,27 @@ import profileImg from "../../assets/images/profile.png";
 import nftyLogo from "../../assets/images/coinLogo.png";
 import ConnectWalletModal from "../Stakes/ConnectWalletModal";
 import { useDispatch, useSelector } from "react-redux";
-import { viewProfile } from "../../store/actions";
+import { useWeb3React } from "@web3-react/core";
+import { resetData, viewProfile } from "../../store/actions";
 
 const MenuDropdown = () => {
-  const isLogin = !!useSelector((state) => state.profile.authToken);
+  const { account } = useWeb3React();
+
   const dispatch = useDispatch();
+  const { deactivate } = useWeb3React();
 
   useEffect(() => {
     dispatch(viewProfile());
   }, [dispatch]);
   const profile = useSelector((state) => state.profile.userData);
   const [connectWalletModalOpen, setConnectWalletModalOpen] = useState(false);
+
   const Logout = () => {
-    sessionStorage.clear();
-    window.location.reload();
+    localStorage.clear();
+    deactivate();
+    localStorage.clear();
+    // dispatch(resetData());
+    localStorage.setItem("shouldEagerConnect", false);
   };
   return (
     <div>
@@ -34,7 +41,7 @@ const MenuDropdown = () => {
 
         <Dropdown.Menu>
           <div className="dropdown-profile-section show">
-            {isLogin ? (
+            {account ? (
               <>
                 <div className="profile">
                   <div>
@@ -68,7 +75,7 @@ const MenuDropdown = () => {
               </div>
             )}
           </div>
-          {isLogin ? (
+          {account ? (
             <Dropdown.Item
               href=""
               className=" dropdown-item cursor-pointer mt-3"
@@ -99,7 +106,7 @@ const MenuDropdown = () => {
           <Dropdown.Item href="" className=" dropdown-item cursor-pointer">
             <span className="menu-name">Discord</span>
           </Dropdown.Item>
-          {isLogin && (
+          {account && (
             <>
               <hr />
               <Dropdown.Item

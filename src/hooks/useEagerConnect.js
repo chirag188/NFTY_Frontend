@@ -7,8 +7,12 @@ const useEagerConnect = () => {
   const { activate, active } = useWeb3React();
 
   const [tried, setTried] = useState(false);
+  const shouldEagerConnect = localStorage.getItem("shouldEagerConnect");
 
   useEffect(() => {
+    if (shouldEagerConnect === "false") {
+      return;
+    }
     injected.isAuthorized().then((isAuthorized) => {
       if (isAuthorized) {
         activate(injected, undefined, true).catch(() => {

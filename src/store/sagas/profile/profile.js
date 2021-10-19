@@ -44,8 +44,8 @@ function* createUserSaga(action) {
     if (response.status === 200) {
       yield put(createUserProfileSuccess({ data: response.data.data }));
       yield call(
-        [sessionStorage, "setItem"],
-        "jwtToken",
+        [localStorage, "setItem"],
+        "JwtToken",
         response.data.data.authToken
       );
       yield call(viewProfile());
@@ -69,7 +69,8 @@ function* createUserSaga(action) {
 function* viewProfileSaga() {
   try {
     yield viewProfileStart();
-    const JwtToken = sessionStorage.getItem("jwtToken");
+    const JwtToken = localStorage.getItem("JwtToken");
+    console.log("jwt", JwtToken);
     const response = yield axios
       .get("/users/viewProfile", {
         headers: {
@@ -93,7 +94,7 @@ function* viewProfileSaga() {
 function* updateProfileSaga(action) {
   try {
     yield updateProfileStart();
-    const JwtToken = sessionStorage.getItem("jwtToken");
+    const JwtToken = localStorage.getItem("JwtToken");
     const { name, bio } = action.payload;
     const response = yield axios
       .put(
@@ -126,7 +127,7 @@ function* updateProfileSaga(action) {
 function* updateProfilePicSaga(action) {
   try {
     yield updateProfilePicStart();
-    const JwtToken = sessionStorage.getItem("jwtToken");
+    const JwtToken = localStorage.getItem("JwtToken");
     const { profilePic } = action.payload;
     const formData = new FormData();
     formData.append("profilePic", profilePic);

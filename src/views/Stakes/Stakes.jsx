@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import StarImg from "../../assets/images/Star.png";
 import GoldStarImg from "../../assets/images/GoldStar.png";
 import nftyLogo from "../../assets/images/coinLogo.png";
@@ -7,8 +7,11 @@ import ConnectWalletModal from "./ConnectWalletModal";
 import StakeUnstakeModal from "./StakeUnstakeModal";
 import APREarnedModal from "./APREarnedModal";
 import { ProgressBar } from "react-bootstrap";
-import { useSelector } from "react-redux";
 // import Loader from "../../components/Loader/Loader";
+import { useWeb3React } from "@web3-react/core";
+import { useDispatch, useSelector } from "react-redux";
+import { stakerData, balance } from "../../store/actions/Stake/Stake";
+// import { useStakingContract } from "../../hooks";
 
 const Stakes = () => {
   const [roiCalcModalOpen, setRoiCalcModalOpen] = useState(false);
@@ -16,8 +19,36 @@ const Stakes = () => {
   const [stakeUnstakeModalOpen, setStakeUnstakeModal] = useState(false);
   const [APREarnedModalOpen, setAPREarnedModalOpen] = useState(false);
   const [isStake, setIsStake] = useState(false);
-  const isLogin = !!useSelector((state) => state.profile.authToken);
+  const { account } = useWeb3React();
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    const JwtToken = localStorage.getItem("JwtToken");
+    if (JwtToken) {
+      dispatch(stakerData());
+      dispatch(balance());
+    }
+  }, []);
+
+  const staker = useSelector((state) => state.stakerReducer);
+
+  // const StakingContract = useStakingContract();
+  // const [userDetails,setUserDetails] = useState();
+
+  // useEffect(() => {
+  //   const getUserDetails = async() => {
+  //     try{
+  //       const totalStaked = await StakingContract.methods
+  //         .totalStake()
+  //         .call({from:account})
+  //         .catch((err) => console.log(err));
+  //         setUserDetails({...userDetails,totalStaked});
+  //     } catch(error) {
+  //       console.log(error);
+  //     }
+  //   }
+  //   if(StakingContract?.methods) getUserDetails()
+  // },[])
   return (
     <React.Fragment>
       <div className="container stakes">
@@ -29,11 +60,12 @@ const Stakes = () => {
           </div>
         </div>
         <div className="mt-2 data-container">
-          {isLogin && (
+          {account && (
             <>
               <div className="w-100 text-center p-2">
                 <img className="star-img mr-2 mb-1" src={StarImg} alt="" />
                 <span className="f-14">Silver is your current rank</span>
+                <span className="f-14">{account}</span>
               </div>
               <hr />
               <div className="row user-stats mt-1 mb-1">
@@ -41,7 +73,7 @@ const Stakes = () => {
                   <div className="p-3">
                     <div className="head-text text-center">
                       <img className="nfty-logo" src={nftyLogo} alt="" />
-                      12.321
+                      {staker?.APR}
                     </div>
                     <div className="simple-text text-center">APR Earned</div>
                   </div>
@@ -62,7 +94,7 @@ const Stakes = () => {
                         <span className="f-12">7 or 8 Days</span>
                       </div>
                       <div className="progress-bar">
-                        <ProgressBar variant="warning" now={80} />
+                        <ProgressBar variant="warning" now={(7 / 8) * 100} />
                       </div>
                     </div>
                     <div className="f-b ml-3 mr-3 f-18 mt-2">+</div>
@@ -74,10 +106,15 @@ const Stakes = () => {
                           src={nftyLogo}
                           alt=""
                         />
-                        <span className="f-12">2418 of 3000</span>
+                        <span className="f-12">
+                          {staker?.StakedNFTYBalance} of 3000
+                        </span>
                       </div>
                       <div className="progress-bar">
-                        <ProgressBar variant="warning" now={80} />
+                        <ProgressBar
+                          variant="warning"
+                          now={(2418 / 3000) * 100}
+                        />
                       </div>
                     </div>
                   </div>
@@ -86,7 +123,7 @@ const Stakes = () => {
                   <div className="p-3">
                     <div className="head-text text-center">
                       <img className="nfty-logo" src={nftyLogo} alt="" />
-                      345
+                      {staker?.balance}
                     </div>
                     <div className="simple-text text-center f-12">
                       My Balance
@@ -136,7 +173,7 @@ const Stakes = () => {
                 />
               </div>
             </div>
-            {!isLogin && (
+            {!account && (
               <div className="before-login-btn">
                 <div className="d-flex justify-content-space-between mt-3">
                   <button
@@ -155,7 +192,7 @@ const Stakes = () => {
               </div>
             )}
           </div>
-          {isLogin && (
+          {account && (
             <div className="after-login-btn">
               <div>
                 <button
@@ -180,20 +217,22 @@ const Stakes = () => {
 
         <div className="row d-flex pt-2 pb-2 stats mt-2 ">
           <div className="col-sm-4 pl-4">
-            <div className="head-text margin-top">12.001%</div>
+            <div className="head-text margin-top">{staker?.APR}%</div>
             <div className="simple-text">APR</div>
             <hr />
           </div>
           <div className="col-sm-4 pl-4 mt-2">
             <div className="head-text">
               <img className="nfty-logo" src={nftyLogo} alt="" />
-              12,001
+              {staker?.StakedNFTYBalance}
             </div>
             <div className="simple-text">Total Staked</div>
             <hr />
           </div>
           <div className="col-sm-4 pl-4 mt-2">
-            <div className="head-text">$12,001</div>
+            <div className="head-text">
+              ${staker?.TotalRewards?.$numberDecimal}
+            </div>
             <div className="simple-text">Total Rewards</div>
           </div>
         </div>
