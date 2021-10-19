@@ -8,7 +8,7 @@ import ConnectWalletModal from "../Stakes/ConnectWalletModal";
 var QRCode = require("qrcode.react");
 
 const Rep = () => {
-  const isLogin = sessionStorage.getItem("jwtToken");
+  const isLogin = !!useSelector((state) => state.profile.authToken);
   const dispatch = useDispatch();
 
   useEffect(() => {

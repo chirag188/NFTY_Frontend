@@ -64,6 +64,14 @@
   .calculate-nfty .head-text {
     font-size: 18px;
   }
+  .stats .col-sm-4 {
+    text-align: center;
+    margin: 12px 0px;
+  }
+  .modal-content {
+    overflow-y: scroll;
+    height: 600px;
+  }
 }
 
 @media (max-width: 740px) {

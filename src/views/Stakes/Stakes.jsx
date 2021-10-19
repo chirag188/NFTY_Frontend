@@ -7,6 +7,7 @@ import ConnectWalletModal from "./ConnectWalletModal";
 import StakeUnstakeModal from "./StakeUnstakeModal";
 import APREarnedModal from "./APREarnedModal";
 import { ProgressBar } from "react-bootstrap";
+import { useSelector } from "react-redux";
 // import Loader from "../../components/Loader/Loader";
 
 const Stakes = () => {
@@ -15,7 +16,7 @@ const Stakes = () => {
   const [stakeUnstakeModalOpen, setStakeUnstakeModal] = useState(false);
   const [APREarnedModalOpen, setAPREarnedModalOpen] = useState(false);
   const [isStake, setIsStake] = useState(false);
-  const isLogin = sessionStorage.getItem("jwtToken");
+  const isLogin = !!useSelector((state) => state.profile.authToken);
 
   return (
     <React.Fragment>

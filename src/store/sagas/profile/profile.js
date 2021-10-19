@@ -17,7 +17,18 @@ import {
   viewProfileStart,
   viewProfileSuccess,
 } from "../../actions";
+import { toast } from "react-toastify";
 
+const options = {
+  position: "top-center",
+  autoClose: 5000,
+  hideProgressBar: true,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "colored",
+};
 // eslint-disable-next-line no-unused-vars
 function* createUserSaga(action) {
   try {
@@ -37,14 +48,18 @@ function* createUserSaga(action) {
         "jwtToken",
         response.data.data.authToken
       );
+      yield call(viewProfile());
+      yield toast.success(response.data.msg, options);
     } else if (response !== 200) {
       yield put(
         createUserProfileFail({ error: response.response.data.message })
       );
+      yield toast.error(response.data.err_msg, options);
     } else {
       yield put(
         createUserProfileFail({ error: response.response.data.message })
       );
+      yield toast.error(response.data.err_msg, options);
     }
   } catch (error) {
     yield put(createUserProfileFail({ error }));
@@ -95,10 +110,13 @@ function* updateProfileSaga(action) {
     if (response.status === 200) {
       yield put(updateProfileSuccess({ data: response.data.data }));
       yield put(viewProfile());
+      yield toast.success(response.data.msg, options);
     } else if (response !== 200) {
       yield put(updateProfileFail({ error: response.response.data.message }));
+      yield toast.error(response.data.err_msg, options);
     } else {
       yield put(updateProfileFail({ error: response.response.data.message }));
+      yield toast.error(response.data.err_msg, options);
     }
   } catch (error) {
     yield put(updateProfileFail({ error }));
@@ -123,14 +141,17 @@ function* updateProfilePicSaga(action) {
     if (response.status === 200) {
       yield put(updateProfilePicSuccess({ data: response.data.data }));
       yield put(viewProfile());
+      yield toast.success(response.data.msg, options);
     } else if (response !== 200) {
       yield put(
         updateProfilePicFail({ error: response.response.data.message })
       );
+      yield toast.error(response.data.err_msg, options);
     } else {
       yield put(
         updateProfilePicFail({ error: response.response.data.message })
       );
+      yield toast.error(response.data.err_msg, options);
     }
   } catch (error) {
     yield put(updateProfilePicFail({ error }));

@@ -815,3 +815,22 @@ input::-webkit-inner-spin-button {
   height: 120px;
   text-align: center;
 }
+
+.stake-data-percentage {
+  color: #16d194;
+  font-weight: 700;
+  margin-left: 9px;
+  min-width: 81px;
+}
+.stake-data-percentage-down {
+  color: red;
+  font-weight: 700;
+  margin-left: 9px;
+  min-width: 81px;
+}
+.stake-data-percentage-down .polygon-icon {
+  height: 12px;
+}
+.stake-data-percentage .polygon-icon {
+  height: 14px;
+}

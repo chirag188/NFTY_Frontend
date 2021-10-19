@@ -7,6 +7,7 @@ const initialState = {
   userData: "",
   updatedUser: "",
   updatedProfilePic: "",
+  authToken: "",
 };
 
 export default (state = initialState, action) => {
@@ -21,6 +22,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         createdUser: action.payload.data,
+        authToken: action.payload.data.authToken,
         loading: false,
       };
     }

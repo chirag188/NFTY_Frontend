@@ -5,6 +5,7 @@ import { createStore, applyMiddleware, compose } from "redux";
 import createSagaMiddleware from "redux-saga";
 
 import { Web3ReactProvider } from "@web3-react/core";
+import { ToastContainer, Slide } from "react-toastify";
 
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
@@ -16,6 +17,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./assets/styles/index.css";
 import "./index.css";
 import "./assets/styles/responsive.css";
+import "react-toastify/dist/ReactToastify.css";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 // const composeEnhancers =
@@ -37,6 +39,19 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <Web3ReactProvider getLibrary={getLibrary}>
+        <ToastContainer
+          position="top-center"
+          transition={Slide}
+          autoClose={5000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          className="custom-toast"
+        />
         <App />
       </Web3ReactProvider>
     </Provider>

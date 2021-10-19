@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { viewProfile } from "../../store/actions";
 
 const MenuDropdown = () => {
-  const isLogin = sessionStorage.getItem("jwtToken");
+  const isLogin = !!useSelector((state) => state.profile.authToken);
   const dispatch = useDispatch();
 
   useEffect(() => {

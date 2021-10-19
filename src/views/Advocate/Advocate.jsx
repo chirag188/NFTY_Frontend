@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import nftyLogo from "../../assets/images/coinLogo.png";
 import ConnectWalletModal from "../Stakes/ConnectWalletModal";
 import RewardsEarnedModal from "./RewardsEarnedModal";
 
 const Advocate = () => {
-  const isLogin = sessionStorage.getItem("jwtToken");
+  const isLogin = !!useSelector((state) => state.profile.authToken);
 
   const [rewardsEarnedModalOpen, setRewardsEarnedModalOpen] = useState(false);
   const [connectWalletModalOpen, setConnectWalletModalOpen] = useState(false);

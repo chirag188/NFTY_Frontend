@@ -81,12 +81,19 @@ const ProfileModal = (props) => {
             type="text"
             name="name"
             className="form-control"
-            value={name || (profile && profile.name && profile.name) || ""}
+            value={name || (profile && profile.name) || ""}
             onChange={handleChange}
             autocomplete="off"
+            onBlur={() => {
+              if (name !== profile.name) {
+                dispatch(updateProfile({ name }));
+              }
+            }}
             onKeyPress={(e) => {
               if (e.key === "Enter") {
-                dispatch(updateProfile({ name }));
+                if (name !== profile.name) {
+                  dispatch(updateProfile({ name }));
+                }
               }
             }}
           />
@@ -100,14 +107,13 @@ const ProfileModal = (props) => {
         <div className="f-b f-18 mt-2">Bio</div>
         <div className="rep-body-text pb-2 pt-1 profile-bio">
           <textarea
-            value={bio || (profile && profile.bio && profile.bio) || ""}
+            value={bio || "" || (profile && profile.bio)}
             onChange={handleBioChange}
-            onBlur={() => dispatch(updateProfile({ bio }))}
-            // onKeyPress={(e) => {
-            //   if (e.key === "Enter") {
-            //     dispatch(updateProfile({ bio }));
-            //   }
-            // }}
+            onBlur={() => {
+              if (bio !== profile.bio) {
+                dispatch(updateProfile({ bio }));
+              }
+            }}
           />
         </div>
       </div>
