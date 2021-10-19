@@ -37,8 +37,6 @@ const App = () => {
     if (MetaMaskOnboarding.isMetaMaskInstalled()) {
       if (account && account.length > 0) {
         onboarding.current.stopOnboarding();
-      } else {
-        localStorage.clear();
       }
     }
   }, [account]);

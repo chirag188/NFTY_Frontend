@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
-import dummyReducer from './dummy/dummy';
+import stakerReducer from './Stake/Stake';
 
 const allReducers = combineReducers({
-  dummyReducer
+  stakerReducer
 });
 
 const rootReducer = (state, action) => {
