@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import StarImg from "../../assets/images/Star.png";
 import GoldStarImg from "../../assets/images/GoldStar.png";
 import nftyLogo from "../../assets/images/coinLogo.png";
@@ -9,6 +9,7 @@ import APREarnedModal from "./APREarnedModal";
 import { ProgressBar } from "react-bootstrap";
 // import Loader from "../../components/Loader/Loader";
 import { useWeb3React } from "@web3-react/core";
+// import { useStakingContract } from "../../hooks";
 
 const Stakes = () => {
   const [roiCalcModalOpen, setRoiCalcModalOpen] = useState(false);
@@ -17,7 +18,24 @@ const Stakes = () => {
   const [APREarnedModalOpen, setAPREarnedModalOpen] = useState(false);
   const [isStake, setIsStake] = useState(false);
   const { account } = useWeb3React();
+  
+  // const StakingContract = useStakingContract();
+  // const [userDetails,setUserDetails] = useState();
 
+  // useEffect(() => {
+  //   const getUserDetails = async() => {
+  //     try{
+  //       const totalStaked = await StakingContract.methods
+  //         .totalStake()
+  //         .call({from:account})
+  //         .catch((err) => console.log(err));
+  //         setUserDetails({...userDetails,totalStaked});
+  //     } catch(error) {
+  //       console.log(error);
+  //     }
+  //   }
+  //   if(StakingContract?.methods) getUserDetails()
+  // },[])
   return (
     <React.Fragment>
       <div className="container stakes">
@@ -34,6 +52,7 @@ const Stakes = () => {
               <div className="w-100 text-center p-2">
                 <img className="star-img mr-2 mb-1" src={StarImg} alt="" />
                 <span className="f-14">Silver is your current rank</span>
+                <span className="f-14">{account}</span>
               </div>
               <hr />
               <div className="row user-stats mt-1 mb-1">

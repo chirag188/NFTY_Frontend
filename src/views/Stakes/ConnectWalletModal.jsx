@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Modal from "../../components/Modal/Modal";
 import metamaskImg from "../../assets/images/metamask.png";
 import walletConnectImg from "../../assets/images/wallet-Connect.png";
@@ -7,7 +7,7 @@ import trustwalletImg from "../../assets/images/trustwallet.png";
 import formaticeWallet from "../../assets/images/formatice.png";
 import MetaMaskOnboarding from "@metamask/onboarding";
 import { useWeb3React } from "@web3-react/core";
-import { injected } from "./../../utils/connectors";
+import { injected, walletconnect, walletLink } from "./../../utils/connectors";
 
 const ConnectWalletModal = (props) => {
   const closeModal = () => {
@@ -18,7 +18,7 @@ const ConnectWalletModal = (props) => {
     sessionStorage.setItem("token", true);
     window.location.reload();
   };
-  const { account, activate } = useWeb3React();
+  const { account, activate, connector } = useWeb3React();
   const onboarding = useRef();
   useEffect(() => {
     if (!onboarding.current) {
@@ -39,6 +39,24 @@ const ConnectWalletModal = (props) => {
       onboarding.current.startOnboarding();
     }
   };
+
+  const [activatingConnector, setActivatingConnector] = useState();
+  useEffect(() => {
+    if (activatingConnector && activatingConnector === connector) {
+      setActivatingConnector(undefined);
+    }
+  }, [activatingConnector, connector]);
+  
+  const onConnectWithWalletConnectClick = () => {
+    setActivatingConnector(walletconnect);
+    activate(walletconnect);
+  };
+
+  const onLinkConnectClick = () => {
+    setActivatingConnector(walletLink);
+    activate(walletLink);
+  };
+
   return (
     <Modal
       closeModal={closeModal}
@@ -57,7 +75,7 @@ const ConnectWalletModal = (props) => {
             </button>
           </div>
           <div className="col-sm-4 d-flex justify-content-center">
-            <button className="btn" onClick={Login}>
+            <button className="btn" onClick={onConnectWithWalletConnectClick}>
               <div className="w-100 text-center">
                 <img className="mb-2" src={walletConnectImg} alt="" />
               </div>
@@ -83,7 +101,7 @@ const ConnectWalletModal = (props) => {
             </button>
           </div>
           <div className="col-sm-6 d-flex justify-content-center">
-            <button className="btn" onClick={Login}>
+            <button className="btn" onClick={onLinkConnectClick}>
               <div className="w-100 text-center">
                 <img className="" src={coinbaseImg} alt="" />
               </div>

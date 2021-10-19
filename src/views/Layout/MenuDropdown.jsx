@@ -5,11 +5,13 @@ import hamburgerIcon from "../../assets/images/hamburger.png";
 import StarImg from "../../assets/images/Star.png";
 import profile from "../../assets/images/dummyPic.png";
 import nftyLogo from "../../assets/images/coinLogo.png";
+import { useWeb3React } from "@web3-react/core";
 
 const MenuDropdown = () => {
+  const { deactivate } = useWeb3React();
   const Logout = () => {
-    sessionStorage.clear();
-    window.location.reload();
+    localStorage.clear();
+    deactivate();
   };
   return (
     <div>

@@ -329,6 +329,30 @@
             "type": "function"
         },
         {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "stakingTime",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getRewardRate",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "rewardRate",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
             "inputs": [],
             "name": "getRewardRates",
             "outputs": [
