@@ -8,8 +8,9 @@ import "./App.css";
 import Loader from "./components/Loader/Loader";
 import Layout from "./views/Layout/Layout";
 import { useEagerConnect, useInactiveListener } from "./hooks";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createUserProfile } from "./store/actions/profile/profile";
+import { balance, stakerData } from "./store/actions";
 
 const App = () => {
   const [activatingConnector, setActivatingConnector] = useState();
@@ -41,12 +42,23 @@ const App = () => {
     if (MetaMaskOnboarding.isMetaMaskInstalled()) {
       if (account && account.length > 0) {
         onboarding.current.stopOnboarding();
-        if (token === null || token === undefined) {
-          dispatch(createUserProfile({ walletAddress: account }));
-        }
+      }
+    }
+    if (account && account.length > 0) {
+      if (token === null || token === undefined) {
+        dispatch(createUserProfile({ walletAddress: account }));
       }
     }
   }, [account]);
+
+  const JwtToken = !!useSelector((state) => state.profile.authToken);
+
+  useEffect(() => {
+    if (JwtToken) {
+      dispatch(stakerData());
+      dispatch(balance());
+    }
+  }, []);
 
   const pathname = window.location.pathname.split("/")[1];
   const redirectHandler = () => {

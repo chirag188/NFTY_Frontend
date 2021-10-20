@@ -776,7 +776,9 @@ input::-webkit-inner-spin-button {
   top: -111%;
   cursor: pointer;
 }
-
+.camera input[type="file"]::-webkit-file-upload-button {
+  cursor: pointer;
+}
 .camera img {
   position: absolute;
   top: 10px;

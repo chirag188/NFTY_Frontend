@@ -65,7 +65,6 @@ const Stakes = () => {
               <div className="w-100 text-center p-2">
                 <img className="star-img mr-2 mb-1" src={StarImg} alt="" />
                 <span className="f-14">Silver is your current rank</span>
-                <span className="f-14">{account}</span>
               </div>
               <hr />
               <div className="row user-stats mt-1 mb-1">

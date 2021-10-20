@@ -26,7 +26,7 @@ const MenuDropdown = () => {
     localStorage.clear();
     deactivate();
     localStorage.clear();
-    // dispatch(resetData());
+    dispatch(resetData());
     localStorage.setItem("shouldEagerConnect", false);
   };
   return (

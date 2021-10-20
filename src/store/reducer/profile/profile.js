@@ -97,15 +97,7 @@ export default (state = initialState, action) => {
       };
     }
     case actionLabels.RESET_DATA: {
-      return {
-        loading: false,
-        createdUser: "",
-        errorMsg: "",
-        userData: "",
-        updatedUser: "",
-        updatedProfilePic: "",
-        authToken: "",
-      };
+      return initialState;
     }
     default:
       return state;
