@@ -7,31 +7,40 @@ import ConnectWalletModal from "./ConnectWalletModal";
 import StakeUnstakeModal from "./StakeUnstakeModal";
 import APREarnedModal from "./APREarnedModal";
 import { ProgressBar } from "react-bootstrap";
-// import Loader from "../../components/Loader/Loader";
+import axios from "axios";
 import { useWeb3React } from "@web3-react/core";
 import { useDispatch, useSelector } from "react-redux";
 import { stakerData, balance } from "../../store/actions/Stake/Stake";
-// import { useStakingContract } from "../../hooks";
 
 const Stakes = () => {
   const [roiCalcModalOpen, setRoiCalcModalOpen] = useState(false);
   const [connectWalletModalOpen, setConnectWalletModalOpen] = useState(false);
   const [stakeUnstakeModalOpen, setStakeUnstakeModal] = useState(false);
   const [APREarnedModalOpen, setAPREarnedModalOpen] = useState(false);
+  const [marketData, setMarketData] = useState();
   const [isStake, setIsStake] = useState(false);
   const { account } = useWeb3React();
   const dispatch = useDispatch();
 
+  const makeAPICall = () => {
+    const ress = axios
+      .get(`https://api.coingecko.com/api/v3/coins/nifty-token`)
+      .then((res) => {
+        const responce = res.data?.tickers[0]?.converted_last?.usd;
+        setMarketData(responce);
+      });
+  };
   useEffect(() => {
     const JwtToken = localStorage.getItem("JwtToken");
     if (JwtToken) {
       dispatch(stakerData());
       dispatch(balance());
     }
+    makeAPICall();
   }, []);
-
   const staker = useSelector((state) => state.stakerReducer);
-
+  const [nftyToken, setNftyToken] = useState(1);
+  const usdValue = (marketData && marketData) * nftyToken;
   // const StakingContract = useStakingContract();
   // const [userDetails,setUserDetails] = useState();
 
@@ -142,7 +151,12 @@ const Stakes = () => {
                 </div>
               </div>
               <div className="d-flex">
-                <div className="head-text mr-3">~$300</div>
+                <div className="head-text mr-3">
+                  ~$
+                  {usdValue && usdValue !== 0
+                    ? usdValue.toFixed(4)
+                    : marketData && marketData?.toFixed(4)}
+                </div>
                 <button
                   className="plus-minus-btn f-b mr-3"
                   onClick={() => {
@@ -169,6 +183,7 @@ const Stakes = () => {
                   className="form-control"
                   type="number"
                   placeholder="0.00"
+                  onChange={(e) => setNftyToken(e.target.value)}
                 />
               </div>
             </div>

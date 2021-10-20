@@ -70,7 +70,6 @@ function* viewProfileSaga() {
   try {
     yield viewProfileStart();
     const JwtToken = localStorage.getItem("JwtToken");
-    console.log("jwt", JwtToken);
     const response = yield axios
       .get("/users/viewProfile", {
         headers: {

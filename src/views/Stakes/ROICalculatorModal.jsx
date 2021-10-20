@@ -1,9 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "../../components/Modal/Modal";
 import ExchangeArrowIcon from "../../assets/images/exchangeArrow.png";
 import nftyLogo from "../../assets/images/coinLogo.png";
+import axios from "axios";
 
 const ROICalculatorModal = (props) => {
+  const [marketData, setMarketData] = useState();
+
+  const makeAPICall = () => {
+    const ress = axios
+      .get(`https://api.coingecko.com/api/v3/coins/nifty-token`)
+      .then((res) => {
+        const responce = res.data?.tickers[0]?.converted_last?.usd;
+        setMarketData(responce);
+      });
+  };
+  useEffect(() => {
+    makeAPICall();
+  }, []);
+
+  const [nftyToken, setNftyToken] = useState();
+  const usdValue =
+    (marketData && marketData) * (nftyToken === undefined ? 1 : nftyToken);
   const closeModal = () => {
     const { modalOpenClose } = props;
     modalOpenClose(false);
@@ -62,7 +80,7 @@ const ROICalculatorModal = (props) => {
             <input
               type="text"
               className="form-control input-amount"
-              placeholder="$63.1"
+              value={(marketData && marketData) || ""}
             />
           </div>
         </div>
@@ -75,7 +93,12 @@ const ROICalculatorModal = (props) => {
               </div>
             </div>
             <div className="d-flex">
-              <div className="f-b mr-3">~$300</div>
+              <div className="f-b mr-3">
+                ~$
+                {usdValue && usdValue !== 0
+                  ? usdValue.toFixed(4)
+                  : marketData && marketData?.toFixed(4)}
+              </div>
             </div>
           </div>
           <div className="d-flex justify-content-center">
@@ -84,6 +107,8 @@ const ROICalculatorModal = (props) => {
                 className="form-control amount-input"
                 type="number"
                 placeholder="0.00"
+                onChange={(e) => setNftyToken(e.target.value)}
+                value={nftyToken || ""}
               />
             </div>
           </div>
@@ -98,6 +123,7 @@ const ROICalculatorModal = (props) => {
               type="button"
               className="btn f-14"
               style={{ borderRadius: "300px", maxWidth: "100px" }}
+              onClick={() => setNftyToken(100)}
             >
               <img className="nfty-logo" src={nftyLogo} alt="" />
               100
@@ -106,6 +132,7 @@ const ROICalculatorModal = (props) => {
               type="button"
               className="btn f-14"
               style={{ borderRadius: "300px", maxWidth: "100px" }}
+              onClick={() => setNftyToken(500)}
             >
               <img className="nfty-logo" src={nftyLogo} alt="" />
               500
@@ -114,6 +141,7 @@ const ROICalculatorModal = (props) => {
               type="button"
               className="btn f-14"
               style={{ borderRadius: "300px", maxWidth: "100px" }}
+              onClick={() => setNftyToken(1000)}
             >
               <img className="nfty-logo" src={nftyLogo} alt="" />
               1000
@@ -122,6 +150,7 @@ const ROICalculatorModal = (props) => {
               type="button"
               className="btn f-14"
               style={{ borderRadius: "300px", maxWidth: "100px" }}
+              onClick={() => setNftyToken(5000)}
             >
               <img className="nfty-logo" src={nftyLogo} alt="" />
               5000

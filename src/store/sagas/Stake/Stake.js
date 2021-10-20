@@ -38,7 +38,6 @@ function* balanceSaga() {
   try {
     yield balanceStart();
     const JwtToken = localStorage.getItem("JwtToken");
-    console.log(JwtToken);
     const response = yield axios
       .get("/users/balance", {
         headers: {
