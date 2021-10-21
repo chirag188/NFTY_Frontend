@@ -104,7 +104,17 @@ const ROICalculatorModal = (props) => {
       </div>
       <hr className="w-100 mt-2 mb-2" />
       <div>
-        <button className="yellow-btn w-100 btn">Buy NFTY</button>
+        <button className="yellow-btn w-100 btn">
+          <a
+            className="nav-link f-b"
+            // eslint-disable-next-line max-len
+            href="https://app.uniswap.org/#/swap?inputCurrency=eth&outputCurrency=0x3085154623f51b00dedfc6ceeb5197277a66b17b"
+            target="_blank"
+            style={{ color: "#000000" }}
+          >
+            Buy NFTY
+          </a>
+        </button>
       </div>
       <div className="f-12 text-center mt-2">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent lacus
