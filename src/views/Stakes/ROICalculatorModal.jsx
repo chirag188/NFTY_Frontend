@@ -61,8 +61,7 @@ const ROICalculatorModal = (props) => {
 
   const calculatedNfty = (
     (getStakingReward(nftyToken, stakedForDays) * nftyToken * stakedForDays) /
-      (100 * 365) +
-    Number(nftyToken)
+    (100 * 365)
   ).toFixed(2);
 
   const calculatedFinalUsd = (calculatedNfty * Number(marketData)).toFixed(2);
@@ -92,7 +91,7 @@ const ROICalculatorModal = (props) => {
           <div className="f-b f-14 mt-1 ml-3"> ROI at Current Rates</div>
         </div>
         <div className="d-flex justify-content-space-evenly">
-          <div className="f-12 mt-1">
+          <div className="f-12 mt-1 mr-3">
             ~${calculatedFinalUsd === "NaN" ? 0 : calculatedFinalUsd}
           </div>
           <div>
