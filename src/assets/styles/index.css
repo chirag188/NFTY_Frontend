@@ -785,7 +785,9 @@ input::-webkit-inner-spin-button {
   width: 40px;
   cursor: pointer;
 }
-
+input[type=file]::-webkit-file-upload-button {
+  cursor: pointer; 
+}
 .profile-modal .profile-pic .pic {
   height: 105px;
   width: 105px;

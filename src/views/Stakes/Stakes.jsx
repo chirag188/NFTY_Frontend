@@ -7,11 +7,9 @@ import ConnectWalletModal from "./ConnectWalletModal";
 import StakeUnstakeModal from "./StakeUnstakeModal";
 import APREarnedModal from "./APREarnedModal";
 import { ProgressBar } from "react-bootstrap";
-// import Loader from "../../components/Loader/Loader";
 import { useWeb3React } from "@web3-react/core";
 import { useDispatch, useSelector } from "react-redux";
 import { stakerData, balance } from "../../store/actions/Stake/Stake";
-// import { useStakingContract } from "../../hooks";
 
 const Stakes = () => {
   const [roiCalcModalOpen, setRoiCalcModalOpen] = useState(false);
@@ -32,23 +30,6 @@ const Stakes = () => {
 
   const staker = useSelector((state) => state.stakerReducer);
 
-  // const StakingContract = useStakingContract();
-  // const [userDetails,setUserDetails] = useState();
-
-  // useEffect(() => {
-  //   const getUserDetails = async() => {
-  //     try{
-  //       const totalStaked = await StakingContract.methods
-  //         .totalStake()
-  //         .call({from:account})
-  //         .catch((err) => console.log(err));
-  //         setUserDetails({...userDetails,totalStaked});
-  //     } catch(error) {
-  //       console.log(error);
-  //     }
-  //   }
-  //   if(StakingContract?.methods) getUserDetails()
-  // },[])
   return (
     <React.Fragment>
       <div className="container stakes">

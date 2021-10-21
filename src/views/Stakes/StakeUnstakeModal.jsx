@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Modal from "../../components/Modal/Modal";
 import Slider, { createSliderWithTooltip, SliderTooltip } from "rc-slider";
 import nftyLogo from "../../assets/images/coinLogo.png";
@@ -14,6 +14,7 @@ const StakeUnstakeModal = (props) => {
   const { account } = useWeb3React();
   const NFTYContract = useNFTYContract();
   const StakingContract = useStakingContract();
+  const [stakeValue,setStakeValue] = useState();
   const closeModal = () => {
     const { modalOpenClose } = props;
     modalOpenClose(false);
@@ -40,20 +41,22 @@ const StakeUnstakeModal = (props) => {
     );
   };
   const stakeTokens = () => {
+    if(!stakeValue)
+      return
     if(isStakeModal){
       NFTYContract.methods
         .approve(
           process.env.REACT_APP_STAKING_CONTRACT_ADDRESS,
-          Web3Utils.toWei("100")
+          Web3Utils.toWei(stakeValue.toString())
         )
         .send({ from: account, gasLimit: 600000 })
         .then(() => {
           StakingContract.methods
-            .stakeTokens(Web3Utils.toWei("100"))
+            .stakeTokens(Web3Utils.toWei(stakeValue.toString()))
             .estimateGas({ from: account })
             .then((gasLimit) => {
               StakingContract.methods
-                .stakeTokens(Web3Utils.toWei("100"))
+                .stakeTokens(Web3Utils.toWei(stakeValue.toString()))
                 .send({ from: account, gasLimit })
                 .then((result) => console.log(result))
                 .catch((error) => console.log(error));
@@ -63,11 +66,11 @@ const StakeUnstakeModal = (props) => {
       .catch((error) => console.log(error));
     } else {
       StakingContract.methods
-      .unstakeTokens(Web3Utils.toWei("100"))
+      .unstakeTokens(Web3Utils.toWei(stakeValue.toString()))
       .estimateGas({ from: account })
       .then((gasLimit) => {
         StakingContract.methods
-          .unstakeTokens(Web3Utils.toWei("100"))
+          .unstakeTokens(Web3Utils.toWei(stakeValue.toString()))
           .send({ from: account, gasLimit })
           .then((result) => console.log(result))
           .catch((error) => console.log(error));
@@ -75,7 +78,7 @@ const StakeUnstakeModal = (props) => {
       .catch((error) => console.log(error));
     }
   }
-  const unStake = () => {
+  const unStakeAllTokens = () => {
     StakingContract.methods
       .unstakeAll()
       .estimateGas({ from: account })
@@ -98,7 +101,7 @@ const StakeUnstakeModal = (props) => {
       )}
       <div className="d-flex justify-content-space-between mt-3">
         <button className="orange-btn w-100 mr-3 f-14" onClick={stakeTokens}>Confirm</button>
-        <button className="yellow-btn w-100 f-14" onClick={unStake}>
+        <button className="yellow-btn w-100 f-14" onClick={unStakeAllTokens}>
           {isStakeModal ? "Buy NFTY" : "Stake"}
         </button>
       </div>
@@ -133,6 +136,7 @@ const StakeUnstakeModal = (props) => {
                 className="form-control"
                 type="number"
                 placeholder="0.00"
+                onChange={(event) => setStakeValue(event.target.value)}
               />
             </div>
           </div>
