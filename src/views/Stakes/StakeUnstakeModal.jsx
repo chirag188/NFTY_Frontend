@@ -9,13 +9,15 @@ import Web3Utils from "web3-utils";
 import { useNFTYContract, useStakingContract } from "../../hooks";
 import { useWeb3React } from "@web3-react/core";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const StakeUnstakeModal = (props) => {
-  const { isStakeModal } = props;
+  const { isStakeModal, setStakeModal } = props;
   const { account } = useWeb3React();
   const NFTYContract = useNFTYContract();
   const StakingContract = useStakingContract();
   const [marketData, setMarketData] = useState();
+  const staker = useSelector((state) => state.stakerReducer);
 
   const makeAPICall = () => {
     const ress = axios
@@ -28,11 +30,16 @@ const StakeUnstakeModal = (props) => {
   useEffect(() => {
     makeAPICall();
   }, []);
-  const [nftyToken, setNftyToken] = useState(0);
 
+  const [stakeValue, setStakeValue] = useState(0);
+  const [rollerValue, setRollerValue] = useState(0);
+  const handleChange = (e) => {
+    setRollerValue(e);
+    const value = (e * staker?.StakedNFTYBalance) / 100;
+    setStakeValue(value);
+  };
   const usdValue =
-    (marketData && marketData) * (nftyToken === 0 ? 1 : nftyToken);
-
+    (marketData && marketData) * (stakeValue === 0 ? 1 : stakeValue);
   const closeModal = () => {
     const { modalOpenClose } = props;
     modalOpenClose(false);
@@ -59,20 +66,21 @@ const StakeUnstakeModal = (props) => {
     );
   };
   const stakeTokens = () => {
+    if (!stakeValue) return;
     if (isStakeModal) {
       NFTYContract.methods
         .approve(
           process.env.REACT_APP_STAKING_CONTRACT_ADDRESS,
-          Web3Utils.toWei("100")
+          Web3Utils.toWei(stakeValue.toString())
         )
         .send({ from: account, gasLimit: 600000 })
         .then(() => {
           StakingContract.methods
-            .stakeTokens(Web3Utils.toWei("100"))
+            .stakeTokens(Web3Utils.toWei(stakeValue.toString()))
             .estimateGas({ from: account })
             .then((gasLimit) => {
               StakingContract.methods
-                .stakeTokens(Web3Utils.toWei("100"))
+                .stakeTokens(Web3Utils.toWei(stakeValue.toString()))
                 .send({ from: account, gasLimit })
                 .then((result) => console.log(result))
                 .catch((error) => console.log(error));
@@ -82,11 +90,11 @@ const StakeUnstakeModal = (props) => {
         .catch((error) => console.log(error));
     } else {
       StakingContract.methods
-        .unstakeTokens(Web3Utils.toWei("100"))
+        .unstakeTokens(Web3Utils.toWei(stakeValue.toString()))
         .estimateGas({ from: account })
         .then((gasLimit) => {
           StakingContract.methods
-            .unstakeTokens(Web3Utils.toWei("100"))
+            .unstakeTokens(Web3Utils.toWei(stakeValue.toString()))
             .send({ from: account, gasLimit })
             .then((result) => console.log(result))
             .catch((error) => console.log(error));
@@ -94,7 +102,7 @@ const StakeUnstakeModal = (props) => {
         .catch((error) => console.log(error));
     }
   };
-  const unStake = () => {
+  const unStakeAllTokens = () => {
     StakingContract.methods
       .unstakeAll()
       .estimateGas({ from: account })
@@ -119,9 +127,16 @@ const StakeUnstakeModal = (props) => {
         <button className="orange-btn w-100 mr-3 f-14" onClick={stakeTokens}>
           Confirm
         </button>
-        <button className="yellow-btn w-100 f-14" onClick={unStake}>
-          {isStakeModal ? "Buy NFTY" : "Stake"}
-        </button>
+        {isStakeModal ? (
+          <button className="yellow-btn w-100 f-14">Buy NFTY</button>
+        ) : (
+          <button
+            className="yellow-btn w-100 f-14"
+            onClick={() => setStakeModal(true)}
+          >
+            Stake
+          </button>
+        )}
       </div>
     </div>
   );
@@ -163,8 +178,10 @@ const StakeUnstakeModal = (props) => {
                 className="form-control"
                 type="number"
                 placeholder="0.00"
-                onChange={(e) => setNftyToken(e.target.value)}
-                value={nftyToken || ""}
+                value={stakeValue || ""}
+                onChange={(event) => {
+                  setStakeValue(event.target.value);
+                }}
               />
             </div>
           </div>
@@ -172,7 +189,9 @@ const StakeUnstakeModal = (props) => {
         <hr />
         <div className="w-100 mt-1">
           <div className="text-center f-b ml-3">
-            {isStakeModal ? "Staked Balance 12.09" : "Balance 12.09"}
+            {isStakeModal
+              ? `Staked Balance ${staker?.StakedNFTYBalance}`
+              : `Balance ${staker?.StakedNFTYBalance}`}
           </div>
           <div className=" w-100">
             <div style={{ maxWidth: 400, margin: "16px 50px" }}>
@@ -180,12 +199,14 @@ const StakeUnstakeModal = (props) => {
                 min={0}
                 max={100}
                 defaultValue={0}
-                handle={handle}
                 handleStyle={{
                   height: "16px",
                   width: "16px",
                   marginTop: "0px",
                 }}
+                value={rollerValue}
+                onChange={(e) => handleChange(e)}
+                // onAfterChange={handleChange}
                 trackStyle={{ height: "14px" }}
                 railStyle={{ height: "14px" }}
               />

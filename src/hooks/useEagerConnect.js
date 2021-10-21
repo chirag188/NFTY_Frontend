@@ -8,9 +8,10 @@ const useEagerConnect = () => {
 
   const [tried, setTried] = useState(false);
   const shouldEagerConnect = localStorage.getItem("shouldEagerConnect");
+  const fortmaticConnect = localStorage.getItem("fortmaticConnect");
 
   useEffect(() => {
-    if (shouldEagerConnect === "false") {
+    if (shouldEagerConnect === "false" || fortmaticConnect === "true") {
       return;
     }
     injected.isAuthorized().then((isAuthorized) => {

@@ -1,32 +1,15 @@
 import React from "react";
 import Modal from "../../components/Modal/Modal";
 import rewardLogo from "../../assets/images/rewardIcon.png";
-import { useStakingContract } from "./../../hooks";
-import { useWeb3React } from "@web3-react/core";
 
 const RewardsEarnedModal = (props) => {
-  const { account } = useWeb3React();
-  const StakingContract =useStakingContract();
   const closeModal = () => {
     const { modalOpenClose } = props;
     modalOpenClose(false);
   };
-  const collectRewards = async() => {
-    StakingContract.methods
-    .claimRewards()
-    .estimateGas({ from: account })
-    .then((gasLimit) => {
-      StakingContract.methods
-        .claimRewards()
-        .send({ from: account, gasLimit })
-        .then((result) => console.log(result))
-        .catch((error) => console.log(error));
-    })
-    .catch((error) => console.log(error));
-  }
   const FooterComponent = () => (
     <div className="w-100 mt-3 apr-earned-modal-footer">
-      <button className="orange-btn w-100 f-18" onClick={collectRewards}>Collect</button>
+      <button className="orange-btn w-100 f-18">Collect</button>
     </div>
   );
 

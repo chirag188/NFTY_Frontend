@@ -21,6 +21,7 @@ const Stakes = () => {
   const [isStake, setIsStake] = useState(false);
   const { account } = useWeb3React();
   const dispatch = useDispatch();
+  console.log(account);
 
   const makeAPICall = () => {
     const ress = axios
@@ -41,23 +42,6 @@ const Stakes = () => {
   const staker = useSelector((state) => state.stakerReducer);
   const [nftyToken, setNftyToken] = useState(1);
   const usdValue = (marketData && marketData) * nftyToken;
-  // const StakingContract = useStakingContract();
-  // const [userDetails,setUserDetails] = useState();
-
-  // useEffect(() => {
-  //   const getUserDetails = async() => {
-  //     try{
-  //       const totalStaked = await StakingContract.methods
-  //         .totalStake()
-  //         .call({from:account})
-  //         .catch((err) => console.log(err));
-  //         setUserDetails({...userDetails,totalStaked});
-  //     } catch(error) {
-  //       console.log(error);
-  //     }
-  //   }
-  //   if(StakingContract?.methods) getUserDetails()
-  // },[])
   return (
     <React.Fragment>
       <div className="container stakes">
@@ -84,7 +68,7 @@ const Stakes = () => {
                       <img className="nfty-logo" src={nftyLogo} alt="" />
                       {staker?.APR}
                     </div>
-                    <div className="simple-text text-center">APR Earned</div>
+                    <div className="simple-text text-center">Reward Earned</div>
                   </div>
                 </div>
                 <div className="col-md-6 target-data-border">
@@ -161,8 +145,12 @@ const Stakes = () => {
                 <button
                   className="plus-minus-btn f-b mr-3"
                   onClick={() => {
-                    setIsStake(true);
-                    setStakeUnstakeModal(true);
+                    if (account) {
+                      setIsStake(true);
+                      setStakeUnstakeModal(true);
+                    } else {
+                      setConnectWalletModalOpen(true);
+                    }
                   }}
                 >
                   +
@@ -170,8 +158,12 @@ const Stakes = () => {
                 <button
                   className="plus-minus-btn f-b"
                   onClick={() => {
-                    setIsStake(false);
-                    setStakeUnstakeModal(true);
+                    if (account) {
+                      setIsStake(false);
+                      setStakeUnstakeModal(true);
+                    } else {
+                      setConnectWalletModalOpen(true);
+                    }
                   }}
                 >
                   -
@@ -222,7 +214,7 @@ const Stakes = () => {
                   className="orange-btn w-100 mr-2"
                   onClick={() => setAPREarnedModalOpen(true)}
                 >
-                  Collect APR
+                  Collect Reward
                 </button>
                 <button className="yellow-btn w-100 ml-1"> Buy NFTY</button>
               </div>
@@ -246,7 +238,10 @@ const Stakes = () => {
           </div>
           <div className="col-sm-4 pl-4 mt-2">
             <div className="head-text">
-              ${staker?.TotalRewards?.$numberDecimal}
+              $
+              {staker?.TotalRewards?.$numberDecimal
+                ? staker?.TotalRewards?.$numberDecimal
+                : 0}
             </div>
             <div className="simple-text">Total Rewards</div>
           </div>
@@ -269,10 +264,14 @@ const Stakes = () => {
         <StakeUnstakeModal
           isStakeModal={isStake}
           modalOpenClose={setStakeUnstakeModal}
+          setStakeModal={setIsStake}
         />
       )}
       {APREarnedModalOpen && (
-        <APREarnedModal modalOpenClose={setAPREarnedModalOpen} />
+        <APREarnedModal
+          modalOpenClose={setAPREarnedModalOpen}
+          usdAmount={marketData}
+        />
       )}
     </React.Fragment>
   );

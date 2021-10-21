@@ -7,7 +7,7 @@ import trustwalletImg from "../../assets/images/trustwallet.png";
 import formaticeWallet from "../../assets/images/formatice.png";
 import MetaMaskOnboarding from "@metamask/onboarding";
 import { useWeb3React } from "@web3-react/core";
-import { injected, walletconnect, walletLink } from "./../../utils/connectors";
+import { injected, walletconnect, walletLink, fortmatic } from "./../../utils/connectors";
 
 const ConnectWalletModal = (props) => {
   const closeModal = () => {
@@ -57,6 +57,12 @@ const ConnectWalletModal = (props) => {
     activate(walletLink);
   };
 
+  const onConnectWithFortmaticClick = async() => {
+    setActivatingConnector(fortmatic);
+    activate(fortmatic);
+    localStorage.setItem("fortmaticConnect","true");
+  };
+
   return (
     <Modal
       closeModal={closeModal}
@@ -83,7 +89,7 @@ const ConnectWalletModal = (props) => {
             </button>
           </div>
           <div className="col-sm-4 d-flex justify-content-center">
-            <button className="btn" onClick={Login}>
+            <button className="btn" onClick={onConnectWithFortmaticClick}>
               <div className="w-100 text-center">
                 <img className="" src={formaticeWallet} alt="" />
               </div>
