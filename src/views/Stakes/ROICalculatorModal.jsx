@@ -22,7 +22,7 @@ const ROICalculatorModal = (props) => {
   }, []);
 
   const [nftyToken, setNftyToken] = useState(0);
-  const [stakedForDays, setStakedForDays] = useState(0);
+  const [stakedForDays, setStakedForDays] = useState(365);
 
   const usdValue = (
     (Number(marketData) && Number(marketData)) *
