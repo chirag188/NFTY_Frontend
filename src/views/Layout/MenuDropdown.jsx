@@ -91,7 +91,11 @@ const MenuDropdown = () => {
             </Dropdown.Item>
           )}
           <hr />
-          <Dropdown.Item href="" className=" dropdown-item cursor-pointer">
+          <Dropdown.Item
+            href="https://app.uniswap.org/#/swap?inputCurrency=eth&outputCurrency=0x3085154623f51b00dedfc6ceeb5197277a66b17b"
+            className=" dropdown-item cursor-pointer"
+            target="_blank"
+          >
             <span className="menu-name">Buy NFTY</span>
           </Dropdown.Item>
           <hr />

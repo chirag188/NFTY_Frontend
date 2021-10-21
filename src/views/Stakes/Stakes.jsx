@@ -216,7 +216,17 @@ const Stakes = () => {
                 >
                   Collect Reward
                 </button>
-                <button className="yellow-btn w-100 ml-1"> Buy NFTY</button>
+                <button className="yellow-btn w-100 ml-1">
+                  <a
+                    className="nav-link f-b"
+                    // eslint-disable-next-line max-len
+                    href="https://app.uniswap.org/#/swap?inputCurrency=eth&outputCurrency=0x3085154623f51b00dedfc6ceeb5197277a66b17b"
+                    target="_blank"
+                    style={{ color: "#000000" }}
+                  >
+                    Buy NFTY
+                  </a>
+                </button>
               </div>
             </div>
           )}
@@ -240,7 +250,9 @@ const Stakes = () => {
             <div className="head-text">
               $
               {staker?.TotalRewards?.$numberDecimal
-                ? staker?.TotalRewards?.$numberDecimal
+                ? (
+                    staker?.TotalRewards?.$numberDecimal / 1000000000000000000
+                  ).toFixed(4)
                 : 0}
             </div>
             <div className="simple-text">Total Rewards</div>

@@ -10,6 +10,7 @@ import { useNFTYContract, useStakingContract } from "../../hooks";
 import { useWeb3React } from "@web3-react/core";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { Spinner } from "react-bootstrap";
 
 const StakeUnstakeModal = (props) => {
   const { isStakeModal, setStakeModal } = props;
@@ -18,6 +19,7 @@ const StakeUnstakeModal = (props) => {
   const StakingContract = useStakingContract();
   const [marketData, setMarketData] = useState();
   const staker = useSelector((state) => state.stakerReducer);
+  const [loader, setLoader] = useState(false);
 
   const makeAPICall = () => {
     const ress = axios
@@ -67,6 +69,7 @@ const StakeUnstakeModal = (props) => {
   };
   const stakeTokens = () => {
     if (!stakeValue) return;
+    setLoader(true);
     if (isStakeModal) {
       NFTYContract.methods
         .approve(
@@ -82,12 +85,12 @@ const StakeUnstakeModal = (props) => {
               StakingContract.methods
                 .stakeTokens(Web3Utils.toWei(stakeValue.toString()))
                 .send({ from: account, gasLimit })
-                .then((result) => console.log(result))
-                .catch((error) => console.log(error));
+                .then((result) => setLoader(false))
+                .catch((error) => setLoader(false));
             })
-            .catch((error) => console.log(error));
+            .catch((error) => setLoader(false));
         })
-        .catch((error) => console.log(error));
+        .catch((error) => setLoader(false));
     } else {
       StakingContract.methods
         .unstakeTokens(Web3Utils.toWei(stakeValue.toString()))
@@ -96,10 +99,10 @@ const StakeUnstakeModal = (props) => {
           StakingContract.methods
             .unstakeTokens(Web3Utils.toWei(stakeValue.toString()))
             .send({ from: account, gasLimit })
-            .then((result) => console.log(result))
-            .catch((error) => console.log(error));
+            .then((result) => setLoader(false))
+            .catch((error) => setLoader(false));
         })
-        .catch((error) => console.log(error));
+        .catch((error) => setLoader(false));
     }
   };
   const unStakeAllTokens = () => {
@@ -115,6 +118,7 @@ const StakeUnstakeModal = (props) => {
       })
       .catch((error) => console.log(error));
   };
+  console.log(loader);
   const FooterComponent = () => (
     <div className="stake-unstake-modal-footer w-100">
       {isStakeModal && (
@@ -125,10 +129,20 @@ const StakeUnstakeModal = (props) => {
       )}
       <div className="d-flex justify-content-space-between mt-3">
         <button className="orange-btn w-100 mr-3 f-14" onClick={stakeTokens}>
-          Confirm
+          {loader ? <Spinner animation="border" role="status" /> : "Confirm"}
         </button>
         {isStakeModal ? (
-          <button className="yellow-btn w-100 f-14">Buy NFTY</button>
+          <button className="yellow-btn w-100 f-14">
+            <a
+              className="nav-link f-b"
+              // eslint-disable-next-line max-len
+              href="https://app.uniswap.org/#/swap?inputCurrency=eth&outputCurrency=0x3085154623f51b00dedfc6ceeb5197277a66b17b"
+              target="_blank"
+              style={{ color: "#000000" }}
+            >
+              Buy NFTY
+            </a>
+          </button>
         ) : (
           <button
             className="yellow-btn w-100 f-14"
