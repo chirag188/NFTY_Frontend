@@ -16,20 +16,20 @@ const Advocate = () => {
       <div className="container">
         <div className="advocate">
           <div className="advocate-text">
-            <div className="advocate-heading-text">Lorem Ipsum Dolor</div>
+            <div className="advocate-heading-text">
+              {" "}
+              Advocate for the Art You Love
+            </div>
             <div className="advocate-body-text mt-3">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-              iaculis convallis mauris, id finibus lectus tristique ut. Donec
-              lacinia magna id nibh vehicula faucibus. Mauris venenatis leo
-              tellus, pulvinar rhoncus enim luctus eu. Donec condimentum
-              sagittis dolor et mattis.
-              <br />
-              <br />
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-              iaculis convallis mauris, id finibus lectus tristique ut. Donec
-              lacinia magna id nibh vehicula faucibus. Mauris venenatis leo
-              tellus, pulvinar rhoncus enim luctus eu. Donec condimentum
-              sagittis dolor et mattis.
+              The Nifty Protocol aims to apply a reputation layer to all NFTs
+              across all marketplaces. This protocol provides value for all
+              parties to an NFT auction across all barriers - all who implement
+              it will benefit. Sellers gain value from greater sales prices
+              thanks to heightened visibility, buyers gain value from protection
+              against fraud and gaining an idea of the value of items on which
+              they’re bidding, advocates receive a percentage of the final sales
+              price, and platforms benefit from the drastic reduction in
+              fraudulent and low-quality content.
             </div>
           </div>
           {account ? (

@@ -422,6 +422,7 @@ body {
 .roi-calc-modal .exchange-arrow-img {
   height: 16px;
   width: 40px;
+  cursor: pointer;
 }
 
 .roi-calc-modal .input-amount {
@@ -476,7 +477,8 @@ body {
   border: 1px solid;
 }
 
-.roi-calc-modal .btn:focus {
+.roi-calc-modal .btn:focus,
+.roi-calc-modal .btn-active {
   background-color: #27ae60;
 }
 

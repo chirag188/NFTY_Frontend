@@ -62,10 +62,11 @@ const Stakes = () => {
     <React.Fragment>
       <div className="container stakes">
         <div className="special-nfty-reward">
-          <div className="sp-header-text">Special NFT Reward</div>
+          <div className="sp-header-text">NFTY Special Reward</div>
           <div className="simple-text text-center">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-            lacus nisi, viverra ac ultrices non, mattis viverra dolor.{" "}
+            Early NFTY stakers receive airdrops. These founder NFTs will only be
+            minted once. Stake today to lay your claim on this once in a
+            lifetime opportunity.
           </div>
         </div>
         <div className="mt-2 data-container">
@@ -154,8 +155,8 @@ const Stakes = () => {
                 <div className="head-text mr-3">
                   ~$
                   {usdValue && usdValue !== 0
-                    ? usdValue.toFixed(4)
-                    : marketData && marketData?.toFixed(4)}
+                    ? usdValue.toFixed(2)
+                    : marketData && marketData?.toFixed(2)}
                 </div>
                 <button
                   className="plus-minus-btn f-b mr-3"
@@ -232,7 +233,7 @@ const Stakes = () => {
         <div className="row d-flex pt-2 pb-2 stats mt-2 ">
           <div className="col-sm-4 pl-4">
             <div className="head-text margin-top">{staker?.APR}%</div>
-            <div className="simple-text">APR</div>
+            <div className="simple-text">Reward</div>
             <hr />
           </div>
           <div className="col-sm-4 pl-4 mt-2">

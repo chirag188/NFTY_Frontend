@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "../../components/Modal/Modal";
 import Slider, { createSliderWithTooltip, SliderTooltip } from "rc-slider";
 import nftyLogo from "../../assets/images/coinLogo.png";
@@ -8,12 +8,31 @@ import "../../assets/slider-index.less";
 import Web3Utils from "web3-utils";
 import { useNFTYContract, useStakingContract } from "../../hooks";
 import { useWeb3React } from "@web3-react/core";
+import axios from "axios";
 
 const StakeUnstakeModal = (props) => {
   const { isStakeModal } = props;
   const { account } = useWeb3React();
   const NFTYContract = useNFTYContract();
   const StakingContract = useStakingContract();
+  const [marketData, setMarketData] = useState();
+
+  const makeAPICall = () => {
+    const ress = axios
+      .get(`https://api.coingecko.com/api/v3/coins/nifty-token`)
+      .then((res) => {
+        const responce = res.data?.tickers[0]?.converted_last?.usd;
+        setMarketData(responce);
+      });
+  };
+  useEffect(() => {
+    makeAPICall();
+  }, []);
+  const [nftyToken, setNftyToken] = useState(0);
+
+  const usdValue =
+    (marketData && marketData) * (nftyToken === 0 ? 1 : nftyToken);
+
   const closeModal = () => {
     const { modalOpenClose } = props;
     modalOpenClose(false);
@@ -40,7 +59,7 @@ const StakeUnstakeModal = (props) => {
     );
   };
   const stakeTokens = () => {
-    if(isStakeModal){
+    if (isStakeModal) {
       NFTYContract.methods
         .approve(
           process.env.REACT_APP_STAKING_CONTRACT_ADDRESS,
@@ -60,21 +79,21 @@ const StakeUnstakeModal = (props) => {
             })
             .catch((error) => console.log(error));
         })
-      .catch((error) => console.log(error));
+        .catch((error) => console.log(error));
     } else {
       StakingContract.methods
-      .unstakeTokens(Web3Utils.toWei("100"))
-      .estimateGas({ from: account })
-      .then((gasLimit) => {
-        StakingContract.methods
-          .unstakeTokens(Web3Utils.toWei("100"))
-          .send({ from: account, gasLimit })
-          .then((result) => console.log(result))
-          .catch((error) => console.log(error));
-      })
-      .catch((error) => console.log(error));
+        .unstakeTokens(Web3Utils.toWei("100"))
+        .estimateGas({ from: account })
+        .then((gasLimit) => {
+          StakingContract.methods
+            .unstakeTokens(Web3Utils.toWei("100"))
+            .send({ from: account, gasLimit })
+            .then((result) => console.log(result))
+            .catch((error) => console.log(error));
+        })
+        .catch((error) => console.log(error));
     }
-  }
+  };
   const unStake = () => {
     StakingContract.methods
       .unstakeAll()
@@ -87,7 +106,7 @@ const StakeUnstakeModal = (props) => {
           .catch((error) => console.log(error));
       })
       .catch((error) => console.log(error));
-  }
+  };
   const FooterComponent = () => (
     <div className="stake-unstake-modal-footer w-100">
       {isStakeModal && (
@@ -97,7 +116,9 @@ const StakeUnstakeModal = (props) => {
         </div>
       )}
       <div className="d-flex justify-content-space-between mt-3">
-        <button className="orange-btn w-100 mr-3 f-14" onClick={stakeTokens}>Confirm</button>
+        <button className="orange-btn w-100 mr-3 f-14" onClick={stakeTokens}>
+          Confirm
+        </button>
         <button className="yellow-btn w-100 f-14" onClick={unStake}>
           {isStakeModal ? "Buy NFTY" : "Stake"}
         </button>
@@ -111,7 +132,11 @@ const StakeUnstakeModal = (props) => {
       headerTitle={isStakeModal ? "Stake in Pool" : "Unstake"}
       FooterComponent={FooterComponent}
       footerModalClass="footer-bg"
-      tooltip={isStakeModal ? "Stake Modal" : "Unstake Modal"}
+      headerSubTitle={
+        isStakeModal
+          ? "There’s strength in numbers. The longer you stake and the more NFTY you stake determines your Social Rank. The higher Social Rank the higher the rewards. The more NFTY you stake the more NFT auctions you can advocate towards. Choose the amount of NFTY you want to stake and confirm"
+          : null
+      }
       isTooltip
     >
       <div className="stake-unstake-modal p-1">
@@ -124,7 +149,12 @@ const StakeUnstakeModal = (props) => {
               </div>
             </div>
             <div className="d-flex">
-              <div className="f-b mr-3">~$300</div>
+              <div className="f-b mr-3">
+                ~$
+                {usdValue && usdValue !== 0
+                  ? usdValue.toFixed(2)
+                  : marketData && marketData?.toFixed(2)}
+              </div>
             </div>
           </div>
           <div className="d-flex justify-content-center">
@@ -133,6 +163,8 @@ const StakeUnstakeModal = (props) => {
                 className="form-control"
                 type="number"
                 placeholder="0.00"
+                onChange={(e) => setNftyToken(e.target.value)}
+                value={nftyToken || ""}
               />
             </div>
           </div>

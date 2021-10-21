@@ -62,13 +62,19 @@ const Rep = () => {
           ) : (
             <>
               <div className="rep-text">
-                <div className="rep-header-text">Rep</div>
+                <div className="rep-header-text">Reputation is Everything</div>
                 <div className="rep-body-text mt-2">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                  iaculis convallis mauris, id finibus lectus tristique ut.
-                  Donec lacinia magna id nibh vehicula faucibus. Mauris
-                  venenatis leo tellus, pulvinar rhoncus enim luctus eu. Donec
-                  condimentum sagittis dolor et mattis.
+                  For an artist reputation is everything, but it’s hard to build
+                  one in the NFT space. For an individual, it means their hard
+                  work does not go unrecognized. For the auction house, it means
+                  a more efficient ecosystem.
+                  <br />
+                  By mimicking the real world network effect our mechanism
+                  incentivizes participants to find hidden gems. NFTY’s
+                  reputation layer is akin to the “wisdom of the crowd.” It
+                  helps indicate to all possible buyers the “trendiness” of any
+                  specific auctions. Connect your wallet today to start building
+                  your personal reputation.
                 </div>
               </div>
               <div className="text-center mt-3">

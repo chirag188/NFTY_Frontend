@@ -41,7 +41,7 @@ export const tierArr = [
     name: "Platinum",
     nftyStaked: "50000",
     timeStaked: "180",
-    stakingAPR: "13.829",
+    stakingAPR: "15.829",
     votePower: "50000",
   },
   {

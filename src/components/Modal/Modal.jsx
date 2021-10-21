@@ -17,8 +17,6 @@ const Modal = (props) => {
     FooterComponent,
     footerModalClass,
     headerSubTitle,
-    tooltip,
-    isTooltip,
   } = props;
 
   return (
@@ -56,17 +54,6 @@ const Modal = (props) => {
                   headerTitle !== "") && (
                   <h4 className="modal-title text-center w-100 f-b">
                     {headerTitle}
-                    {isTooltip && (
-                      <button
-                        type="button"
-                        className="btn tooltip-btn f-b ml-2"
-                        data-toggle="tooltip"
-                        data-placement="top"
-                        title={tooltip}
-                      >
-                        ?
-                      </button>
-                    )}
                   </h4>
                 )}
                 <div className="modal-sub-title mt-1 text-center w-100">

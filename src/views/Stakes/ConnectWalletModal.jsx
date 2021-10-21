@@ -61,7 +61,7 @@ const ConnectWalletModal = (props) => {
     <Modal
       closeModal={closeModal}
       headerTitle="Connect Wallet"
-      headerSubTitle="Lorem ipsum dolor sit amet, consectetur adipisci ngmet, consectetur adipiscing."
+      headerSubTitle="Choose your wallet and get ready to begin your NFTY journey."
       footerModalClass="p-0"
     >
       <div className="connect-wallet-modal">
