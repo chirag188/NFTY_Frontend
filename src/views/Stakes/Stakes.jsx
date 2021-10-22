@@ -233,14 +233,7 @@ const Stakes = () => {
                   value={account ? staker?.StakedNFTYBalance : nftyToken}
                   onChange={(e) => {
                     if (!account) {
-                      if (e.target.value < 1) {
-                        toast.error(
-                          "Value should be greater than or equal to 1",
-                          options
-                        );
-                      } else {
-                        setNftyToken(e.target.value);
-                      }
+                      setNftyToken(e.target.value);
                     }
                   }}
                 />

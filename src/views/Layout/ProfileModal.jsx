@@ -93,8 +93,14 @@ const ProfileModal = (props) => {
             />
           </div>
         </div>
+        <div className="f-b f-18 mt-2">
+          Username{" "}
+          <i
+            onClick={() => setIsDisabled(false)}
+            className="fa fa-edit cursor-pointer"
+          ></i>
+        </div>
         <div className="profile-name">
-          <i onClick={() => setIsDisabled(false)} class="fa fa-edit"></i>
           <input
             type="text"
             name="name"
@@ -114,21 +120,21 @@ const ProfileModal = (props) => {
                   dispatch(updateProfile({ name }));
                 }
               }
+              setIsDisabled(false);
             }}
           />
         </div>
         <div className="profile-since mt-1">
           <span className="rep-body-text f-12">Member Since</span>{" "}
           <span className="f-b f-14">
-            {moment(profile && profile.createdAt).format("MM/DD/YYYY")}
+            {moment(profile && profile.createdAt).format("LL")}
           </span>
         </div>
         <div className="f-b f-18 mt-2">
           Bio{" "}
           <i
             onClick={() => setIsDisabledBio(false)}
-            class="fa fa-edit ml-2"
-            style={{ fontSize: "22px", opacity: 1 }}
+            className="fa fa-edit ml-2 cursor-pointer"
           ></i>
         </div>
 

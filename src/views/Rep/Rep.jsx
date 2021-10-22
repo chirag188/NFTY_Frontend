@@ -55,9 +55,7 @@ const Rep = () => {
                     <div className="mt-2 ">
                       <span className="rep-body-text">Member since</span>{" "}
                       <span className="f-b">
-                        {moment(profile && profile.createdAt).format(
-                          "MM/DD/YYYY"
-                        )}
+                        {moment(profile && profile.createdAt).format("LL")}
                       </span>
                     </div>
                   </div>
