@@ -69,9 +69,6 @@ const Stakes = () => {
   if (staker?.Tier === "6") {
     nextTierData = userData;
   }
-  if (staker?.StakedNFTYBalance === 0) {
-    nextTierData = userData;
-  }
 
   const streakDays = Math.floor(Number(staker?.StakePeriodInSecs) / 86400);
 

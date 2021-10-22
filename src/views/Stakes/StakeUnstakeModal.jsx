@@ -197,7 +197,7 @@ const StakeUnstakeModal = (props) => {
                 className="form-control"
                 type="number"
                 placeholder="0.00"
-                value={stakeValue.toFixed(2) || ""}
+                value={stakeValue?.toFixed(2) || ""}
                 onChange={(event) => {
                   setStakeValue(event.target.value);
                 }}
