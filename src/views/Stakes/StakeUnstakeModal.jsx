@@ -69,10 +69,6 @@ const StakeUnstakeModal = (props) => {
     );
   };
 
-  const calculatedNfty = (
-    (staker?.APR * stakeValue * 365) /
-    (100 * 365)
-  ).toFixed(2);
   const stakeTokens = () => {
     if (!stakeValue) return;
     setLoader(true);
@@ -126,12 +122,6 @@ const StakeUnstakeModal = (props) => {
   };
   const FooterComponent = () => (
     <div className="stake-unstake-modal-footer w-100">
-      {isStakeModal && (
-        <div className="w-100 text-center">
-          <span className="f-12">Annual ROI</span>
-          <span className="f-b ml-1">${calculatedNfty}</span>
-        </div>
-      )}
       <div className="d-flex justify-content-space-between mt-3">
         {isStakeModal ? (
           <button className="yellow-btn w-100 f-14">
