@@ -12,11 +12,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { createUserProfile } from "./store/actions/profile/profile";
 import { balance, stakerData } from "./store/actions";
 
+function usePrevious(value) {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+}
 const App = () => {
   const [activatingConnector, setActivatingConnector] = useState();
   const { account, connector, active } = useWeb3React();
   const onboarding = useRef();
-
+  const prevAcc = usePrevious(account);
+  console.log(account, prevAcc);
   const dispatch = useDispatch();
   // handle logic to eagerly connect to the injected ethereum provider, if it exists and has granted access already
   const triedEager = useEagerConnect();
@@ -45,7 +53,7 @@ const App = () => {
       }
     }
     if (account && account.length > 0) {
-      if (token === null || token === undefined) {
+      if (token === null || token === undefined || prevAcc !== account) {
         dispatch(createUserProfile({ walletAddress: account }));
       }
     }

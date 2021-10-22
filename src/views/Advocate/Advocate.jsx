@@ -34,7 +34,7 @@ const Advocate = () => {
           </div>
           {account ? (
             <div className="d-flex justify-content-center mt-3">
-              <button className="orange-btn w-50"> Go To VLBO</button>
+              <div className="banner"> Advocacy Coming Soon</div>
             </div>
           ) : (
             <div className="d-flex justify-content-center mt-3">
@@ -48,26 +48,25 @@ const Advocate = () => {
             </div>
           )}
 
-          <div className="row d-flex pt-2 pb-2 stats mt-3">
+          <div className="row d-flex pt-2 pb-2 pr-0 ml-0 stats mt-3">
             <div className="col-sm-4 mt-2 pl-4">
-              <div className="head-text">34</div>
+              <div className="head-text">0</div>
               <div className="advocate-body-text f-12">Total Allocation</div>
               <hr className="stats-hr" />
             </div>
             <div className="col-sm-4 pl-4 mt-2">
               <div className="head-text">
-                <img className="nfty-logo" src={nftyLogo} alt="" />
-                12,456
+                <img className="nfty-logo" src={nftyLogo} alt="" />0
               </div>
               <div className="advocate-body-text">Total NFTY Allocated</div>
               <hr className="stats-hr" />
             </div>
             <div className="col-sm-4 pl-4 mt-2">
-              <div className="head-text">$12,351</div>
+              <div className="head-text">$0</div>
               <div className="advocate-body-text ">Total Rewards</div>
             </div>
           </div>
-          {account && (
+          {/* {account && (
             <>
               <div className="d-flex justify-content-center mt-3">
                 <button
@@ -84,7 +83,7 @@ const Advocate = () => {
                 dolor. Pellentesque.
               </div>
             </>
-          )}
+          )} */}
         </div>
       </div>
       {rewardsEarnedModalOpen && (

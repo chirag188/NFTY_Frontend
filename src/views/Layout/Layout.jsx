@@ -40,9 +40,14 @@ const Layout = ({ children }) => {
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light">
-        <Link className="navbar-brand" to="/stake" style={{ flex: "10%" }}>
+        <a
+          className="navbar-brand"
+          href="https://www.nftytoken.io/"
+          style={{ flex: "10%" }}
+          target="_blank"
+        >
           <img className="nfty-brand-logo" src={Logo} alt="" />
-        </Link>
+        </a>
         <a
           href="https://www.coingecko.com/en/coins/nifty-token"
           target="_blank"

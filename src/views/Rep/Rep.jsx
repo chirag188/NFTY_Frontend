@@ -1,25 +1,37 @@
 import { useWeb3React } from "@web3-react/core";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import nftyLogo from "../../assets/images/coinLogo.png";
 import GoldStarImg from "../../assets/images/GoldStar.png";
 import profileImg from "../../assets/images/profile.png";
-import { viewProfile } from "../../store/actions";
+import { viewProfile, stakerData, balance } from "../../store/actions";
+import { tierArr } from "../../utils/tierArray";
 import ConnectWalletModal from "../Stakes/ConnectWalletModal";
-var QRCode = require("qrcode.react");
 
 const Rep = () => {
   const { account } = useWeb3React();
   const dispatch = useDispatch();
 
   useEffect(() => {
+    const JwtToken = localStorage.getItem("JwtToken");
+    if (JwtToken) {
+      dispatch(stakerData());
+      dispatch(balance());
+    }
     dispatch(viewProfile());
   }, [dispatch]);
   const profile = useSelector((state) => state.profile.userData);
+  const staker = useSelector((state) => state.stakerReducer);
+  const userData = tierArr.find((data, i) => {
+    if (data.rank === staker?.Tier) {
+      return true;
+    }
+  });
 
   const [connectWalletModalOpen, setConnectWalletModalOpen] = useState(false);
-  const createdAt =
-    profile && profile.createdAt.substring(0, 10).split("-").reverse();
+
+  const streakDays = Math.floor(Number(staker?.StakePeriodInSecs) / 86400);
   return (
     <React.Fragment>
       <div className="container">
@@ -43,13 +55,12 @@ const Rep = () => {
                     <div className="mt-2 ">
                       <span className="rep-body-text">Member since</span>{" "}
                       <span className="f-b">
-                        {createdAt[0]}/{createdAt[1]}/{createdAt[2]}
+                        {moment(profile && profile.createdAt).format(
+                          "MM/DD/YYYY"
+                        )}
                       </span>
                     </div>
                   </div>
-                </div>
-                <div className="rep-qr">
-                  <QRCode value="Martha C. Terry" size={80} />
                 </div>
               </div>
               <div className="mt-4">
@@ -91,7 +102,10 @@ const Rep = () => {
         {account && (
           <div className="row d-flex pt-2 pb-2 stats mt-3">
             <div className="col-sm-4 mt-2 pl-4">
-              <div className="head-text">67 Days</div>
+              <div className="head-text">
+                {" "}
+                {staker?.Tier === "0" ? "0" : streakDays && streakDays} Days
+              </div>
               <div className="rep-body-text f-12">Staking Streak</div>
               <hr className="stats-rep-hr" />
             </div>
@@ -102,15 +116,26 @@ const Rep = () => {
                   src={nftyLogo}
                   alt=""
                 />
-                12,456
+                {staker?.StakedNFTYBalance}
               </div>
               <div className="rep-body-text">Total Staked</div>
               <hr className="stats-rep-hr" />
             </div>
             <div className="col-sm-4 pl-4 mt-2">
               <div className="head-text">
-                <img className="rep-gold-star-img" src={GoldStarImg} alt="" />{" "}
-                Gold
+                {/* <img className="rep-gold-star-img" src={GoldStarImg} alt="" />{" "} */}
+                {staker?.Tier === "0" ? (
+                  "Stake to be in a rank"
+                ) : (
+                  <>
+                    <img
+                      className="rep-gold-star-img"
+                      src={GoldStarImg}
+                      alt=""
+                    />{" "}
+                    {userData && userData.name}
+                  </>
+                )}
               </div>
               <div className="rep-body-text">Social Rank</div>
             </div>

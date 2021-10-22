@@ -22,7 +22,7 @@ const StakeUnstakeModal = (props) => {
   const [loader, setLoader] = useState(false);
 
   const makeAPICall = () => {
-    const ress = axios
+    axios
       .get(`https://api.coingecko.com/api/v3/coins/nifty-token`)
       .then((res) => {
         const responce = res.data?.tickers[0]?.converted_last?.usd;
@@ -37,7 +37,8 @@ const StakeUnstakeModal = (props) => {
   const [rollerValue, setRollerValue] = useState(0);
   const handleChange = (e) => {
     setRollerValue(e);
-    const value = (e * staker?.StakedNFTYBalance) / 100;
+    const value =
+      (e * (isStakeModal ? staker?.balance : staker?.StakedNFTYBalance)) / 100;
     setStakeValue(value);
   };
   const usdValue =
@@ -67,6 +68,11 @@ const StakeUnstakeModal = (props) => {
       </SliderTooltip>
     );
   };
+
+  const calculatedNfty = (
+    (staker?.APR * stakeValue * 365) /
+    (100 * 365)
+  ).toFixed(2);
   const stakeTokens = () => {
     if (!stakeValue) return;
     setLoader(true);
@@ -118,19 +124,15 @@ const StakeUnstakeModal = (props) => {
       })
       .catch((error) => console.log(error));
   };
-  console.log(loader);
   const FooterComponent = () => (
     <div className="stake-unstake-modal-footer w-100">
       {isStakeModal && (
         <div className="w-100 text-center">
           <span className="f-12">Annual ROI</span>
-          <span className="f-b ml-1">$0.00</span>
+          <span className="f-b ml-1">${calculatedNfty}</span>
         </div>
       )}
       <div className="d-flex justify-content-space-between mt-3">
-        <button className="orange-btn w-100 mr-3 f-14" onClick={stakeTokens}>
-          {loader ? <Spinner animation="border" role="status" /> : "Confirm"}
-        </button>
         {isStakeModal ? (
           <button className="yellow-btn w-100 f-14">
             <a
@@ -146,9 +148,22 @@ const StakeUnstakeModal = (props) => {
         ) : (
           <button
             className="yellow-btn w-100 f-14"
-            onClick={() => setStakeModal(true)}
+            onClick={() => {
+              setStakeModal(true);
+              setStakeValue(0);
+              setRollerValue(0);
+            }}
           >
             Stake
+          </button>
+        )}
+        {isStakeModal ? (
+          <button className="orange-btn w-100 ml-3 f-14" onClick={stakeTokens}>
+            {loader ? <Spinner animation="border" role="status" /> : "Stake"}
+          </button>
+        ) : (
+          <button className="orange-btn w-100 ml-3 f-14" onClick={stakeTokens}>
+            {loader ? <Spinner animation="border" role="status" /> : "Unstake"}
           </button>
         )}
       </div>
@@ -164,7 +179,7 @@ const StakeUnstakeModal = (props) => {
       headerSubTitle={
         isStakeModal
           ? "There’s strength in numbers. The longer you stake and the more NFTY you stake determines your Social Rank. The higher Social Rank the higher the rewards. The more NFTY you stake the more NFT auctions you can advocate towards. Choose the amount of NFTY you want to stake and confirm"
-          : null
+          : "Unstaking your NFTY tokens will remove the amount of NFTY that are generating staking rewards. If all NFTY is unstaked your staking streak will be reset to zero."
       }
       isTooltip
     >
@@ -192,7 +207,7 @@ const StakeUnstakeModal = (props) => {
                 className="form-control"
                 type="number"
                 placeholder="0.00"
-                value={stakeValue || ""}
+                value={stakeValue.toFixed(2) || ""}
                 onChange={(event) => {
                   setStakeValue(event.target.value);
                 }}
@@ -203,16 +218,21 @@ const StakeUnstakeModal = (props) => {
         <hr />
         <div className="w-100 mt-1">
           <div className="text-center f-b ml-3">
-            {isStakeModal
-              ? `Staked Balance ${staker?.StakedNFTYBalance}`
-              : `Balance ${staker?.StakedNFTYBalance}`}
+            Staked Balance: ${staker?.StakedNFTYBalance}
+          </div>
+          <div className="text-center f-b ml-3 mt-2">
+            Balance: ${staker?.balance}
           </div>
           <div className=" w-100">
             <div style={{ maxWidth: 400, margin: "16px 50px" }}>
-              <SliderWithTooltip
+              <div className="f-12">
+                {isStakeModal ? "Stake" : "Unstake"} {rollerValue}%
+              </div>
+              <Slider
                 min={0}
                 max={100}
                 defaultValue={0}
+                handle={handle}
                 handleStyle={{
                   height: "16px",
                   width: "16px",

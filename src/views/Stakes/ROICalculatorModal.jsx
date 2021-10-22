@@ -102,6 +102,11 @@ const ROICalculatorModal = (props) => {
           </div>
         </div>
       </div>
+      <div className="row w-100">
+        <div className="f-b f-14 mt-1 ml-3">
+          Total Balance: {calculatedFinalUsd === "NaN" ? 0 : calculatedFinalUsd}
+        </div>
+      </div>
       <hr className="w-100 mt-2 mb-2" />
       <div>
         <button className="yellow-btn w-100 btn">
@@ -117,8 +122,8 @@ const ROICalculatorModal = (props) => {
         </button>
       </div>
       <div className="f-12 text-center mt-2">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent lacus
-        nisi, viverra ac ultrices non, mattis viverra dolor. Pellentesque
+        This calculator is provided for educational purposes only and does not
+        represent any guarantee or promise of earnings and rewards
       </div>
     </div>
   );

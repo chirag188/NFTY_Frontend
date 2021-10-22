@@ -11,7 +11,19 @@ import axios from "axios";
 import { useWeb3React } from "@web3-react/core";
 import { useDispatch, useSelector } from "react-redux";
 import { stakerData, balance } from "../../store/actions/Stake/Stake";
+import { tierArr } from "../../utils/tierArray";
+import { toast } from "react-toastify";
 
+const options = {
+  position: "top-center",
+  autoClose: 5000,
+  hideProgressBar: true,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "colored",
+};
 const Stakes = () => {
   const [roiCalcModalOpen, setRoiCalcModalOpen] = useState(false);
   const [connectWalletModalOpen, setConnectWalletModalOpen] = useState(false);
@@ -21,10 +33,9 @@ const Stakes = () => {
   const [isStake, setIsStake] = useState(false);
   const { account } = useWeb3React();
   const dispatch = useDispatch();
-  console.log(account);
 
   const makeAPICall = () => {
-    const ress = axios
+    axios
       .get(`https://api.coingecko.com/api/v3/coins/nifty-token`)
       .then((res) => {
         const responce = res.data?.tickers[0]?.converted_last?.usd;
@@ -39,9 +50,31 @@ const Stakes = () => {
     }
     makeAPICall();
   }, []);
+
   const staker = useSelector((state) => state.stakerReducer);
-  const [nftyToken, setNftyToken] = useState(1);
-  const usdValue = (marketData && marketData) * nftyToken;
+  const [nftyToken, setNftyToken] = useState();
+  const usdValue = account
+    ? (marketData && marketData) * staker?.StakedNFTYBalance
+    : (marketData && marketData) * nftyToken;
+  let userData = tierArr.find((data, i) => {
+    if (data.rank === staker?.Tier) {
+      return true;
+    }
+  });
+  let nextTierData = tierArr.find((data, i) => {
+    if (Number(data.rank) === Number(staker?.Tier) + 1) {
+      return true;
+    }
+  });
+  if (staker?.Tier === "6") {
+    nextTierData = userData;
+  }
+  if (staker?.StakedNFTYBalance === 0) {
+    nextTierData = userData;
+  }
+
+  const streakDays = Math.floor(Number(staker?.StakePeriodInSecs) / 86400);
+
   return (
     <React.Fragment>
       <div className="container stakes">
@@ -58,7 +91,11 @@ const Stakes = () => {
             <>
               <div className="w-100 text-center p-2">
                 <img className="star-img mr-2 mb-1" src={StarImg} alt="" />
-                <span className="f-14">Silver is your current rank</span>
+                <span className="f-14">
+                  {staker?.Tier === "0"
+                    ? "Stake to be in a rank"
+                    : `${userData && userData.name} is your current rank`}{" "}
+                </span>
               </div>
               <hr />
               <div className="row user-stats mt-1 mb-1">
@@ -78,16 +115,33 @@ const Stakes = () => {
                       src={GoldStarImg}
                       alt=""
                     />
-                    <span className="f-14">For Reaching Gold</span>
+                    <span className="f-14">
+                      Progress Towards {nextTierData && nextTierData.name}
+                    </span>
                   </div>
                   <div className="d-flex pt-2 target-data">
                     <div>
                       <div>
                         <span className="f-b mr-2">Streak</span>
-                        <span className="f-12">7 or 8 Days</span>
+                        <span className="f-12">
+                          {staker?.Tier === "0"
+                            ? "Any"
+                            : `${streakDays && streakDays} of 
+                          ${nextTierData && nextTierData.timeStaked} Days`}
+                        </span>
                       </div>
-                      <div className="progress-bar">
-                        <ProgressBar variant="warning" now={(7 / 8) * 100} />
+                      <div
+                        className="progress-bar"
+                        style={{ marginTop: "1.7px", height: "13px" }}
+                      >
+                        <ProgressBar
+                          variant="warning"
+                          now={
+                            ((streakDays && streakDays) /
+                              (nextTierData && nextTierData.timeStaked)) *
+                            100
+                          }
+                        />
                       </div>
                     </div>
                     <div className="f-b ml-3 mr-3 f-18 mt-2">+</div>
@@ -100,13 +154,18 @@ const Stakes = () => {
                           alt=""
                         />
                         <span className="f-12">
-                          {staker?.StakedNFTYBalance} of 3000
+                          {staker?.StakedNFTYBalance} of{" "}
+                          {nextTierData && nextTierData.nftyStaked}
                         </span>
                       </div>
                       <div className="progress-bar">
                         <ProgressBar
                           variant="warning"
-                          now={(2418 / 3000) * 100}
+                          now={
+                            (staker?.StakedNFTYBalance /
+                              (nextTierData && nextTierData.nftyStaked)) *
+                            100
+                          }
                         />
                       </div>
                     </div>
@@ -132,15 +191,13 @@ const Stakes = () => {
               <div>
                 <div className="head-text">
                   <img className="nfty-logo" src={nftyLogo} alt="" />
-                  Enter NFTY
+                  {account ? "Staked NFTY" : "Enter NFTY"}
                 </div>
               </div>
               <div className="d-flex">
                 <div className="head-text mr-3">
                   ~$
-                  {usdValue && usdValue !== 0
-                    ? usdValue.toFixed(2)
-                    : marketData && marketData?.toFixed(2)}
+                  {usdValue && usdValue !== 0 ? usdValue.toFixed(2) : 0}
                 </div>
                 <button
                   className="plus-minus-btn f-b mr-3"
@@ -176,7 +233,19 @@ const Stakes = () => {
                   className="form-control"
                   type="number"
                   placeholder="0.00"
-                  onChange={(e) => setNftyToken(e.target.value)}
+                  value={account ? staker?.StakedNFTYBalance : nftyToken}
+                  onChange={(e) => {
+                    if (!account) {
+                      if (e.target.value < 1) {
+                        toast.error(
+                          "Value should be greater than or equal to 1",
+                          options
+                        );
+                      } else {
+                        setNftyToken(e.target.value);
+                      }
+                    }
+                  }}
                 />
               </div>
             </div>

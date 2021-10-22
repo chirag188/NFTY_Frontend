@@ -25,9 +25,13 @@ const Vote = () => {
             shorter staking times and longer ones.
           </div>
           <div className="d-flex justify-content-center mt-2">
-            <Link className="link-text">
+            <a
+              href="https://www.nftytoken.io/governance"
+              className="link-text"
+              target="_blank"
+            >
               <u>Read More About NFTY Governance</u>
-            </Link>
+            </a>
           </div>
         </div>
       </div>

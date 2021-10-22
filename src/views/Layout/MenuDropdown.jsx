@@ -9,6 +9,8 @@ import ConnectWalletModal from "../Stakes/ConnectWalletModal";
 import { useDispatch, useSelector } from "react-redux";
 import { useWeb3React } from "@web3-react/core";
 import { resetData, viewProfile } from "../../store/actions";
+import { tierArr } from "../../utils/tierArray";
+import ProfileModal from "./ProfileModal";
 
 const MenuDropdown = () => {
   const { account } = useWeb3React();
@@ -19,9 +21,15 @@ const MenuDropdown = () => {
   useEffect(() => {
     dispatch(viewProfile());
   }, [dispatch]);
+  const [openProfileModal, setOpenProfileModal] = useState(false);
   const profile = useSelector((state) => state.profile.userData);
   const [connectWalletModalOpen, setConnectWalletModalOpen] = useState(false);
-
+  const staker = useSelector((state) => state.stakerReducer);
+  let userData = tierArr.find((data, i) => {
+    if (data.rank === staker?.Tier) {
+      return true;
+    }
+  });
   const Logout = () => {
     localStorage.clear();
     deactivate();
@@ -60,13 +68,15 @@ const MenuDropdown = () => {
                     </span>
                     <span className="profile-rank">
                       <img className="star-img mb-1" src={StarImg} alt="" />{" "}
-                      Silver
+                      {staker?.Tier === "0"
+                        ? "Stake to be in a rank"
+                        : userData && userData.name}
                     </span>
                   </div>
                 </div>
                 <div className="profile-stake">
                   <img className="nfty-logo" src={nftyLogo} alt="" />
-                  <span className="stake-amount">206.75</span>
+                  <span className="stake-amount">{staker?.balance}</span>
                 </div>
               </>
             ) : (
@@ -79,6 +89,7 @@ const MenuDropdown = () => {
             <Dropdown.Item
               href=""
               className=" dropdown-item cursor-pointer mt-3"
+              onClick={() => setOpenProfileModal(true)}
             >
               <span className="menu-name">Profile</span>
             </Dropdown.Item>
@@ -99,16 +110,27 @@ const MenuDropdown = () => {
             <span className="menu-name">Buy NFTY</span>
           </Dropdown.Item>
           <hr />
-          <Dropdown.Item href="" className=" dropdown-item cursor-pointer">
+          <Dropdown.Item
+            href="https://www.nftytoken.io/about-us"
+            className=" dropdown-item cursor-pointer"
+            target="_blank"
+          >
             <span className="menu-name">About Us</span>
           </Dropdown.Item>
           <hr />
-          <Dropdown.Item href="" className=" dropdown-item cursor-pointer">
+          {/* <Dropdown.Item href="" className=" dropdown-item cursor-pointer">
             <span className="menu-name">API</span>
           </Dropdown.Item>
           <hr />
           <Dropdown.Item href="" className=" dropdown-item cursor-pointer">
             <span className="menu-name">Discord</span>
+          </Dropdown.Item> */}
+          <Dropdown.Item
+            href="https://www.nftytoken.io/contact-us"
+            className=" dropdown-item cursor-pointer"
+            target="_blank"
+          >
+            <span className="menu-name">Help</span>
           </Dropdown.Item>
           {account && (
             <>
@@ -147,6 +169,9 @@ const MenuDropdown = () => {
       </Dropdown>
       {connectWalletModalOpen && (
         <ConnectWalletModal modalOpenClose={setConnectWalletModalOpen} />
+      )}
+      {openProfileModal && (
+        <ProfileModal modalOpenClose={setOpenProfileModal} />
       )}
     </div>
   );

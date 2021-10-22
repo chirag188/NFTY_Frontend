@@ -672,6 +672,7 @@ body {
 
 .rep-profile-details .rep-header-text {
   font-size: 25px;
+  justify-content: flex-start;
 }
 
 .rep-page .rep-profile {
@@ -682,6 +683,7 @@ body {
 .rep-profile .rep-profile-pic {
   height: 80px;
   width: 80px;
+  border-radius: 50px;
 }
 .rep-page-nfty-logo {
   height: 18px;
@@ -789,13 +791,13 @@ input::-webkit-inner-spin-button {
   width: 40px;
   cursor: pointer;
 }
-input[type=file]::-webkit-file-upload-button {
-  cursor: pointer; 
+input[type="file"]::-webkit-file-upload-button {
+  cursor: pointer;
 }
 .profile-modal .profile-pic .pic {
   height: 105px;
   width: 105px;
-  border-radius: 12px;
+  border-radius: 50px;
 }
 
 .profile-name .form-control {
@@ -806,6 +808,10 @@ input[type=file]::-webkit-file-upload-button {
   text-align: center;
   color: #000000;
   border: none;
+}
+.profile-name .form-control:disabled,
+.form-control[readonly] {
+  background-color: #ffffff;
 }
 
 .profile-name .form-control:focus {
@@ -839,4 +845,20 @@ input[type=file]::-webkit-file-upload-button {
 }
 .stake-data-percentage .polygon-icon {
   height: 14px;
+}
+
+.advocate .banner {
+  font-size: 24px;
+  font-weight: bold;
+  padding: 12px 0px;
+  width: 100%;
+  text-align: center;
+  background: #ffc209;
+  border-radius: 15px;
+}
+
+.profile-name .fa-edit {
+  display: flex;
+  justify-content: end;
+  margin-right: 140px;
 }

@@ -7,7 +7,12 @@ import trustwalletImg from "../../assets/images/trustwallet.png";
 import formaticeWallet from "../../assets/images/formatice.png";
 import MetaMaskOnboarding from "@metamask/onboarding";
 import { useWeb3React } from "@web3-react/core";
-import { injected, walletconnect, walletLink, fortmatic } from "./../../utils/connectors";
+import {
+  injected,
+  walletconnect,
+  walletLink,
+  fortmatic,
+} from "./../../utils/connectors";
 
 const ConnectWalletModal = (props) => {
   const closeModal = () => {
@@ -57,10 +62,10 @@ const ConnectWalletModal = (props) => {
     activate(walletLink);
   };
 
-  const onConnectWithFortmaticClick = async() => {
+  const onConnectWithFortmaticClick = async () => {
     setActivatingConnector(fortmatic);
     activate(fortmatic);
-    localStorage.setItem("fortmaticConnect","true");
+    localStorage.setItem("fortmaticConnect", "true");
   };
 
   return (
@@ -72,7 +77,7 @@ const ConnectWalletModal = (props) => {
     >
       <div className="connect-wallet-modal">
         <div className="row text-center">
-          <div className="col-sm-4 d-flex justify-content-center">
+          <div className="col-sm-6 d-flex justify-content-center">
             <button className="btn" onClick={onConnectWithMetamaskClick}>
               <div className="w-100 text-center">
                 <img src={metamaskImg} alt="" />
@@ -80,7 +85,7 @@ const ConnectWalletModal = (props) => {
               <span className="mt-2">Meta Mask</span>
             </button>
           </div>
-          <div className="col-sm-4 d-flex justify-content-center">
+          <div className="col-sm-6 d-flex justify-content-center">
             <button className="btn" onClick={onConnectWithWalletConnectClick}>
               <div className="w-100 text-center">
                 <img className="mb-2" src={walletConnectImg} alt="" />
@@ -88,7 +93,9 @@ const ConnectWalletModal = (props) => {
               <span className="">Wallet Connect</span>
             </button>
           </div>
-          <div className="col-sm-4 d-flex justify-content-center">
+        </div>
+        <div className="row text-center   ">
+          <div className="col-sm-6 d-flex justify-content-center">
             <button className="btn" onClick={onConnectWithFortmaticClick}>
               <div className="w-100 text-center">
                 <img className="" src={formaticeWallet} alt="" />
@@ -96,16 +103,7 @@ const ConnectWalletModal = (props) => {
               <span className="mt-2">Formatice</span>
             </button>
           </div>
-        </div>
-        <div className="row text-center   ">
-          <div className="col-sm-6 d-flex justify-content-center">
-            <button className="btn" onClick={Login}>
-              <div className="w-100 text-center">
-                <img className="" src={trustwalletImg} alt="" />
-              </div>
-              <span className="mt-2">Trust Wallet</span>
-            </button>
-          </div>
+
           <div className="col-sm-6 d-flex justify-content-center">
             <button className="btn" onClick={onLinkConnectClick}>
               <div className="w-100 text-center">

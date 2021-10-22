@@ -43,7 +43,7 @@ function* createUserSaga(action) {
       .catch(async (error) => error);
     if (response.status === 200) {
       yield put(createUserProfileSuccess({ data: response.data.data }));
-      yield toast.success("User Created Successfully", options);
+      yield toast.success(response.data.msg, options);
       yield call(
         [localStorage, "setItem"],
         "JwtToken",
