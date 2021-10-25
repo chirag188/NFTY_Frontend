@@ -19,7 +19,7 @@ import { toast } from "react-toastify";
 
 const options = {
   position: "top-center",
-  autoClose: 5000,
+  autoClose: 1200,
   hideProgressBar: true,
   closeOnClick: true,
   pauseOnHover: true,
@@ -88,6 +88,7 @@ const StakeUnstakeModal = (props) => {
   const stakeTokens = () => {
     if (stakeValue < 1) {
       if (isStakeModal) {
+        toast.clearWaitingQueue();
         toast.error(
           " Stake Value should be greater than or equal to 1",
           options
@@ -116,12 +117,27 @@ const StakeUnstakeModal = (props) => {
                 StakingContract.methods
                   .stakeTokens(Web3Utils.toWei(stakeValue.toString()))
                   .send({ from: account, gasLimit })
-                  .then((result) => setLoader(false))
-                  .catch((error) => setLoader(false));
+                  .then((result) => {
+                    setLoader(false);
+                    toast.success("Staked Successful", options);
+                  })
+                  .catch((error) => {
+                    setLoader(false);
+                    toast.error(
+                      "Something Went Wrong please try again",
+                      options
+                    );
+                  });
               })
-              .catch((error) => setLoader(false));
+              .catch((error) => {
+                setLoader(false);
+                toast.error("Something Went Wrong please try again", options);
+              });
           })
-          .catch((error) => setLoader(false));
+          .catch((error) => {
+            setLoader(false);
+            toast.error("Something Went Wrong please try again", options);
+          });
       } else {
         StakingContract.methods
           .unstakeTokens(Web3Utils.toWei(stakeValue.toString()))
@@ -130,10 +146,19 @@ const StakeUnstakeModal = (props) => {
             StakingContract.methods
               .unstakeTokens(Web3Utils.toWei(stakeValue.toString()))
               .send({ from: account, gasLimit })
-              .then((result) => setLoader(false))
-              .catch((error) => setLoader(false));
+              .then((result) => {
+                setLoader(false);
+                toast.success("Unstaked Successful", options);
+              })
+              .catch((error) => {
+                setLoader(false);
+                toast.error("Something Went Wrong please try again", options);
+              });
           })
-          .catch((error) => setLoader(false));
+          .catch((error) => {
+            setLoader(false);
+            toast.error("Something Went Wrong please try again", options);
+          });
       }
     }
   };

@@ -45,16 +45,22 @@ const Rep = () => {
                     src={profile.profilePic ? profile.profilePic : profileImg}
                     alt=""
                   />
-                  <div className="ml-3">
+                  <div className="ml-3 align-self-center">
                     <div className="rep-header-text">
                       {profile &&
                         (profile.name
-                          ? profile.name.length > 20
+                          ? profile.name.length > 30
                             ? `${profile.name.substring(0, 30)}...`
                             : profile.name
-                          : `${profile.walletId.substring(0, 30)}...`)}
+                          : `${profile.walletId.substring(
+                              0,
+                              6
+                            )}...${profile.walletId.substring(
+                              profile.walletId.length - 4,
+                              profile.walletId.length
+                            )}`)}
                     </div>
-                    <div className="mt-2 ">
+                    <div className="">
                       <span className="rep-body-text">Member since</span>{" "}
                       <span className="f-b">
                         {moment(profile && profile.createdAt).format("LL")}

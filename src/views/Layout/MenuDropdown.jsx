@@ -66,7 +66,13 @@ const MenuDropdown = () => {
                           ? profile.name.length > 20
                             ? `${profile.name.substring(0, 16)}...`
                             : profile.name
-                          : `${profile.walletId.substring(0, 12)}...`)}
+                          : `${profile.walletId.substring(
+                              0,
+                              6
+                            )}...${profile.walletId.substring(
+                              profile.walletId.length - 4,
+                              profile.walletId.length
+                            )}`)}
                     </span>
                     <span className="profile-rank">
                       {staker?.Tier === "0" ? (

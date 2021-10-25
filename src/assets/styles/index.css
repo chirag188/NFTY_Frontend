@@ -688,8 +688,8 @@ body {
 }
 
 .rep-profile .rep-profile-pic {
-  height: 80px;
-  width: 80px;
+  height: 100px;
+  width: 100px;
   border-radius: 50px;
 }
 .rep-page-nfty-logo {
@@ -817,8 +817,8 @@ input[type="file"]::-webkit-file-upload-button {
   border: none;
 }
 .profile-name .form-control:disabled,
-.calculated-amount .form-control:disabled,
-.form-control[readonly] {
+.calculated-amount .form-control:disabled
+/* .form-control[readonly] */ {
   background-color: #ffffff;
 }
 
@@ -834,6 +834,8 @@ input[type="file"]::-webkit-file-upload-button {
   width: 90%;
   height: 120px;
   text-align: center;
+  overflow: unset;
+  overflow-x: none;
 }
 .profile-bio textarea:focus::placeholder {
   color: transparent;
@@ -876,4 +878,8 @@ input[type="file"]::-webkit-file-upload-button {
 
 .walletconnect-modal__base {
   max-width: 400px !important;
+}
+
+.align-self-center {
+  align-self: center;
 }

@@ -14,7 +14,7 @@ import { toast } from "react-toastify";
 
 const options = {
   position: "top-center",
-  autoClose: 5000,
+  autoClose: 1200,
   hideProgressBar: true,
   closeOnClick: true,
   pauseOnHover: true,
@@ -92,7 +92,7 @@ const ProfileModal = (props) => {
             />
           </div>
         </div>
-        <div className="f-b f-18 mt-2">
+        <div className="f-b f-18 mt-2 ml-3">
           Username{" "}
           <i
             onClick={() => setIsDisabled(false)}
