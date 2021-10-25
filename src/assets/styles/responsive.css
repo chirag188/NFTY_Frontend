@@ -10,6 +10,7 @@
   .navbar {
     max-height: 98px;
     height: auto;
+    flex-wrap: nowrap;
   }
 
   .after-login-btn .orange-btn {
@@ -69,6 +70,7 @@
     font-size: 100px;
     font-weight: 600;
     color: rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
   }
   .calculate-nfty .head-text {
     font-size: 18px;
@@ -111,5 +113,25 @@
   .navbar-expand-lg .navbar-collapse {
     display: flex !important;
     flex-basis: auto;
+  }
+}
+
+@media (max-width: 320px) {
+  .navbar-brand .nfty-brand-logo {
+    height: 20px;
+  }
+  .stake-data-percentage {
+    font-size: 12px;
+  }
+  .usd-amount {
+    font-size: 12px;
+  }
+  .navbar-btns img {
+    height: 17px;
+    width: 17px;
+  }
+  .dropdown-btn .hamburger-icon {
+    height: 13px;
+    width: 13px;
   }
 }

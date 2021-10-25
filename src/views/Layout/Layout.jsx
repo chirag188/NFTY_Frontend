@@ -54,7 +54,7 @@ const Layout = ({ children }) => {
           style={{ textDecoration: "none", flex: "20%" }}
         >
           <div className="d-flex">
-            <div className="mr-2 f-14" style={{ color: "#000000" }}>
+            <div className="mr-2 f-14 usd-amount" style={{ color: "#000000" }}>
               $
               {marketData?.tickers[0]?.converted_last?.usd
                 ? marketData?.tickers[0]?.converted_last?.usd?.toFixed(4)
@@ -139,7 +139,7 @@ const Layout = ({ children }) => {
             </div>
           ) : (
             <div
-              className="mr-3 cursor-pointer"
+              className="mr-3 cursor-pointer wallet-img"
               onClick={() => setConnectWalletModalOpen(true)}
             >
               <img src={walletIcon} alt="wallet" />
