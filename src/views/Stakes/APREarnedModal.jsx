@@ -5,7 +5,19 @@ import { useStakingContract } from "./../../hooks";
 import { useWeb3React } from "@web3-react/core";
 import { useSelector } from "react-redux";
 import { Spinner } from "react-bootstrap";
+import { toast } from "react-toastify";
 
+const options = {
+  position: "top-center",
+  autoClose: 1200,
+  hideProgressBar: true,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "colored",
+  toastId: "1",
+};
 const RewardsEarnedModal = (props) => {
   const { usdAmount } = props;
   const { account } = useWeb3React();
@@ -26,10 +38,19 @@ const RewardsEarnedModal = (props) => {
         StakingContract.methods
           .claimRewards()
           .send({ from: account, gasLimit })
-          .then((result) => setLoader(false))
-          .catch((error) => setLoader(false));
+          .then((result) => {
+            setLoader(false);
+            toast.success("Reward Collected Successfully", options);
+          })
+          .catch((error) => {
+            setLoader(false);
+            toast.error("Something went wrong please try again", options);
+          });
       })
-      .catch((error) => setLoader(false));
+      .catch((error) => {
+        setLoader(false);
+        toast.error("Something went wrong please try again", options);
+      });
   };
   const FooterComponent = () => (
     <div className="w-100 mt-3 apr-earned-modal-footer">

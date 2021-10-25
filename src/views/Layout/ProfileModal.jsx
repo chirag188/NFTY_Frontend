@@ -21,6 +21,7 @@ const options = {
   draggable: true,
   progress: undefined,
   theme: "colored",
+  toastId: "1",
 };
 const ProfileModal = (props) => {
   const [img, setImg] = useState();

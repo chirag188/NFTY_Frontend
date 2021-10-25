@@ -21,13 +21,14 @@ import { toast } from "react-toastify";
 
 const options = {
   position: "top-center",
-  autoClose: 1200,
+  autoClose: 2000,
   hideProgressBar: true,
   closeOnClick: true,
   pauseOnHover: true,
   draggable: true,
   progress: undefined,
   theme: "colored",
+  toastId: "1",
 };
 // eslint-disable-next-line no-unused-vars
 function* createUserSaga(action) {
