@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
 import MetaMaskOnboarding from "@metamask/onboarding";
@@ -53,7 +54,11 @@ const App = () => {
       }
     }
     if (account && account.length > 0) {
-      if (token === null || token === undefined || prevAcc !== account) {
+      if (
+        token === null ||
+        token === undefined ||
+        (prevAcc !== account && prevAcc !== undefined)
+      ) {
         dispatch(createUserProfile({ walletAddress: account }));
       }
     }

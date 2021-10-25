@@ -54,6 +54,14 @@
     width: 100%;
     justify-content: flex-end;
   }
+  .roi-calc-modal .amount-input-field {
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+  }
+  .advocate .banner {
+    font-size: 16px;
+  }
 }
 @media (max-width: 550px) {
   .calculate-nfty .calculated-amount {
@@ -88,5 +96,19 @@
   .modal-dialog {
     max-width: 500px;
     margin: 1.75rem auto;
+  }
+}
+
+@media (max-height: 700px) {
+  .modal-content {
+    overflow-y: scroll;
+    height: 600px;
+  }
+}
+
+@media (min-width: 762px) {
+  .navbar-expand-lg .navbar-collapse {
+    display: flex !important;
+    flex-basis: auto;
   }
 }

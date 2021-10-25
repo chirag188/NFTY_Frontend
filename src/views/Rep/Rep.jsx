@@ -1,9 +1,9 @@
+/* eslint-disable array-callback-return */
 import { useWeb3React } from "@web3-react/core";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import nftyLogo from "../../assets/images/coinLogo.png";
-import GoldStarImg from "../../assets/images/GoldStar.png";
 import profileImg from "../../assets/images/profile.png";
 import { viewProfile, stakerData, balance } from "../../store/actions";
 import { tierArr } from "../../utils/tierArray";
@@ -49,8 +49,10 @@ const Rep = () => {
                     <div className="rep-header-text">
                       {profile &&
                         (profile.name
-                          ? profile.name
-                          : `${profile.walletId.substring(0, 12)}...`)}
+                          ? profile.name.length > 20
+                            ? `${profile.name.substring(0, 30)}...`
+                            : profile.name
+                          : `${profile.walletId.substring(0, 30)}...`)}
                     </div>
                     <div className="mt-2 ">
                       <span className="rep-body-text">Member since</span>{" "}
@@ -128,7 +130,7 @@ const Rep = () => {
                   <>
                     <img
                       className="rep-gold-star-img"
-                      src={GoldStarImg}
+                      src={userData && userData.badge}
                       alt=""
                     />{" "}
                     {userData && userData.name}

@@ -1,8 +1,8 @@
+/* eslint-disable array-callback-return */
 import React, { useEffect, useState } from "react";
 import { Dropdown } from "react-bootstrap";
 
 import hamburgerIcon from "../../assets/images/hamburger.png";
-import StarImg from "../../assets/images/Star.png";
 import profileImg from "../../assets/images/profile.png";
 import nftyLogo from "../../assets/images/coinLogo.png";
 import ConnectWalletModal from "../Stakes/ConnectWalletModal";
@@ -63,14 +63,24 @@ const MenuDropdown = () => {
                     <span className="profile-name">
                       {profile &&
                         (profile.name
-                          ? profile.name
+                          ? profile.name.length > 20
+                            ? `${profile.name.substring(0, 16)}...`
+                            : profile.name
                           : `${profile.walletId.substring(0, 12)}...`)}
                     </span>
                     <span className="profile-rank">
-                      <img className="star-img mb-1" src={StarImg} alt="" />{" "}
-                      {staker?.Tier === "0"
-                        ? "Stake to be in a rank"
-                        : userData && userData.name}
+                      {staker?.Tier === "0" ? (
+                        "Stake to be in a rank"
+                      ) : (
+                        <>
+                          <img
+                            className="star-img mb-1"
+                            src={userData && userData.badge}
+                            alt=""
+                          />{" "}
+                          {userData && userData.name}
+                        </>
+                      )}
                     </span>
                   </div>
                 </div>

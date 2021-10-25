@@ -493,6 +493,12 @@ body {
 .f-24 {
   font-size: 24px;
 }
+.f-16 {
+  font-size: 16px;
+}
+.f-22 {
+  font-size: 22px;
+}
 .f-20 {
   font-size: 20px;
 }
@@ -678,6 +684,7 @@ body {
 .rep-page .rep-profile {
   display: flex;
   justify-content: space-between;
+  margin-left: -8px;
 }
 
 .rep-profile .rep-profile-pic {
@@ -804,12 +811,13 @@ input[type="file"]::-webkit-file-upload-button {
   max-width: 556px;
   margin: 0 auto;
   font-weight: bold;
-  font-size: 22px;
+  /* font-size: 22px; */
   text-align: center;
   color: #000000;
   border: none;
 }
 .profile-name .form-control:disabled,
+.calculated-amount .form-control:disabled,
 .form-control[readonly] {
   background-color: #ffffff;
 }
@@ -826,6 +834,9 @@ input[type="file"]::-webkit-file-upload-button {
   width: 90%;
   height: 120px;
   text-align: center;
+}
+.profile-bio textarea:focus::placeholder {
+  color: transparent;
 }
 
 .stake-data-percentage {
@@ -848,7 +859,7 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .advocate .banner {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
   padding: 12px 0px;
   width: 100%;
@@ -859,6 +870,10 @@ input[type="file"]::-webkit-file-upload-button {
 
 .profile-name .fa-edit {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   margin-right: 140px;
+}
+
+.walletconnect-modal__base {
+  max-width: 400px !important;
 }

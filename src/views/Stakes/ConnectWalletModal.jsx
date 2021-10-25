@@ -3,7 +3,7 @@ import Modal from "../../components/Modal/Modal";
 import metamaskImg from "../../assets/images/metamask.png";
 import walletConnectImg from "../../assets/images/wallet-Connect.png";
 import coinbaseImg from "../../assets/images/coinbase.png";
-import trustwalletImg from "../../assets/images/trustwallet.png";
+// import trustwalletImg from "../../assets/images/trustwallet.png";
 import formaticeWallet from "../../assets/images/formatice.png";
 import MetaMaskOnboarding from "@metamask/onboarding";
 import { useWeb3React } from "@web3-react/core";
@@ -19,10 +19,7 @@ const ConnectWalletModal = (props) => {
     const { modalOpenClose } = props;
     modalOpenClose(false);
   };
-  const Login = () => {
-    localStorage.setItem("token", true);
-    window.location.reload();
-  };
+
   const { account, activate, connector } = useWeb3React();
   const onboarding = useRef();
   useEffect(() => {
@@ -43,6 +40,7 @@ const ConnectWalletModal = (props) => {
     } else {
       onboarding.current.startOnboarding();
     }
+    localStorage.setItem("fortmaticConnect", "false");
   };
 
   const [activatingConnector, setActivatingConnector] = useState();
@@ -55,11 +53,13 @@ const ConnectWalletModal = (props) => {
   const onConnectWithWalletConnectClick = () => {
     setActivatingConnector(walletconnect);
     activate(walletconnect);
+    localStorage.setItem("fortmaticConnect", "false");
   };
 
   const onLinkConnectClick = () => {
     setActivatingConnector(walletLink);
     activate(walletLink);
+    localStorage.setItem("fortmaticConnect", "false");
   };
 
   const onConnectWithFortmaticClick = async () => {
@@ -100,7 +100,7 @@ const ConnectWalletModal = (props) => {
               <div className="w-100 text-center">
                 <img className="" src={formaticeWallet} alt="" />
               </div>
-              <span className="mt-2">Formatice</span>
+              <span className="mt-2">Fortmatic</span>
             </button>
           </div>
 

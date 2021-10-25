@@ -36,7 +36,6 @@ const ProfileModal = (props) => {
     profile && (profile.name ? profile.name : profile.walletId)
   );
   const [bio, setBio] = useState(profile && profile.bio);
-
   const handleChange = (e) => {
     setName(e.target.value);
   };
@@ -97,21 +96,27 @@ const ProfileModal = (props) => {
           Username{" "}
           <i
             onClick={() => setIsDisabled(false)}
-            className="fa fa-edit cursor-pointer"
+            className="fa fa-edit cursor-pointer ml-1"
           ></i>
         </div>
         <div className="profile-name">
           <input
             type="text"
             name="name"
-            className="form-control"
-            value={name || (profile && profile.name) || ""}
+            className={
+              name.length > 30 ? "form-control f-16" : "form-control f-22"
+            }
+            value={name || ""}
             onChange={handleChange}
             autocomplete="off"
             readOnly={isDisabled}
             onBlur={() => {
               if (name !== profile.name) {
-                dispatch(updateProfile({ name }));
+                if (name === "" || name === null || name === undefined) {
+                  setName(profile.name);
+                } else {
+                  dispatch(updateProfile({ name }));
+                }
               }
             }}
             onKeyPress={(e) => {
@@ -140,7 +145,7 @@ const ProfileModal = (props) => {
 
         <div className="rep-body-text pb-2 pt-1 profile-bio">
           <textarea
-            value={bio || "" || (profile && profile.bio)}
+            value={bio || ""}
             onChange={handleBioChange}
             disabled={isDisabledBio}
             placeholder="No data available"

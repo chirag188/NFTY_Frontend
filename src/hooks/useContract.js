@@ -1,12 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useMemo } from "react";
 import Web3 from "web3";
 import { useWeb3React } from "@web3-react/core";
-import Fortmatic from 'fortmatic';
+import Fortmatic from "fortmatic";
 const useContract = (address = undefined, ABI, withSignerIfPossible = true) => {
-  const { library,connector } = useWeb3React();
+  const { library, connector } = useWeb3React();
   const { ethereum } = window;
-  if(connector?.fortmatic){
-    const fm = new Fortmatic('pk_test_48C740390575B14D');
+  if (connector?.fortmatic) {
+    const fm = new Fortmatic("pk_test_48C740390575B14D");
     window.web3 = new Web3(fm.getProvider());
   } else {
     window.web3 = new Web3(ethereum);

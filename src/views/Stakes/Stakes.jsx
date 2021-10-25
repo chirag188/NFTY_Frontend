@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react/jsx-no-target-blank */
+/* eslint-disable array-callback-return */
 import React, { useEffect, useState } from "react";
-import StarImg from "../../assets/images/Star.png";
-import GoldStarImg from "../../assets/images/GoldStar.png";
 import nftyLogo from "../../assets/images/coinLogo.png";
 import ROICalculatorModal from "./ROICalculatorModal";
 import ConnectWalletModal from "./ConnectWalletModal";
@@ -12,18 +13,7 @@ import { useWeb3React } from "@web3-react/core";
 import { useDispatch, useSelector } from "react-redux";
 import { stakerData, balance } from "../../store/actions/Stake/Stake";
 import { tierArr } from "../../utils/tierArray";
-import { toast } from "react-toastify";
 
-const options = {
-  position: "top-center",
-  autoClose: 5000,
-  hideProgressBar: true,
-  closeOnClick: true,
-  pauseOnHover: true,
-  draggable: true,
-  progress: undefined,
-  theme: "colored",
-};
 const Stakes = () => {
   const [roiCalcModalOpen, setRoiCalcModalOpen] = useState(false);
   const [connectWalletModalOpen, setConnectWalletModalOpen] = useState(false);
@@ -87,7 +77,14 @@ const Stakes = () => {
           {account && (
             <>
               <div className="w-100 text-center p-2">
-                <img className="star-img mr-2 mb-1" src={StarImg} alt="" />
+                {staker?.Tier !== "0" && (
+                  <img
+                    className="star-img mr-2 mb-1"
+                    src={userData && userData.badge}
+                    alt=""
+                  />
+                )}
+
                 <span className="f-14">
                   {staker?.Tier === "0"
                     ? "Stake to be in a rank"
@@ -100,7 +97,12 @@ const Stakes = () => {
                   <div className="p-3">
                     <div className="head-text text-center">
                       <img className="nfty-logo" src={nftyLogo} alt="" />
-                      {staker?.APR}
+                      {staker?.TotalRewards?.$numberDecimal
+                        ? (
+                            staker?.TotalRewards?.$numberDecimal /
+                            1000000000000000000
+                          ).toFixed(3)
+                        : 0}
                     </div>
                     <div className="simple-text text-center">Reward Earned</div>
                   </div>
@@ -109,7 +111,7 @@ const Stakes = () => {
                   <div className="w-100 text-center p-1">
                     <img
                       className="star-img mr-2 mb-1"
-                      src={GoldStarImg}
+                      src={nextTierData && nextTierData.badge}
                       alt=""
                     />
                     <span className="f-14">
@@ -231,6 +233,7 @@ const Stakes = () => {
                   type="number"
                   placeholder="0.00"
                   value={account ? staker?.StakedNFTYBalance : nftyToken}
+                  disabled={account ? true : false}
                   onChange={(e) => {
                     if (!account) {
                       setNftyToken(e.target.value);
@@ -317,13 +320,13 @@ const Stakes = () => {
             <div className="simple-text">Total Rewards</div>
           </div>
         </div>
-        <div className="d-flex pt-3 ">
+        {/* <div className="d-flex pt-3 ">
           <span className="simple-text text-center">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
             lacus nisi, viverra ac ultrices non, mattis viverra dolor.
             Pellentesque.
           </span>
-        </div>
+        </div> */}
       </div>
       {roiCalcModalOpen && (
         <ROICalculatorModal modalOpenClose={setRoiCalcModalOpen} />

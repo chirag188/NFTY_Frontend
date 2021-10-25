@@ -1,6 +1,5 @@
 import { useWeb3React } from "@web3-react/core";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import nftyLogo from "../../assets/images/coinLogo.png";
 import ConnectWalletModal from "../Stakes/ConnectWalletModal";
 import RewardsEarnedModal from "./RewardsEarnedModal";

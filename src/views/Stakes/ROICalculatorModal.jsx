@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 import React, { useEffect, useState } from "react";
 import Modal from "../../components/Modal/Modal";
 import ExchangeArrowIcon from "../../assets/images/exchangeArrow.png";
@@ -37,7 +38,7 @@ const ROICalculatorModal = (props) => {
   const getStakingReward = (nfty, time) => {
     let minNFTY = 0;
     let minTime = 0;
-    if (nfty == 0 && time == 0) {
+    if (nfty === 0 && time === 0) {
       return 0;
     }
     for (let i = 0; i < tierArr.length; i++) {
@@ -174,7 +175,7 @@ const ROICalculatorModal = (props) => {
             </span>
             <span className="f-b">{switchData ? "NFTY" : "USD"}</span>
           </div>
-          <div className="col-md-6 text-center">
+          <div className="col-md-6 text-center amount-input-field">
             <input
               type="number"
               className="form-control input-amount"

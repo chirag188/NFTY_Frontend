@@ -1,6 +1,10 @@
+/* eslint-disable react/jsx-no-target-blank */
 import React, { useEffect, useState } from "react";
 import Modal from "../../components/Modal/Modal";
-import Slider, { createSliderWithTooltip, SliderTooltip } from "rc-slider";
+import Slider, {
+  // createSliderWithTooltip,
+  SliderTooltip,
+} from "rc-slider";
 import nftyLogo from "../../assets/images/coinLogo.png";
 import "rc-slider/assets/index.css";
 import "rc-tooltip/assets/bootstrap.css";
@@ -11,6 +15,18 @@ import { useWeb3React } from "@web3-react/core";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { Spinner } from "react-bootstrap";
+import { toast } from "react-toastify";
+
+const options = {
+  position: "top-center",
+  autoClose: 5000,
+  hideProgressBar: true,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "colored",
+};
 
 const StakeUnstakeModal = (props) => {
   const { isStakeModal, setStakeModal } = props;
@@ -47,7 +63,7 @@ const StakeUnstakeModal = (props) => {
     const { modalOpenClose } = props;
     modalOpenClose(false);
   };
-  const SliderWithTooltip = createSliderWithTooltip(Slider);
+  // const SliderWithTooltip = createSliderWithTooltip(Slider);
 
   const { Handle } = Slider;
 
@@ -70,56 +86,71 @@ const StakeUnstakeModal = (props) => {
   };
 
   const stakeTokens = () => {
-    if (!stakeValue) return;
-    setLoader(true);
-    if (isStakeModal) {
-      NFTYContract.methods
-        .approve(
-          process.env.REACT_APP_STAKING_CONTRACT_ADDRESS,
-          Web3Utils.toWei(stakeValue.toString())
-        )
-        .send({ from: account, gasLimit: 600000 })
-        .then(() => {
-          StakingContract.methods
-            .stakeTokens(Web3Utils.toWei(stakeValue.toString()))
-            .estimateGas({ from: account })
-            .then((gasLimit) => {
-              StakingContract.methods
-                .stakeTokens(Web3Utils.toWei(stakeValue.toString()))
-                .send({ from: account, gasLimit })
-                .then((result) => setLoader(false))
-                .catch((error) => setLoader(false));
-            })
-            .catch((error) => setLoader(false));
-        })
-        .catch((error) => setLoader(false));
+    if (stakeValue < 1) {
+      if (isStakeModal) {
+        toast.error(
+          " Stake Value should be greater than or equal to 1",
+          options
+        );
+      } else {
+        toast.error(
+          " Unstake Value should be greater than or equal to 1",
+          options
+        );
+      }
     } else {
-      StakingContract.methods
-        .unstakeTokens(Web3Utils.toWei(stakeValue.toString()))
-        .estimateGas({ from: account })
-        .then((gasLimit) => {
-          StakingContract.methods
-            .unstakeTokens(Web3Utils.toWei(stakeValue.toString()))
-            .send({ from: account, gasLimit })
-            .then((result) => setLoader(false))
-            .catch((error) => setLoader(false));
-        })
-        .catch((error) => setLoader(false));
+      if (!stakeValue) return;
+      setLoader(true);
+      if (isStakeModal) {
+        NFTYContract.methods
+          .approve(
+            process.env.REACT_APP_STAKING_CONTRACT_ADDRESS,
+            Web3Utils.toWei(stakeValue.toString())
+          )
+          .send({ from: account, gasLimit: 600000 })
+          .then(() => {
+            StakingContract.methods
+              .stakeTokens(Web3Utils.toWei(stakeValue.toString()))
+              .estimateGas({ from: account })
+              .then((gasLimit) => {
+                StakingContract.methods
+                  .stakeTokens(Web3Utils.toWei(stakeValue.toString()))
+                  .send({ from: account, gasLimit })
+                  .then((result) => setLoader(false))
+                  .catch((error) => setLoader(false));
+              })
+              .catch((error) => setLoader(false));
+          })
+          .catch((error) => setLoader(false));
+      } else {
+        StakingContract.methods
+          .unstakeTokens(Web3Utils.toWei(stakeValue.toString()))
+          .estimateGas({ from: account })
+          .then((gasLimit) => {
+            StakingContract.methods
+              .unstakeTokens(Web3Utils.toWei(stakeValue.toString()))
+              .send({ from: account, gasLimit })
+              .then((result) => setLoader(false))
+              .catch((error) => setLoader(false));
+          })
+          .catch((error) => setLoader(false));
+      }
     }
   };
-  const unStakeAllTokens = () => {
-    StakingContract.methods
-      .unstakeAll()
-      .estimateGas({ from: account })
-      .then((gasLimit) => {
-        StakingContract.methods
-          .unstakeAll()
-          .send({ from: account, gasLimit })
-          .then((result) => console.log(result))
-          .catch((error) => console.log(error));
-      })
-      .catch((error) => console.log(error));
-  };
+  // const unStakeAllTokens = () => {
+  //   StakingContract.methods
+  //     .unstakeAll()
+  //     .estimateGas({ from: account })
+  //     .then((gasLimit) => {
+  //       StakingContract.methods
+  //         .unstakeAll()
+  //         .send({ from: account, gasLimit })
+  //         .then((result) => console.log(result))
+  //         .catch((error) => console.log(error));
+  //     })
+  //     .catch((error) => console.log(error));
+  // };
+  console.log(stakeValue);
   const FooterComponent = () => (
     <div className="stake-unstake-modal-footer w-100">
       <div className="d-flex justify-content-space-between mt-3">
@@ -199,7 +230,20 @@ const StakeUnstakeModal = (props) => {
                 placeholder="0.00"
                 value={stakeValue || ""}
                 onChange={(event) => {
+                  if (event.target.value < 1) {
+                    toast.error(
+                      "Value should be greater than or equal to 1",
+                      options
+                    );
+                  }
                   setStakeValue(event.target.value);
+                  const value = Math.floor(
+                    (event.target.value * 100) /
+                      (isStakeModal
+                        ? staker?.balance
+                        : staker?.StakedNFTYBalance)
+                  );
+                  setRollerValue(value > 100 ? 100 : value);
                 }}
               />
             </div>
