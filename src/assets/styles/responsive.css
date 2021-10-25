@@ -8,7 +8,8 @@
 }
 @media (max-width: 440px) {
   .navbar {
-    height: 98px;
+    max-height: 98px;
+    height: auto;
   }
 
   .after-login-btn .orange-btn {
@@ -50,10 +51,10 @@
 }
 
 @media (min-width: 356px) and (max-width: 440px) {
-  .navbar-btns {
+  /* .navbar-btns {
     width: 100%;
     justify-content: flex-end;
-  }
+  } */
   .roi-calc-modal .amount-input-field {
     display: flex;
     justify-content: center;
@@ -102,7 +103,7 @@
 @media (max-height: 700px) {
   .modal-content {
     overflow-y: scroll;
-    height: 600px;
+    max-height: 600px;
   }
 }
 
