@@ -25,6 +25,8 @@ function* stakerDataSaga() {
       .catch(async (error) => error);
     if (response.status === 200) {
       yield put(stakerDataSuccess({ data: response.data.data }));
+    } else if (response.response.status === 502) {
+      yield localStorage.clear();
     } else if (response !== 200) {
       yield put(stakerDataFail({ error: response.response.data.message }));
     } else {

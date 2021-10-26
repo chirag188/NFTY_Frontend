@@ -130,13 +130,13 @@ const ProfileModal = (props) => {
             }}
           />
         </div>
-        <div className="profile-since mt-1">
+        <div className="profile-since ">
           <span className="rep-body-text f-12">Member Since</span>{" "}
           <span className="f-b f-14">
             {moment(profile && profile.createdAt).format("LL")}
           </span>
         </div>
-        <div className="f-b f-18 mt-2">
+        <div className="f-b f-18 mt-3">
           Bio{" "}
           <i
             onClick={() => setIsDisabledBio(false)}

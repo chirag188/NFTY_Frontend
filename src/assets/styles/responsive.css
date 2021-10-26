@@ -40,8 +40,10 @@
   }
   .special-nfty-reward .sp-header-text,
   .advocate-text .advocate-heading-text,
-  .vote-page .vote-header-text {
+  .vote-page .vote-header-text,
+  .rep-page .rep-header-text {
     font-size: 20px;
+    text-align: center;
   }
   .vote-page .link-text {
     font-size: 14px;
@@ -96,19 +98,50 @@
     text-align: center;
     margin: 12px 0px;
   }
-  .modal-content {
-    overflow-y: scroll;
+  .modal-content-1 {
+    overflow-y: auto;
     height: 600px;
+  }
+  .modal-content {
+    height: 600px;
+    overflow: hidden;
   }
 }
 
-@media (max-width: 740px) {
+@media (max-width: 761px) {
+  .container {
+    padding-bottom: 72px;
+  }
   .stats hr {
     display: none;
   }
   .target-data-border {
     border-right: 0;
     border-left: 0;
+  }
+  .bottom-navigation-section {
+    display: block;
+  }
+  .bottom-nav {
+    width: 86%;
+    margin: 12px 26px 12px 22px;
+    border-top: none;
+    box-shadow: -1px 0px 5px -1px;
+    border-radius: 18px;
+    height: 45px;
+    font-weight: bold;
+    /* background-color: #efefef; */
+  }
+  .bottom-nav-item {
+    transition: none;
+  }
+  .bottom-nav-item.active {
+    background: #ff8e09;
+    border-radius: 18px;
+    color: black;
+  }
+  .dropdown-menu {
+    width: 280px;
   }
 }
 
@@ -120,9 +153,13 @@
 }
 
 @media (max-height: 700px) {
+  .modal-content-1 {
+    overflow-y: auto;
+    max-height: 660px;
+  }
   .modal-content {
-    overflow-y: scroll;
-    max-height: 600px;
+    overflow: hidden;
+    max-height: 660px;
   }
 }
 

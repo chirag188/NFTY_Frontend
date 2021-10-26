@@ -5,6 +5,7 @@ import Logo from "../../assets/images/Logo.png";
 import walletIcon from "../../assets/images/Wallet.png";
 import polygonUp from "../../assets/images/Polygon-up.png";
 import { Link, useLocation } from "react-router-dom";
+import { useHistory } from "react-router";
 import MenuDropdown from "./MenuDropdown";
 import ProfileModal from "./ProfileModal";
 import ConnectWalletModal from "../Stakes/ConnectWalletModal";
@@ -15,8 +16,32 @@ import downArrow from "../../assets/images/downArrow.png";
 import { viewProfile } from "../../store/actions";
 import axios from "axios";
 import { useWeb3React } from "@web3-react/core";
+import BottomNavigation from "reactjs-bottom-navigation";
+import "reactjs-bottom-navigation/dist/index.css";
 
 const Layout = ({ children }) => {
+  const history = useHistory();
+  const bottomNavItems = [
+    {
+      title: "Stake",
+      onClick: () => history.push("/stake"),
+    },
+
+    {
+      title: "Advocate",
+      onClick: () => history.push("/advocate"),
+    },
+
+    {
+      title: "Vote",
+      onClick: () => history.push("/vote"),
+    },
+    {
+      title: "Rep",
+      onClick: () => history.push("/rep"),
+    },
+  ];
+
   const { account } = useWeb3React();
 
   const dispatch = useDispatch();
@@ -37,6 +62,18 @@ const Layout = ({ children }) => {
     dispatch(viewProfile());
     makeAPICall();
   }, []);
+
+  const bottomNavigationValue = () => {
+    if (location.pathname === "/stake") {
+      return 0;
+    } else if (location.pathname === "/advocate") {
+      return 1;
+    } else if (location.pathname === "/vote") {
+      return 2;
+    } else if (location.pathname === "/rep") {
+      return 3;
+    }
+  };
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light">
@@ -149,6 +186,12 @@ const Layout = ({ children }) => {
         </div>
       </nav>
       {children}
+      <div className="bottom-navigation-section">
+        <BottomNavigation
+          items={bottomNavItems}
+          defaultSelected={bottomNavigationValue()}
+        />
+      </div>
       {openProfileModal && (
         <ProfileModal modalOpenClose={setOpenProfileModal} />
       )}

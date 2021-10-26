@@ -24,7 +24,7 @@ const Vote = () => {
             This mitigates the voting power differential between users with
             shorter staking times and longer ones.
           </div>
-          <div className="d-flex justify-content-center mt-2">
+          <div className="d-flex justify-content-center mt-2 text-center">
             <a
               href="https://www.nftytoken.io/governance"
               className="link-text"

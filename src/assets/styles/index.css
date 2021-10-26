@@ -215,7 +215,7 @@ body {
 .stake-data-percentage .polygon-icon {
   height: 14px;
 }
-.active {
+.nav .active {
   height: 1.5px;
   background: #000000;
   margin-bottom: -19px;
@@ -545,6 +545,7 @@ body {
 .stake-unstake-modal .nfty-logo {
   height: 18px;
   margin-right: 8px;
+  margin-bottom: 3px;
 }
 
 .stake-unstake-modal .calculated-amount {
@@ -775,7 +776,7 @@ input::-webkit-inner-spin-button {
   margin-right: 22px;
 }
 .camera {
-  height: 22px;
+  height: 10px;
 }
 .camera input {
   opacity: 0;
@@ -784,7 +785,7 @@ input::-webkit-inner-spin-button {
   z-index: 1;
   height: 30px;
   left: 9%;
-  top: -111%;
+  top: -262%;
   cursor: pointer;
 }
 .camera input[type="file"]::-webkit-file-upload-button {
@@ -806,6 +807,9 @@ input[type="file"]::-webkit-file-upload-button {
   width: 105px;
   border-radius: 50px;
 }
+.profile-modal .profile-since {
+  margin-top: -5px;
+}
 
 .profile-name .form-control {
   max-width: 556px;
@@ -817,8 +821,8 @@ input[type="file"]::-webkit-file-upload-button {
   border: none;
 }
 .profile-name .form-control:disabled,
-.calculated-amount .form-control:disabled
-/* .form-control[readonly] */ {
+.calculated-amount .form-control:disabled,
+.form-control[readonly] {
   background-color: #ffffff;
 }
 
@@ -833,7 +837,8 @@ input[type="file"]::-webkit-file-upload-button {
   border: none;
   width: 90%;
   height: 120px;
-  text-align: center;
+  text-align: justify;
+  padding: 0px 12px;
   overflow: unset;
   overflow-x: none;
 }
@@ -861,10 +866,10 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .advocate .banner {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   padding: 12px 0px;
-  width: 100%;
+  width: 70%;
   text-align: center;
   background: #ffc209;
   border-radius: 15px;
@@ -882,4 +887,25 @@ input[type="file"]::-webkit-file-upload-button {
 
 .align-self-center {
   align-self: center;
+}
+
+.bottom-navigation-section {
+  display: none;
+}
+
+::-webkit-scrollbar {
+  height: 4px;
+  width: 4px;
+  border-radius: 10px;
+  overflow-y: hidden;
+}
+::-webkit-scrollbar-thumb {
+  background-color: lightgray;
+  border-radius: 10px;
+  z-index: -1;
+  overflow-y: hidden;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgb(0 0 0 / 10%);
+  overflow-y: hidden;
 }

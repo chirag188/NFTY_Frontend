@@ -6,10 +6,12 @@ import { useWeb3React } from "@web3-react/core";
 import { useSelector } from "react-redux";
 import { Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { balance, stakerData } from "../../store/actions";
+import { useDispatch } from "react-redux";
 
 const options = {
   position: "top-center",
-  autoClose: 1200,
+  autoClose: 2200,
   hideProgressBar: true,
   closeOnClick: true,
   pauseOnHover: true,
@@ -23,6 +25,7 @@ const RewardsEarnedModal = (props) => {
   const { account } = useWeb3React();
   const StakingContract = useStakingContract();
   const [loader, setLoader] = useState(false);
+  const dispatch = useDispatch();
   const closeModal = () => {
     const { modalOpenClose } = props;
     modalOpenClose(false);
@@ -30,6 +33,10 @@ const RewardsEarnedModal = (props) => {
   const staker = useSelector((state) => state.stakerReducer);
 
   const collectRewards = async () => {
+    if (staker?.UnclaimedRewards === "0") {
+      toast.error("No rewards pending to be claimed", options);
+      return;
+    }
     setLoader(true);
     StakingContract.methods
       .claimRewards()
@@ -41,15 +48,19 @@ const RewardsEarnedModal = (props) => {
           .then((result) => {
             setLoader(false);
             toast.success("Reward Collected Successfully", options);
+            closeModal();
+            dispatch(stakerData());
+            dispatch(balance());
           })
           .catch((error) => {
             setLoader(false);
-            toast.error("Something went wrong please try again", options);
+            toast.error(error.message, options);
           });
       })
       .catch((error) => {
+        console.log(error);
         setLoader(false);
-        toast.error("Something went wrong please try again", options);
+        toast.error(error.message, options);
       });
   };
   const FooterComponent = () => (

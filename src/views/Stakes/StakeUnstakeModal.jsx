@@ -16,6 +16,8 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { balance, stakerData } from "../../store/actions";
+import { useDispatch } from "react-redux";
 
 const options = {
   position: "top-center",
@@ -37,6 +39,11 @@ const StakeUnstakeModal = (props) => {
   const [marketData, setMarketData] = useState();
   const staker = useSelector((state) => state.stakerReducer);
   const [loader, setLoader] = useState(false);
+  const dispatch = useDispatch();
+  const closeModal = () => {
+    const { modalOpenClose } = props;
+    modalOpenClose(false);
+  };
 
   const makeAPICall = () => {
     axios
@@ -60,10 +67,6 @@ const StakeUnstakeModal = (props) => {
   };
   const usdValue =
     (marketData && marketData) * (stakeValue === 0 ? 1 : stakeValue);
-  const closeModal = () => {
-    const { modalOpenClose } = props;
-    modalOpenClose(false);
-  };
   // const SliderWithTooltip = createSliderWithTooltip(Slider);
 
   const { Handle } = Slider;
@@ -121,6 +124,9 @@ const StakeUnstakeModal = (props) => {
                   .then((result) => {
                     setLoader(false);
                     toast.success("Staked Successful", options);
+                    closeModal();
+                    dispatch(stakerData());
+                    dispatch(balance());
                   })
                   .catch((error) => {
                     setLoader(false);
@@ -150,6 +156,9 @@ const StakeUnstakeModal = (props) => {
               .then((result) => {
                 setLoader(false);
                 toast.success("Unstaked Successful", options);
+                closeModal();
+                dispatch(stakerData());
+                dispatch(balance());
               })
               .catch((error) => {
                 setLoader(false);
@@ -278,10 +287,12 @@ const StakeUnstakeModal = (props) => {
         <hr />
         <div className="w-100 mt-1">
           <div className="text-center f-b ml-3">
-            Staked Balance: ${staker?.StakedNFTYBalance}
+            Staked Balance: <img className="nfty-logo" src={nftyLogo} alt="" />
+            {staker?.StakedNFTYBalance}
           </div>
           <div className="text-center f-b ml-3 mt-2">
-            Balance: ${staker?.balance}
+            Balance: <img className="nfty-logo" src={nftyLogo} alt="" />
+            {staker?.balance}
           </div>
           <div className=" w-100">
             <div style={{ maxWidth: 400, margin: "16px 50px" }}>

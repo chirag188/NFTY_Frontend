@@ -160,27 +160,6 @@ const MenuDropdown = () => {
               </Dropdown.Item>
             </>
           )}
-          <div className="nav-tab">
-            <hr style={{ border: "0.5px solid", opacity: 0.6 }} />
-            <Dropdown.Item href="/stake" className="dropdown-item f-18">
-              Stake
-            </Dropdown.Item>
-
-            <hr />
-            <Dropdown.Item href="/advocate" className="dropdown-item f-18">
-              Advocate
-            </Dropdown.Item>
-
-            <hr />
-            <Dropdown.Item href="/vote" className="dropdown-item f-18">
-              Vote
-            </Dropdown.Item>
-
-            <hr />
-            <Dropdown.Item href="/rep" className="dropdown-item f-18">
-              Rep
-            </Dropdown.Item>
-          </div>
         </Dropdown.Menu>
       </Dropdown>
       {connectWalletModalOpen && (

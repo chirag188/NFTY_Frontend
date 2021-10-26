@@ -313,7 +313,9 @@ const Stakes = () => {
               $
               {staker?.TotalRewards?.$numberDecimal
                 ? (
-                    staker?.TotalRewards?.$numberDecimal / 1000000000000000000
+                    (staker?.TotalRewards?.$numberDecimal /
+                      1000000000000000000) *
+                    (marketData && marketData)
                   ).toFixed(4)
                 : 0}
             </div>
