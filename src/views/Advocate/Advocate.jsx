@@ -59,13 +59,14 @@ const Advocate = () => {
             </div>
             <div className="col-sm-4 pl-4 mt-2">
               <div className="head-text">
-                <img className="nfty-logo" src={nftyLogo} alt="" />0
+                <img className="nfty-logo" src={nftyLogo} alt="" />
+                0.00
               </div>
               <div className="advocate-body-text">Total NFTY Allocated</div>
               <hr className="stats-hr" />
             </div>
             <div className="col-sm-4 pl-4 mt-2">
-              <div className="head-text">$0</div>
+              <div className="head-text">$0.00</div>
               <div className="advocate-body-text ">Total Rewards</div>
             </div>
           </div>

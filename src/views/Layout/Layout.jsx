@@ -100,7 +100,7 @@ const Layout = ({ children }) => {
             <div className="mr-2 f-14 usd-amount" style={{ color: "#000000" }}>
               $
               {marketData?.tickers[0]?.converted_last?.usd
-                ? marketData?.tickers[0]?.converted_last?.usd?.toFixed(4)
+                ? marketData?.tickers[0]?.converted_last?.usd?.toFixed(2)
                 : null}
             </div>
             <div

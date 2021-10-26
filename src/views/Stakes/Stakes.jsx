@@ -323,7 +323,7 @@ const Stakes = () => {
           <div className="col-sm-4 pl-4 mt-2">
             <div className="head-text">
               <img className="nfty-logo" src={nftyLogo} alt="" />
-              {staker?.StakedNFTYBalance}
+              {Number(staker?.StakedNFTYBalance).toFixed(2)}
             </div>
             <div className="simple-text">Total Staked</div>
             <hr />
@@ -356,7 +356,7 @@ const Stakes = () => {
       {connectWalletModalOpen && (
         <ConnectWalletModal modalOpenClose={setConnectWalletModalOpen} />
       )}
-      {!stakeUnstakeModalOpen && (
+      {stakeUnstakeModalOpen && (
         <StakeUnstakeModal
           isStakeModal={isStake}
           modalOpenClose={setStakeUnstakeModal}

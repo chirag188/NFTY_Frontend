@@ -127,7 +127,7 @@ const Rep = () => {
                   src={nftyLogo}
                   alt=""
                 />
-                {staker?.StakedNFTYBalance}
+                {Number(staker?.StakedNFTYBalance).toFixed(2)}
               </div>
               <div className="rep-body-text">Total Staked</div>
               <hr className="stats-rep-hr" />

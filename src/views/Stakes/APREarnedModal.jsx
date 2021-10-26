@@ -88,7 +88,7 @@ const RewardsEarnedModal = (props) => {
             <span className="f-b f-20">
               {(
                 staker?.TotalRewards?.$numberDecimal / 1000000000000000000
-              ).toFixed(4)}
+              ).toFixed(2)}
             </span>
           </div>
         </div>
@@ -97,14 +97,14 @@ const RewardsEarnedModal = (props) => {
           <div className="col-6">
             <img className="mr-2" src={nftyLogo} alt="" />
             <span className="f-b f-20">
-              {(staker?.UnclaimedRewards / 1000000000000000000).toFixed(4)}
+              {(staker?.UnclaimedRewards / 1000000000000000000).toFixed(2)}
             </span>{" "}
             <span className="ml-3 mb-3 f-12">
               ~$
               {(
                 usdAmount *
                 (staker?.UnclaimedRewards / 1000000000000000000)
-              ).toFixed(4)}
+              ).toFixed(2)}
             </span>
           </div>
         </div>
