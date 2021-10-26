@@ -130,10 +130,7 @@ const StakeUnstakeModal = (props) => {
                   })
                   .catch((error) => {
                     setLoader(false);
-                    toast.error(
-                      "Something Went Wrong please try again",
-                      options
-                    );
+                    toast.error(error.message, options);
                   });
               })
               .catch((error) => {
