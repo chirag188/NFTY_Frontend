@@ -85,7 +85,12 @@ const ConnectWalletModal = (props) => {
         <Spinner
           animation="border"
           role="status"
-          style={{ alignSelf: "center", marginTop: "10%", marginBottom: "10%" }}
+          style={{
+            alignSelf: "center",
+            marginTop: "10%",
+            marginBottom: "10%",
+            marginLeft: "46%",
+          }}
         />
       ) : (
         <div className="connect-wallet-modal">

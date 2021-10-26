@@ -4,8 +4,9 @@ export const stakerDataStart = () => ({
   type: actionLabels.STAKER_DATA_START,
 });
 
-export const stakerData = () => ({
+export const stakerData = (payload) => ({
   type: actionLabels.STAKER_DATA_SAGA,
+  payload,
 });
 
 export const stakerDataSuccess = (payload) => ({

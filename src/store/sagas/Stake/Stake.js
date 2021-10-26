@@ -11,8 +11,9 @@ import {
   balanceSuccess,
 } from "../../actions";
 
-function* stakerDataSaga() {
+function* stakerDataSaga(actions) {
   try {
+    const { deactivate } = actions.payload;
     yield stakerDataStart();
     const JwtToken = localStorage.getItem("JwtToken");
     const response = yield axios
@@ -27,6 +28,7 @@ function* stakerDataSaga() {
       yield put(stakerDataSuccess({ data: response.data.data }));
     } else if (response.response.status === 502) {
       yield localStorage.clear();
+      deactivate();
     } else if (response !== 200) {
       yield put(stakerDataFail({ error: response.response.data.message }));
     } else {

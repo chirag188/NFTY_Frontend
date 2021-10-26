@@ -9,7 +9,11 @@ const Advocate = () => {
 
   const [rewardsEarnedModalOpen, setRewardsEarnedModalOpen] = useState(false);
   const [connectWalletModalOpen, setConnectWalletModalOpen] = useState(false);
-
+  if (rewardsEarnedModalOpen || connectWalletModalOpen) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "scroll";
+  }
   return (
     <React.Fragment>
       <div className="container">

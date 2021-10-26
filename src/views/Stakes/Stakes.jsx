@@ -21,7 +21,7 @@ const Stakes = () => {
   const [APREarnedModalOpen, setAPREarnedModalOpen] = useState(false);
   const [marketData, setMarketData] = useState();
   const [isStake, setIsStake] = useState(false);
-  const { account } = useWeb3React();
+  const { account, deactivate } = useWeb3React();
   const dispatch = useDispatch();
 
   const makeAPICall = () => {
@@ -35,11 +35,22 @@ const Stakes = () => {
   useEffect(() => {
     const JwtToken = localStorage.getItem("JwtToken");
     if (JwtToken) {
-      dispatch(stakerData());
+      dispatch(stakerData({ deactivate }));
       dispatch(balance());
     }
     makeAPICall();
   }, []);
+
+  if (
+    roiCalcModalOpen ||
+    connectWalletModalOpen ||
+    stakeUnstakeModalOpen ||
+    APREarnedModalOpen
+  ) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "scroll";
+  }
 
   const staker = useSelector((state) => state.stakerReducer);
   const [nftyToken, setNftyToken] = useState();

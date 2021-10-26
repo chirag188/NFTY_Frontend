@@ -100,11 +100,14 @@
   }
   .modal-content-1 {
     overflow-y: auto;
-    height: 600px;
+    max-height: 600px;
   }
   .modal-content {
-    height: 600px;
+    max-height: 600px;
     overflow: hidden;
+  }
+  .modal {
+    top: 14px;
   }
 }
 
@@ -155,11 +158,11 @@
 @media (max-height: 700px) {
   .modal-content-1 {
     overflow-y: auto;
-    max-height: 660px;
+    max-height: 620px;
   }
   .modal-content {
     overflow: hidden;
-    max-height: 660px;
+    max-height: 620px;
   }
 }
 

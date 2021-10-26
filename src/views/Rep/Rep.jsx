@@ -10,16 +10,17 @@ import { tierArr } from "../../utils/tierArray";
 import ConnectWalletModal from "../Stakes/ConnectWalletModal";
 
 const Rep = () => {
-  const { account } = useWeb3React();
+  const { account, deactivate } = useWeb3React();
   const dispatch = useDispatch();
 
   useEffect(() => {
     const JwtToken = localStorage.getItem("JwtToken");
     if (JwtToken) {
-      dispatch(stakerData());
+      dispatch(stakerData({ deactivate }));
       dispatch(balance());
     }
-    dispatch(viewProfile());
+    dispatch(viewProfile({ deactivate }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
   const profile = useSelector((state) => state.profile.userData);
   const staker = useSelector((state) => state.stakerReducer);
@@ -28,8 +29,12 @@ const Rep = () => {
       return true;
     }
   });
-
   const [connectWalletModalOpen, setConnectWalletModalOpen] = useState(false);
+  if (connectWalletModalOpen) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "scroll";
+  }
 
   const streakDays = Math.floor(Number(staker?.StakePeriodInSecs) / 86400);
   return (

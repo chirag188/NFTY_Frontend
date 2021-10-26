@@ -909,3 +909,8 @@ input[type="file"]::-webkit-file-upload-button {
   box-shadow: inset 0 0 6px rgb(0 0 0 / 10%);
   overflow-y: hidden;
 }
+
+.stake-modal-balance .nfty-logo {
+  height: 18px;
+  margin: 0px 4px 3px 2px;
+}

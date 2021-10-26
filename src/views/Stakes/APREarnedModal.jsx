@@ -22,7 +22,7 @@ const options = {
 };
 const RewardsEarnedModal = (props) => {
   const { usdAmount } = props;
-  const { account } = useWeb3React();
+  const { account, deactivate } = useWeb3React();
   const StakingContract = useStakingContract();
   const [loader, setLoader] = useState(false);
   const dispatch = useDispatch();
@@ -49,7 +49,7 @@ const RewardsEarnedModal = (props) => {
             setLoader(false);
             toast.success("Reward Collected Successfully", options);
             closeModal();
-            dispatch(stakerData());
+            dispatch(stakerData({ deactivate }));
             dispatch(balance());
           })
           .catch((error) => {

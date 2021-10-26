@@ -42,7 +42,7 @@ const Layout = ({ children }) => {
     },
   ];
 
-  const { account } = useWeb3React();
+  const { account, deactivate } = useWeb3React();
 
   const dispatch = useDispatch();
   const profilePic = useSelector((state) => state.profile.userData.profilePic);
@@ -59,7 +59,7 @@ const Layout = ({ children }) => {
       });
   };
   useEffect(() => {
-    dispatch(viewProfile());
+    dispatch(viewProfile({ deactivate }));
     makeAPICall();
   }, []);
 
@@ -74,6 +74,12 @@ const Layout = ({ children }) => {
       return 3;
     }
   };
+  if (connectWalletModalOpen || openProfileModal) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "scroll";
+  }
+
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light">

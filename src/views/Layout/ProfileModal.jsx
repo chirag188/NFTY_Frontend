@@ -11,6 +11,7 @@ import {
   updateProfile,
 } from "../../store/actions/profile/profile";
 import { toast } from "react-toastify";
+import { useWeb3React } from "@web3-react/core";
 
 const options = {
   position: "top-center",
@@ -28,9 +29,10 @@ const ProfileModal = (props) => {
   const [isDisabled, setIsDisabled] = useState(true);
   const [isDisabledBio, setIsDisabledBio] = useState(true);
   const dispatch = useDispatch();
+  const { deactivate } = useWeb3React();
 
   useEffect(() => {
-    dispatch(viewProfile());
+    dispatch(viewProfile({ deactivate }));
   }, [dispatch]);
   const profile = useSelector((state) => state.profile.userData);
   const [name, setName] = useState(

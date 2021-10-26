@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
 import React, { useEffect, useState } from "react";
 import { Dropdown } from "react-bootstrap";
@@ -13,13 +14,12 @@ import { tierArr } from "../../utils/tierArray";
 import ProfileModal from "./ProfileModal";
 
 const MenuDropdown = () => {
-  const { account } = useWeb3React();
+  const { account, deactivate } = useWeb3React();
 
   const dispatch = useDispatch();
-  const { deactivate } = useWeb3React();
 
   useEffect(() => {
-    dispatch(viewProfile());
+    dispatch(viewProfile({ deactivate }));
   }, [dispatch]);
   const [openProfileModal, setOpenProfileModal] = useState(false);
   const profile = useSelector((state) => state.profile.userData);
@@ -37,6 +37,11 @@ const MenuDropdown = () => {
     dispatch(resetData());
     localStorage.setItem("shouldEagerConnect", false);
   };
+  if (connectWalletModalOpen || openProfileModal) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "scroll";
+  }
   return (
     <div>
       <Dropdown>

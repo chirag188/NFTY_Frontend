@@ -33,7 +33,7 @@ const options = {
 
 const StakeUnstakeModal = (props) => {
   const { isStakeModal, setStakeModal } = props;
-  const { account } = useWeb3React();
+  const { account, deactivate } = useWeb3React();
   const NFTYContract = useNFTYContract();
   const StakingContract = useStakingContract();
   const [marketData, setMarketData] = useState();
@@ -125,7 +125,7 @@ const StakeUnstakeModal = (props) => {
                     setLoader(false);
                     toast.success("Staked Successful", options);
                     closeModal();
-                    dispatch(stakerData());
+                    dispatch(stakerData({ deactivate }));
                     dispatch(balance());
                   })
                   .catch((error) => {
@@ -138,12 +138,12 @@ const StakeUnstakeModal = (props) => {
               })
               .catch((error) => {
                 setLoader(false);
-                toast.error("Something Went Wrong please try again", options);
+                toast.error(error.message, options);
               });
           })
           .catch((error) => {
             setLoader(false);
-            toast.error("Something Went Wrong please try again", options);
+            toast.error(error.message, options);
           });
       } else {
         StakingContract.methods
@@ -157,17 +157,17 @@ const StakeUnstakeModal = (props) => {
                 setLoader(false);
                 toast.success("Unstaked Successful", options);
                 closeModal();
-                dispatch(stakerData());
+                dispatch(stakerData({ deactivate }));
                 dispatch(balance());
               })
               .catch((error) => {
                 setLoader(false);
-                toast.error("Something Went Wrong please try again", options);
+                toast.error(error.message, options);
               });
           })
           .catch((error) => {
             setLoader(false);
-            toast.error("Something Went Wrong please try again", options);
+            toast.error(error.message, options);
           });
       }
     }
@@ -285,7 +285,7 @@ const StakeUnstakeModal = (props) => {
           </div>
         </div>
         <hr />
-        <div className="w-100 mt-1">
+        <div className="w-100 mt-1 stake-modal-balance">
           <div className="text-center f-b ml-3">
             Staked Balance: <img className="nfty-logo" src={nftyLogo} alt="" />
             {staker?.StakedNFTYBalance}

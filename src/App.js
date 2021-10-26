@@ -22,7 +22,7 @@ function usePrevious(value) {
 }
 const App = () => {
   const [activatingConnector, setActivatingConnector] = useState();
-  const { account, connector, active } = useWeb3React();
+  const { account, connector, active, deactivate } = useWeb3React();
   const onboarding = useRef();
   const prevAcc = usePrevious(account);
   console.log(account, prevAcc);
@@ -68,10 +68,10 @@ const App = () => {
 
   useEffect(() => {
     if (JwtToken) {
-      dispatch(stakerData());
+      dispatch(stakerData({ deactivate }));
       dispatch(balance());
     }
-  }, []);
+  }, [JwtToken]);
 
   const pathname = window.location.pathname.split("/")[1];
   const redirectHandler = () => {
