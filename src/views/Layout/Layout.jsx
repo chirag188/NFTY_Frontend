@@ -59,7 +59,7 @@ const Layout = ({ children }) => {
       });
   };
   useEffect(() => {
-    dispatch(viewProfile({ deactivate }));
+    dispatch(viewProfile());
     makeAPICall();
   }, []);
 

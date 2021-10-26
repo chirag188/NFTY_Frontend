@@ -32,7 +32,7 @@ const ProfileModal = (props) => {
   const { deactivate } = useWeb3React();
 
   useEffect(() => {
-    dispatch(viewProfile({ deactivate }));
+    dispatch(viewProfile());
   }, [dispatch]);
   const profile = useSelector((state) => state.profile.userData);
   const [name, setName] = useState(

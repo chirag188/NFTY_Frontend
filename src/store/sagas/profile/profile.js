@@ -69,7 +69,6 @@ function* createUserSaga(action) {
 
 function* viewProfileSaga(actions) {
   try {
-    const { deactivate } = actions.payload;
     yield viewProfileStart();
     const JwtToken = localStorage.getItem("JwtToken");
     const response = yield axios
@@ -82,9 +81,6 @@ function* viewProfileSaga(actions) {
       .catch(async (error) => error);
     if (response.status === 200) {
       yield put(viewProfileSuccess({ data: response.data.data }));
-    } else if (response.response.status === 502) {
-      yield localStorage.clear();
-      deactivate();
     } else if (response !== 200) {
       yield put(viewProfileFail({ error: response.response.data.message }));
     } else {

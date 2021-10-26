@@ -19,7 +19,7 @@ const MenuDropdown = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(viewProfile({ deactivate }));
+    dispatch(viewProfile());
   }, [dispatch]);
   const [openProfileModal, setOpenProfileModal] = useState(false);
   const profile = useSelector((state) => state.profile.userData);

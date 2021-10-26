@@ -19,7 +19,7 @@ const Rep = () => {
       dispatch(stakerData({ deactivate }));
       dispatch(balance());
     }
-    dispatch(viewProfile({ deactivate }));
+    dispatch(viewProfile());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
   const profile = useSelector((state) => state.profile.userData);
