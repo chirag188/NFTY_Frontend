@@ -25,7 +25,6 @@ const App = () => {
   const { account, connector, active, deactivate } = useWeb3React();
   const onboarding = useRef();
   const prevAcc = usePrevious(account);
-  console.log(account, prevAcc);
   const dispatch = useDispatch();
   // handle logic to eagerly connect to the injected ethereum provider, if it exists and has granted access already
   const triedEager = useEagerConnect();

@@ -61,8 +61,10 @@ const StakeUnstakeModal = (props) => {
   const [rollerValue, setRollerValue] = useState(0);
   const handleChange = (e) => {
     setRollerValue(e);
-    const value =
-      (e * (isStakeModal ? staker?.balance : staker?.StakedNFTYBalance)) / 100;
+    const value = (
+      (e * (isStakeModal ? staker?.balance : staker?.StakedNFTYBalance)) /
+      100
+    ).toFixed(2);
     setStakeValue(value);
   };
   const usdValue =
@@ -130,17 +132,27 @@ const StakeUnstakeModal = (props) => {
                   })
                   .catch((error) => {
                     setLoader(false);
-                    toast.error(error.message, options);
+                    const errMsg = error.message.split(":");
+                    toast.error(
+                      errMsg.length > 1 ? errMsg[1] : error.message,
+                      options
+                    );
                   });
               })
               .catch((error) => {
                 setLoader(false);
-                toast.error(error.message, options);
+                const errMsg = error.message.split(":");
+                toast.error(
+                  errMsg.length > 1 ? errMsg[1] : error.message,
+                  options
+                );
               });
           })
           .catch((error) => {
             setLoader(false);
-            toast.error(error.message, options);
+            const errMsg = error.message.split(":");
+            toast.error(errMsg.length > 1 ? errMsg[1] : error.message, options);
+            // toast.error(error.message, options);
           });
       } else {
         StakingContract.methods
@@ -159,12 +171,17 @@ const StakeUnstakeModal = (props) => {
               })
               .catch((error) => {
                 setLoader(false);
-                toast.error(error.message, options);
+                const errMsg = error.message.split(":");
+                toast.error(
+                  errMsg.length > 1 ? errMsg[1] : error.message,
+                  options
+                );
               });
           })
           .catch((error) => {
             setLoader(false);
-            toast.error(error.message, options);
+            const errMsg = error.message.split(":");
+            toast.error(errMsg.length > 1 ? errMsg[1] : error.message, options);
           });
       }
     }
@@ -182,7 +199,7 @@ const StakeUnstakeModal = (props) => {
   //     })
   //     .catch((error) => console.log(error));
   // };
-  console.log(stakeValue);
+
   const FooterComponent = () => (
     <div className="stake-unstake-modal-footer w-100">
       <div className="d-flex justify-content-space-between mt-3">

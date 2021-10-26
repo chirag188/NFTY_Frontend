@@ -42,7 +42,7 @@ const Layout = ({ children }) => {
     },
   ];
 
-  const { account, deactivate } = useWeb3React();
+  const { account } = useWeb3React();
 
   const dispatch = useDispatch();
   const profilePic = useSelector((state) => state.profile.userData.profilePic);

@@ -97,7 +97,9 @@ const MenuDropdown = () => {
                 </div>
                 <div className="profile-stake">
                   <img className="nfty-logo" src={nftyLogo} alt="" />
-                  <span className="stake-amount">{staker?.balance}</span>
+                  <span className="stake-amount">
+                    {Number(staker?.balance).toFixed(2)}
+                  </span>
                 </div>
               </>
             ) : (

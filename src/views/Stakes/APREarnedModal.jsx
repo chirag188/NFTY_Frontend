@@ -54,13 +54,14 @@ const RewardsEarnedModal = (props) => {
           })
           .catch((error) => {
             setLoader(false);
-            toast.error(error.message, options);
+            const errMsg = error.message.split(":");
+            toast.error(errMsg.length > 1 ? errMsg[1] : error.message, options);
           });
       })
       .catch((error) => {
-        console.log(error);
         setLoader(false);
-        toast.error(error.message, options);
+        const errMsg = error.message.split(":");
+        toast.error(errMsg.length > 1 ? errMsg[1] : error.message, options);
       });
   };
   const FooterComponent = () => (

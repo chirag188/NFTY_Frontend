@@ -57,16 +57,21 @@ const Stakes = () => {
   const usdValue = account
     ? (marketData && marketData) * staker?.StakedNFTYBalance
     : (marketData && marketData) * nftyToken;
-  let userData = tierArr.find((data, i) => {
-    if (data.rank === staker?.Tier) {
-      return true;
-    }
-  });
-  let nextTierData = tierArr.find((data, i) => {
-    if (Number(data.rank) === Number(staker?.Tier) + 1) {
-      return true;
-    }
-  });
+
+  let userData =
+    staker &&
+    tierArr.find((data, i) => {
+      if (data.rank === staker?.Tier) {
+        return true;
+      }
+    });
+  let nextTierData =
+    staker &&
+    tierArr.find((data, i) => {
+      if (Number(data.rank) === Number(staker?.Tier) + 1) {
+        return true;
+      }
+    });
   if (staker?.Tier === "6") {
     nextTierData = userData;
   }
@@ -112,7 +117,7 @@ const Stakes = () => {
                         ? (
                             staker?.TotalRewards?.$numberDecimal /
                             1000000000000000000
-                          ).toFixed(3)
+                          ).toFixed(2)
                         : 0}
                     </div>
                     <div className="simple-text text-center">Reward Earned</div>
@@ -243,7 +248,11 @@ const Stakes = () => {
                   className="form-control"
                   type="number"
                   placeholder="0.00"
-                  value={account ? staker?.StakedNFTYBalance : nftyToken}
+                  value={
+                    account
+                      ? Number(staker?.StakedNFTYBalance).toFixed(2)
+                      : nftyToken
+                  }
                   disabled={account ? true : false}
                   onChange={(e) => {
                     if (!account) {
@@ -327,7 +336,7 @@ const Stakes = () => {
                     (staker?.TotalRewards?.$numberDecimal /
                       1000000000000000000) *
                     (marketData && marketData)
-                  ).toFixed(4)
+                  ).toFixed(2)
                 : 0}
             </div>
             <div className="simple-text">Total Rewards</div>
@@ -347,7 +356,7 @@ const Stakes = () => {
       {connectWalletModalOpen && (
         <ConnectWalletModal modalOpenClose={setConnectWalletModalOpen} />
       )}
-      {stakeUnstakeModalOpen && (
+      {!stakeUnstakeModalOpen && (
         <StakeUnstakeModal
           isStakeModal={isStake}
           modalOpenClose={setStakeUnstakeModal}
